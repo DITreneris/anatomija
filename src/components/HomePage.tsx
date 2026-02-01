@@ -16,23 +16,24 @@ export default function HomePage({ onStart, progress }: HomePageProps) {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="text-center py-12">
+      <div className="text-center py-12 animate-fadeIn">
         <div className="flex justify-center mb-6">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-full">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 animate-bounceIn">
             <Target className="w-16 h-16 text-white" />
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           Prompt Anatomija
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
           Išmokite kurti efektyvius AI promptus su 6 blokų sistema.
           <br />
           <span className="text-blue-600 font-semibold">Orientuota į verslo problemų sprendimą.</span>
         </p>
         <button
           onClick={onStart}
-          className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all shadow-lg flex items-center gap-2 mx-auto"
+          className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-blue-600 hover:to-purple-600 transition-all shadow-lg hover:shadow-xl flex items-center gap-2 mx-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95 transform"
+          aria-label="Pradėti mokymą"
         >
           Pradėti mokymą
           <ArrowRight className="w-5 h-5" />
@@ -41,21 +42,27 @@ export default function HomePage({ onStart, progress }: HomePageProps) {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-slideIn hover:scale-105">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-100 p-3 rounded-full">
+            <div className="bg-blue-100 p-3 rounded-full animate-pulse-slow">
               <BookOpen className="w-8 h-8 text-blue-600" />
             </div>
             <div>
               <p className="text-3xl font-bold text-gray-800">{modulesCompleted}/3</p>
               <p className="text-gray-600">Baigti moduliai</p>
+              <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                <div
+                  className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${(modulesCompleted / 3) * 100}%` }}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-slideIn hover:scale-105" style={{ animationDelay: '0.1s' }}>
           <div className="flex items-center gap-4">
-            <div className="bg-green-100 p-3 rounded-full">
+            <div className="bg-green-100 p-3 rounded-full animate-pulse-slow">
               <ClipboardCheck className="w-8 h-8 text-green-600" />
             </div>
             <div>
@@ -65,9 +72,9 @@ export default function HomePage({ onStart, progress }: HomePageProps) {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 animate-slideIn hover:scale-105" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center gap-4">
-            <div className="bg-purple-100 p-3 rounded-full">
+            <div className="bg-purple-100 p-3 rounded-full animate-pulse-slow">
               <Target className="w-8 h-8 text-purple-600" />
             </div>
             <div>
@@ -75,58 +82,68 @@ export default function HomePage({ onStart, progress }: HomePageProps) {
                 {progress.quizCompleted ? `${progress.quizScore}%` : '-'}
               </p>
               <p className="text-gray-600">Apklausos rezultatas</p>
+              {progress.quizCompleted && (
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                  <div
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      (progress.quizScore || 0) >= 70 ? 'bg-green-500' : 'bg-orange-500'
+                    }`}
+                    style={{ width: `${progress.quizScore || 0}%` }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Features */}
-      <div className="bg-white p-8 rounded-lg shadow-md">
+      <div className="bg-white p-8 rounded-lg shadow-md animate-fadeIn">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Ką išmoksite?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex gap-4">
-            <div className="bg-blue-50 p-3 rounded-lg">
+          <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300 hover:scale-105">
+            <div className="bg-blue-50 p-3 rounded-lg flex-shrink-0">
               <Target className="w-6 h-6 text-blue-600" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">6 Blokų Sistema</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Išmokite hierarchinę prompt struktūrą nuo svarbiausio iki papildomų parametrų
               </p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="bg-green-50 p-3 rounded-lg">
+          <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300 hover:scale-105">
+            <div className="bg-green-50 p-3 rounded-lg flex-shrink-0">
               <BookOpen className="w-6 h-6 text-green-600" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">Verslo Pavyzdžiai</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Visi pavyzdžiai orientuoti į realias verslo problemas ir scenarijus
               </p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="bg-purple-50 p-3 rounded-lg">
+          <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300 hover:scale-105">
+            <div className="bg-purple-50 p-3 rounded-lg flex-shrink-0">
               <ClipboardCheck className="w-6 h-6 text-purple-600" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">Praktinės Užduotys</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Kiekviename modulyje praktinės užduotys su verslo scenarijais
               </p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="bg-orange-50 p-3 rounded-lg">
+          <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-all duration-300 hover:scale-105">
+            <div className="bg-orange-50 p-3 rounded-lg flex-shrink-0">
               <Target className="w-6 h-6 text-orange-600" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">Progreso Sekimas</h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Stebėkite savo pažangą ir rezultatus kiekviename modulyje
               </p>
             </div>

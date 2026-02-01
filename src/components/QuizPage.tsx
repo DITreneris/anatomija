@@ -150,51 +150,59 @@ export default function QuizPage({
 
       <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
         <div className="mb-6">
-          <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 overflow-hidden">
             <div
-              className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all"
+              className="bg-gradient-to-r from-blue-500 to-purple-500 h-2.5 rounded-full transition-all duration-500 ease-out relative"
               style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-            />
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+            </div>
           </div>
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 leading-tight">
             {currentQ.question}
           </h2>
         </div>
 
         <div className="space-y-3">
-          {currentQ.options.map((option, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleAnswerSelect(currentQ.id, idx)}
-              className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                selectedAnswers[currentQ.id] === idx
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                    selectedAnswers[currentQ.id] === idx
-                      ? 'border-blue-500 bg-blue-500'
-                      : 'border-gray-300'
-                  }`}
-                >
-                  {selectedAnswers[currentQ.id] === idx && (
-                    <div className="w-3 h-3 rounded-full bg-white" />
-                  )}
+          {currentQ.options.map((option, idx) => {
+            const isSelected = selectedAnswers[currentQ.id] === idx;
+            return (
+              <button
+                key={idx}
+                onClick={() => handleAnswerSelect(currentQ.id, idx)}
+                className={`w-full text-left p-4 rounded-lg border-2 transition-all duration-200 ${
+                  isSelected
+                    ? 'border-blue-500 bg-blue-50 shadow-md scale-105'
+                    : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 bg-white hover:scale-102'
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+                aria-label={`Pasirinkti atsakymą: ${option}`}
+                aria-pressed={isSelected}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                      isSelected
+                        ? 'border-blue-500 bg-blue-500 scale-110'
+                        : 'border-gray-300'
+                    }`}
+                  >
+                    {isSelected && (
+                      <div className="w-3 h-3 rounded-full bg-white animate-bounceIn" />
+                    )}
+                  </div>
+                  <span className="text-gray-800 font-medium">{option}</span>
                 </div>
-                <span className="text-gray-800">{option}</span>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
 
         <div className="mt-6 flex justify-between">
           <button
             onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
             disabled={currentQuestion === 0}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 active:scale-95"
+            aria-label="Ankstesnis klausimas"
           >
             Atgal
           </button>
@@ -202,7 +210,8 @@ export default function QuizPage({
             <button
               onClick={handleSubmit}
               disabled={!hasAnswer}
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
+              aria-label="Baigti apklausą"
             >
               Baigti apklausą
             </button>
@@ -210,7 +219,8 @@ export default function QuizPage({
             <button
               onClick={() => setCurrentQuestion(currentQuestion + 1)}
               disabled={!hasAnswer}
-              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
+              aria-label="Kitas klausimas"
             >
               Kitas klausimas
             </button>

@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { CheckCircle, Copy, Check } from 'lucide-react';
 import { Progress } from '../utils/progress';
+import { useAutoSave, loadAutoSave, clearAutoSave } from '../utils/useAutoSave';
 
 interface Slide {
   id: number;
@@ -26,17 +27,53 @@ export default function SlideContent({
   onTaskComplete,
   progress,
 }: SlideContentProps) {
-  const [taskAnswers, setTaskAnswers] = useState<Record<number, string>>({});
+  const autoSaveKey = `task-draft-${moduleId}-${slide.id}`;
+  const savedDraft = loadAutoSave<string>(autoSaveKey, '');
+  const [taskAnswers, setTaskAnswers] = useState<Record<number, string>>({
+    [slide.id]: savedDraft,
+  });
+  const [copied, setCopied] = useState(false);
+  const [showSaved, setShowSaved] = useState(false);
   const isTaskCompleted = progress.completedTasks[moduleId]?.includes(slide.id) || false;
+
+  // Auto-save draft answers
+  useAutoSave(autoSaveKey, taskAnswers[slide.id] || '', 1500);
+
+  // Show saved indicator when value changes
+  useEffect(() => {
+    if (taskAnswers[slide.id] && taskAnswers[slide.id].trim() && !isTaskCompleted) {
+      setShowSaved(true);
+      const timer = setTimeout(() => setShowSaved(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [taskAnswers, slide.id, isTaskCompleted]);
+
+  // Clear draft when task is completed
+  useEffect(() => {
+    if (isTaskCompleted) {
+      clearAutoSave(autoSaveKey);
+    }
+  }, [isTaskCompleted, autoSaveKey]);
 
   const handleTaskSubmit = () => {
     if (taskAnswers[slide.id]?.trim()) {
       onTaskComplete(slide.id);
+      clearAutoSave(autoSaveKey);
     }
   };
 
   const handleTaskChange = (value: string) => {
     setTaskAnswers((prev) => ({ ...prev, [slide.id]: value }));
+  };
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
   };
 
   // Render different slide types
@@ -146,8 +183,22 @@ export default function SlideContent({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg border-2 border-gray-300">
-              <h4 className="font-semibold text-red-600 mb-3">Blogas pavyzdys:</h4>
+            <div className="bg-gray-50 p-4 rounded-lg border-2 border-gray-300 relative group">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-red-600">Blogas pavyzdys:</h4>
+                <button
+                  onClick={() => handleCopy('Sukurkite man pardavimų ataskaitą.')}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-gray-200 rounded"
+                  aria-label="Kopijuoti tekstą"
+                  title="Kopijuoti"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-600" />
+                  )}
+                </button>
+              </div>
               <p className="text-sm text-gray-600 italic">
                 Sukurkite man pardavimų ataskaitą.
               </p>
@@ -155,8 +206,22 @@ export default function SlideContent({
                 Problema: neaiški perspektyva
               </p>
             </div>
-            <div className="bg-green-50 p-4 rounded-lg border-2 border-green-300">
-              <h4 className="font-semibold text-green-600 mb-3">Geras pavyzdys:</h4>
+            <div className="bg-green-50 p-4 rounded-lg border-2 border-green-300 relative group">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-green-600">Geras pavyzdys:</h4>
+                <button
+                  onClick={() => handleCopy('Jūs esate vyresnysis verslo analitikas su 10 metų patirtimi e-commerce srityje. Jūsų tikslas - parengti pardavimų ataskaitą valdybos nariams, kurie priims strateginius sprendimus Q4 ketvirčiui.')}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-green-200 rounded"
+                  aria-label="Kopijuoti tekstą"
+                  title="Kopijuoti"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-600" />
+                  )}
+                </button>
+              </div>
               <p className="text-sm text-gray-700 italic">
                 Jūs esate vyresnysis verslo analitikas su 10 metų patirtimi e-commerce srityje.
                 Jūsų tikslas - parengti pardavimų ataskaitą valdybos nariams, kurie priims
@@ -184,27 +249,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -270,27 +349,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -351,27 +444,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -422,27 +529,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -492,27 +613,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -568,27 +703,41 @@ export default function SlideContent({
           </div>
 
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>
@@ -861,27 +1010,41 @@ export default function SlideContent({
             {slide.title} - {slide.subtitle}
           </p>
           {slide.practicalTask && (
-            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+            <div className="mt-8 p-5 bg-yellow-50 rounded-lg border-l-4 border-yellow-400 relative">
               <p className="text-sm font-semibold text-yellow-900 mb-4">
                 {slide.practicalTask.title}
               </p>
-              <textarea
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y"
-                placeholder={slide.practicalTask.placeholder}
-                value={taskAnswers[slide.id] || ''}
-                onChange={(e) => handleTaskChange(e.target.value)}
-                disabled={isTaskCompleted}
-              />
+              <div className="relative">
+                <textarea
+                  className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg text-sm mb-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-y disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder={slide.practicalTask.placeholder}
+                  value={taskAnswers[slide.id] || ''}
+                  onChange={(e) => handleTaskChange(e.target.value)}
+                  disabled={isTaskCompleted}
+                  aria-label="Užduoties atsakymo laukas"
+                />
+                {showSaved && !isTaskCompleted && (
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-fadeIn">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Išsaugota</span>
+                  </div>
+                )}
+              </div>
               {!isTaskCompleted ? (
-                <button
-                  onClick={handleTaskSubmit}
-                  disabled={!taskAnswers[slide.id]?.trim()}
-                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md"
-                >
-                  Išsaugoti užduotį
-                </button>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Atsakymas automatiškai išsaugomas
+                  </p>
+                  <button
+                    onClick={handleTaskSubmit}
+                    disabled={!taskAnswers[slide.id]?.trim()}
+                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95"
+                  >
+                    Išsaugoti užduotį
+                  </button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-lg animate-fadeIn">
                   <CheckCircle className="w-5 h-5" />
                   <span className="text-sm font-semibold">Užduotis atlikta!</span>
                 </div>

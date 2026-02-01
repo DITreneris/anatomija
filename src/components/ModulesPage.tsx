@@ -38,8 +38,17 @@ export default function ModulesPage({ onModuleSelect, progress }: ModulesPagePro
           return (
             <div
               key={module.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer"
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 cursor-pointer transform hover:scale-105 animate-fadeIn"
               onClick={() => onModuleSelect(module.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onModuleSelect(module.id);
+                }
+              }}
+              aria-label={`Atidaryti modulį: ${module.title}`}
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -63,13 +72,17 @@ export default function ModulesPage({ onModuleSelect, progress }: ModulesPagePro
               <div className="mb-4">
                 <div className="flex justify-between text-xs text-gray-600 mb-1">
                   <span>Pažanga</span>
-                  <span>{moduleProgress}%</span>
+                  <span className="font-semibold">{moduleProgress}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all"
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2.5 rounded-full transition-all duration-500 ease-out relative"
                     style={{ width: `${moduleProgress}%` }}
-                  />
+                  >
+                    {moduleProgress > 0 && moduleProgress < 100 && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -84,7 +97,14 @@ export default function ModulesPage({ onModuleSelect, progress }: ModulesPagePro
                 </div>
               </div>
 
-              <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all">
+              <button 
+                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onModuleSelect(module.id);
+                }}
+                aria-label={isCompleted ? 'Peržiūrėti modulį' : 'Pradėti modulį'}
+              >
                 {isCompleted ? 'Peržiūrėti' : 'Pradėti'}
                 <ArrowRight className="w-4 h-4" />
               </button>
