@@ -435,7 +435,9 @@ function PromptTechniquesSlide({ content }: { content?: PromptTechniquesContent 
 
 function WorkflowSummarySlide({ content }: { content?: WorkflowSummaryContent }) {
   // Paveikslėlių masyvas pagal diagramų seką
-  const diagramImages = ['/LLM_1.png', '/LLM_2.png'];
+  // Naudojame import.meta.env.BASE_URL, kad veiktų ir development, ir production
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const diagramImages = [`${baseUrl}LLM_1.png`, `${baseUrl}LLM_2.png`];
 
   return (
     <div className="space-y-6">
@@ -451,19 +453,27 @@ function WorkflowSummarySlide({ content }: { content?: WorkflowSummaryContent })
               <p className="text-sm text-gray-600 dark:text-gray-400">{diagram.subtitle}</p>
             </div>
             
-            {/* Vizualizacijos paveikslėlis */}
+            {/* Vizualizacijos paveikslėlis - PIRMAS, prieš tekstinę diagramą */}
             {diagramImages[idx] && (
-              <div className="mb-4 bg-gray-50 dark:bg-gray-900/40 rounded-xl p-4 border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div className="mb-4 bg-white dark:bg-gray-900 rounded-xl p-3 border-2 border-brand-200 dark:border-brand-800 overflow-hidden">
                 <img 
                   src={diagramImages[idx]} 
                   alt={diagram.title}
-                  className="w-full h-auto rounded-lg shadow-sm object-contain"
+                  className="w-full h-auto rounded-lg shadow-md object-contain min-h-[200px]"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    console.error(`Failed to load image: ${diagramImages[idx]}`);
+                    target.style.display = 'none';
+                  }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded image: ${diagramImages[idx]}`);
+                  }}
                 />
               </div>
             )}
 
-            {/* Tekstinė diagrama (kaip papildoma informacija) */}
+            {/* Tekstinė diagrama (kaip papildoma informacija) - ANTRA, po paveikslėliu */}
             <div className="flex flex-wrap items-center gap-2 bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-3">
               {diagram.steps.map((step, stepIdx) => (
                 <div key={stepIdx} className="flex items-center gap-2">
@@ -821,7 +831,7 @@ function ReasoningModelsSlide({ onRenderTask }: { onRenderTask: () => JSX.Elemen
         <h4 className="font-bold mb-4 text-gray-900 dark:text-white text-center">Mąstymo modelių vizualizacija</h4>
         <div className="flex justify-center mb-3">
           <img 
-            src="/mastymo_modeliai.png" 
+            src={`${import.meta.env.BASE_URL || '/'}mastymo_modeliai.png`}
             alt="Mąstymo modeliai: Chain of Thought vs Tree of Thoughts"
             className="max-w-full h-auto rounded-lg shadow-lg"
             onError={(e) => {
