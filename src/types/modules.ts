@@ -15,12 +15,26 @@ export interface Scenario {
   expectedFormat: string;
 }
 
+export interface InstructionStep {
+  step: number;
+  title: string;
+  description: string;
+  hint: string;
+  partialSolution: string;
+}
+
+export interface TaskInstructions {
+  title: string;
+  steps: InstructionStep[];
+}
+
 export interface PracticalTask {
   title: string;
   placeholder: string;
   templateLabel?: string;
   template?: string;
   explanation?: string;
+  instructions?: TaskInstructions;
 }
 
 export interface DefinitionsAspect {
@@ -106,6 +120,7 @@ export type SlideType =
   | 'meta'
   | 'input'
   | 'output'
+  | 'reasoning-models'
   | 'reasoning'
   | 'quality'
   | 'advanced'
@@ -165,6 +180,7 @@ export interface QuizQuestion {
   question: string;
   options: string[];
   correct: number;
+  explanation?: string;
 }
 
 export interface Quiz {

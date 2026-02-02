@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CheckCircle, Sparkles } from 'lucide-react';
+import { CheckCircle, Sparkles, ChevronDown, ChevronUp, Copy, Lightbulb } from 'lucide-react';
 import { useAutoSave, loadAutoSave, clearAutoSave } from '../../../utils/useAutoSave';
 import { Progress } from '../../../utils/progress';
 import { PracticalTask as PracticalTaskType } from '../../../types/modules';
@@ -24,7 +24,19 @@ export default function PracticalTask({
   const savedDraft = loadAutoSave<string>(autoSaveKey, '');
   const [answer, setAnswer] = useState(savedDraft);
   const [showSaved, setShowSaved] = useState(false);
+  const [expandedSteps, setExpandedSteps] = useState<Set<number>>(new Set());
+  const [showInstructions, setShowInstructions] = useState(true);
   const isTaskCompleted = progress.completedTasks[moduleId]?.includes(slideId) || false;
+
+  const toggleStep = (step: number) => {
+    const newExpanded = new Set(expandedSteps);
+    if (newExpanded.has(step)) {
+      newExpanded.delete(step);
+    } else {
+      newExpanded.add(step);
+    }
+    setExpandedSteps(newExpanded);
+  };
 
   // Auto-save draft answers
   useAutoSave(autoSaveKey, answer, 1500);
@@ -60,6 +72,85 @@ export default function PracticalTask({
           {task.title}
         </p>
       </div>
+
+      {task.instructions && (
+        <div className="mb-6 bg-white dark:bg-gray-800 border border-brand-200 dark:border-brand-800 rounded-xl overflow-hidden">
+          <button
+            onClick={() => setShowInstructions(!showInstructions)}
+            className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <Lightbulb className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              <h4 className="font-bold text-gray-900 dark:text-white">
+                {task.instructions.title}
+              </h4>
+            </div>
+            {showInstructions ? (
+              <ChevronUp className="w-5 h-5 text-gray-500" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-gray-500" />
+            )}
+          </button>
+
+          {showInstructions && (
+            <div className="p-4 space-y-3 border-t border-gray-200 dark:border-gray-700">
+              {task.instructions.steps.map((step) => (
+                <div
+                  key={step.step}
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+                >
+                  <button
+                    onClick={() => toggleStep(step.step)}
+                    className="w-full flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-500 text-white font-bold text-sm">
+                        {step.step}
+                      </div>
+                      <div className="text-left">
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                          {step.title}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                    {expandedSteps.has(step.step) ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
+
+                  {expandedSteps.has(step.step) && (
+                    <div className="p-4 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-700 space-y-3">
+                      <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-amber-800 dark:text-amber-200 mb-1">
+                          💡 Patarimas:
+                        </p>
+                        <p className="text-sm text-amber-700 dark:text-amber-300">{step.hint}</p>
+                      </div>
+
+                      <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-3 relative group">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-xs font-semibold text-emerald-800 dark:text-emerald-200">
+                            ✨ Tarpinis sprendimas (kopijuoti):
+                          </p>
+                          <CopyButton text={step.partialSolution} />
+                        </div>
+                        <p className="text-sm text-emerald-700 dark:text-emerald-300 whitespace-pre-line font-mono">
+                          {step.partialSolution}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {task.template && (
         <div className="mb-4 bg-white dark:bg-gray-800 border border-accent-200 dark:border-accent-800 rounded-xl p-4 relative group">

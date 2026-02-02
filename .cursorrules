@@ -1,0 +1,62 @@
+# Promptų anatomija - Cursor AI Rules
+
+## Projekto kontekstas
+- Produktas: interaktyvus DI prompt inžinerijos mokymas su 3 moduliais (Teorija → Testas → Praktika).
+- Turinio šaltinis ir tiesa: `turinio_pletra.md` (pedagogika, terminologija, struktūra).
+- Duomenys yra duomenų-sluoksnyje: `src/data/modules.json` ir `src/data/promptLibrary.json`.
+- UI/UX logika ir renderinimas: `src/components/*` (ypač `SlideContent.tsx`, `ModuleView.tsx`, `QuizPage.tsx`).
+- Progresas ir pertraukiamumas: `src/utils/progress.ts` + `src/utils/useAutoSave.ts`.
+
+## Pagrindinės taisyklės
+- Turinį keisk per JSON failus, o ne per React komponentus, nebent reikia naujo slide tipo ar naujos UI logikos.
+- Naujas skaidrės tipas → papildyk `SlideContent.tsx` render logiką + `modules.json` struktūrą.
+- Terminologija privaloma: naudoti **DI**, ne **AI**; "promptas" be apostrofų; stilistika lietuviška.
+- Laikykis 3 modulių sekos ir atrakinimo logikos: 1→2→3, sertifikatas po ≥70% teste.
+- Išlaikyk UX: keyboard navigacija, progresas, autosave, confetti, dark/light režimus.
+- Dokumentų sinchronizacija yra privaloma: `README.md`, `docs/getting-started/QUICK_START.md`, `docs/deployment/DEPLOYMENT.md`, `docs/deployment/GITHUB_SETUP.md`, `ROADMAP.md`, `TODO.md` turi sutapti su realia konfigūracija (`vite.config.ts`, `package.json`).
+
+## Roadmap/TODO integracija
+- `ROADMAP.md` ir `TODO.md` yra įsipareigojimai: nauji darbai turi atitikti prioritetus.
+- Kritiniai punktai (Error Boundary, duomenų migracija/validacija, testai) turi būti saugomi kaip aukščiausi prioritetai.
+- Jei įgyvendini funkciją iš roadmap/TODO, atnaujink atitinkamą dokumentą.
+
+## Kodo kokybės gairės
+- Nepažeisk TypeScript tipų (ypač `Slide` struktūros `SlideContent.tsx`).
+- Nekopijuok logikos: jei reikalingas UI pakartojimas, naudok esamą komponentą ar iškelk į naują.
+- Naudok esamus Tailwind utility klases ir dizaino sistemą (brand/accent spalvos).
+- A11y: aria-label, focus ring, kontrastas, klaviatūros navigacija.
+- Visada paleisk `npm run lint` prieš commit.
+- Visada paleisk `npm test` prieš didesnius pakeitimus.
+- Naudok meaningful variable names, venk magic numbers.
+
+## Testavimo rekomendacijos
+- Prieš commit, paleisti `npm run lint` ir `npm test`.
+- Testuoti kritinius funkcionalumus: progresas, localStorage, migracija.
+- Integration testai turi patikrinti pagrindinį flow.
+- Unit testai turi padengti utils funkcijas (100% coverage kritinių).
+
+## Dokumentacijos taisyklės
+- Atnaujink `CHANGELOG.md` kiekvieną kartą, kai keičiasi funkcionalumas.
+- Atnaujink `README.md`, jei keičiasi setup arba deployment.
+- Atnaujink `ROADMAP.md` ir `TODO.md`, kai užbaigiama užduotis.
+- Dokumentuok sudėtingesnius sprendimus komentarais.
+
+## Turinio kokybės gairės
+- Tekstai turi būti aiškūs, verslo orientuoti, su konkrečiais pavyzdžiais.
+- Skaičiai ir KPI turi būti nuoseklūs ir ne prieštarauti `turinio_pletra.md`.
+- Venk ilgų pastraipų; naudok struktūrą (sąrašai, lentelės, žingsniai).
+
+## Keičiant duomenis
+- Jei keiti skaidres/testo klausimus → atnaujink `modules.json`.
+- Jei keiti promptų biblioteką → atnaujink `promptLibrary.json`.
+- Jei keiti terminus → atnaujink `turinio_pletra.md` ir susijusius JSON tekstus.
+
+## Error Handling
+- Visur naudok try-catch su logging (`src/utils/logger.ts`).
+- ErrorBoundary apgaubia visus pagrindinius komponentus.
+- User-friendly error messages su retry funkcija.
+
+## Performance
+- Lazy load didelius komponentus (React.lazy + Suspense).
+- Optimizuok images ir assets.
+- Naudok code splitting kur įmanoma.

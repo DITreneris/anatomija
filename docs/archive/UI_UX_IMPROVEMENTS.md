@@ -1,4 +1,4 @@
-# UI/UX Patobulinimai - Prompt Anatomija
+# UI/UX Patobulinimai - Promptų anatomija
 
 ## 📋 Apžvalga
 

@@ -5,23 +5,38 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  // Safelist for dynamic classes used in SlideContent.tsx
+  // Optimized safelist - only classes actually used in SlideContent.tsx
+  // This reduces CSS bundle size significantly
   safelist: [
-    // Background colors
-    {
-      pattern: /bg-(rose|orange|amber|emerald|brand|violet|cyan|fuchsia)-(50|100|200|800|900)/,
-      variants: ['dark'],
-    },
-    // Text colors
-    {
-      pattern: /text-(rose|orange|amber|emerald|brand|violet|cyan|fuchsia)-(300|400|600|700|800|900)/,
-      variants: ['dark'],
-    },
-    // Border colors
-    {
-      pattern: /border-(rose|orange|amber|emerald|brand|violet|cyan|fuchsia)-(200|300|500|700|800)/,
-      variants: ['dark'],
-    },
+    // Background colors - only specific shades used
+    'bg-rose-50', 'bg-rose-100', 'bg-rose-500', 'dark:bg-rose-900/10', 'dark:bg-rose-900/20', 'dark:bg-rose-900/30',
+    'bg-orange-50', 'bg-orange-100', 'bg-orange-500', 'dark:bg-orange-900/20', 'dark:bg-orange-900/30',
+    'bg-amber-100', 'bg-amber-500', 'dark:bg-amber-900/30',
+    'bg-emerald-50', 'bg-emerald-100', 'bg-emerald-500', 'dark:bg-emerald-900/10', 'dark:bg-emerald-900/20', 'dark:bg-emerald-900/30',
+    'bg-brand-50', 'bg-brand-100', 'bg-brand-500', 'dark:bg-brand-900/20', 'dark:bg-brand-900/30',
+    'bg-violet-50', 'bg-violet-100', 'bg-violet-500', 'dark:bg-violet-900/20', 'dark:bg-violet-900/30',
+    'bg-cyan-50', 'dark:bg-cyan-900/20',
+    'bg-fuchsia-50', 'dark:bg-fuchsia-900/20',
+    'bg-accent-50', 'dark:bg-accent-900/20',
+    // Text colors - only specific shades used
+    'text-rose-300', 'text-rose-400', 'text-rose-600', 'text-rose-700', 'text-rose-800', 'text-rose-900', 'dark:text-rose-100', 'dark:text-rose-200', 'dark:text-rose-300', 'dark:text-rose-400',
+    'text-orange-300', 'text-orange-700', 'text-orange-900', 'dark:text-orange-100', 'dark:text-orange-300',
+    'text-amber-300', 'text-amber-700', 'dark:text-amber-300',
+    'text-emerald-300', 'text-emerald-400', 'text-emerald-600', 'text-emerald-700', 'dark:text-emerald-300', 'dark:text-emerald-400',
+    'text-brand-300', 'text-brand-700', 'text-brand-900', 'dark:text-brand-100', 'dark:text-brand-300',
+    'text-violet-300', 'text-violet-600', 'text-violet-700', 'text-violet-800', 'dark:text-violet-200', 'dark:text-violet-300', 'dark:text-violet-400',
+    'text-cyan-300', 'text-cyan-700', 'dark:text-cyan-300',
+    'text-fuchsia-300', 'text-fuchsia-700', 'dark:text-fuchsia-300',
+    // Border colors - only specific shades used
+    'border-rose-200', 'border-rose-300', 'border-rose-500', 'border-rose-800',
+    'border-orange-500',
+    'border-amber-500',
+    'border-emerald-200', 'border-emerald-300', 'border-emerald-500', 'border-emerald-700', 'border-emerald-800',
+    'border-brand-200', 'border-brand-300', 'border-brand-500', 'border-brand-700', 'border-brand-800',
+    'border-violet-300', 'border-violet-500', 'border-violet-700', 'border-violet-800',
+    'border-cyan-300', 'border-cyan-700',
+    'border-fuchsia-300', 'border-fuchsia-700',
+    'border-accent-200', 'border-accent-800',
   ],
   theme: {
     extend: {

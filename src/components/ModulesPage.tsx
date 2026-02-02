@@ -1,6 +1,8 @@
+import { useMemo, memo } from 'react';
 import { CheckCircle, ArrowRight, Target, Brain, Settings, Lock, Sparkles } from 'lucide-react';
 import { Progress } from '../utils/progress';
-import modulesData from '../data/modules.json';
+import { getModulesSync } from '../data/modulesLoader';
+import { LoadingSpinner } from './ui';
 import CircularProgress from './CircularProgress';
 
 interface ModulesPageProps {
@@ -38,34 +40,69 @@ const levelStyles = {
 
 const moduleLevels = ['learn', 'test', 'practice'] as const;
 
-export default function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
+function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
+  // Get modules data (synchronously if already loaded)
+  const modules = getModulesSync();
+
+  // Show loading if modules not yet loaded
+  if (!modules) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <LoadingSpinner size="lg" text="Kraunama..." />
+      </div>
+    );
+  }
+
+  // Memoize completed count and total modules
+  const completedCount = useMemo(() => progress.completedModules.length, [progress.completedModules.length]);
+  const totalModules = useMemo(() => modules.length, [modules.length]);
+
+  // Memoize module progress calculations
+  const moduleProgressMap = useMemo(() => {
+    const map = new Map<number, number>();
+    modules.forEach(module => {
+      const completedTasks = progress.completedTasks[module.id]?.length || 0;
+      const totalTasks = module.slides.filter(s => 
+        (s as { practicalTask?: unknown }).practicalTask || 
+        (s as { testQuestions?: unknown }).testQuestions ||
+        (s as { scenario?: unknown }).scenario
+      ).length;
+      const isCompleted = progress.completedModules.includes(module.id);
+      
+      if (isCompleted) {
+        map.set(module.id, 100);
+      } else if (totalTasks === 0) {
+        map.set(module.id, 0);
+      } else {
+        map.set(module.id, Math.round((completedTasks / totalTasks) * 100));
+      }
+    });
+    return map;
+  }, [progress.completedTasks, progress.completedModules]);
+
+  // Memoize locked modules
+  const lockedModules = useMemo(() => {
+    const locked = new Set<number>();
+    modules.forEach((module, index) => {
+      if (index === 0) return;
+      const previousModuleId = modules[index - 1]?.id;
+      if (!progress.completedModules.includes(previousModuleId)) {
+        locked.add(module.id);
+      }
+    });
+    return locked;
+  }, [progress.completedModules, modules]);
+
+  // Helper functions (moved outside to avoid recreation)
   const getModuleProgress = (moduleId: number) => {
-    const module = modulesData.modules.find(m => m.id === moduleId);
-    if (!module) return 0;
-    
-    const completedTasks = progress.completedTasks[moduleId]?.length || 0;
-    // Count slides that have practicalTask, testQuestions, or scenario
-    const totalTasks = module.slides.filter(s => 
-      (s as { practicalTask?: unknown }).practicalTask || 
-      (s as { testQuestions?: unknown }).testQuestions ||
-      (s as { scenario?: unknown }).scenario
-    ).length;
-    const isCompleted = progress.completedModules.includes(moduleId);
-    
-    if (isCompleted) return 100;
-    if (totalTasks === 0) return 0;
-    return Math.round((completedTasks / totalTasks) * 100);
+    return moduleProgressMap.get(moduleId) || 0;
   };
 
-  // Check if module is locked (previous not completed)
   const isModuleLocked = (moduleIndex: number) => {
     if (moduleIndex === 0) return false;
-    const previousModuleId = modulesData.modules[moduleIndex - 1]?.id;
-    return !progress.completedModules.includes(previousModuleId);
+    const moduleId = modules[moduleIndex]?.id;
+    return lockedModules.has(moduleId);
   };
-
-  const completedCount = progress.completedModules.length;
-  const totalModules = modulesData.modules.length;
 
   return (
     <div className="space-y-8">
@@ -103,7 +140,7 @@ export default function ModulesPage({ onModuleSelect, progress }: ModulesPagePro
 
       {/* Modules grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {modulesData.modules.map((module, index) => {
+        {modules.map((module, index) => {
           const moduleProgress = getModuleProgress(module.id);
           const isCompleted = progress.completedModules.includes(module.id);
           const locked = isModuleLocked(index);
@@ -270,3 +307,6 @@ export default function ModulesPage({ onModuleSelect, progress }: ModulesPagePro
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+export default memo(ModulesPage);

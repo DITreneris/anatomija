@@ -32,3 +32,14 @@ dist-ssr
 # Build files
 build
 *.tsbuildinfo
+
+# Daily planning files (format: DDMMYY_dienos_planas.md)
+*_dienos_planas.md
+
+# Test coverage
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.temp

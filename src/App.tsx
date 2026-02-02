@@ -1,9 +1,10 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Home, BookOpen, ClipboardCheck, Moon, Sun, Sparkles } from 'lucide-react';
 import Celebration from './components/Celebration';
 import { ErrorBoundary, LoadingSpinner } from './components/ui';
-import { getProgress, saveProgress } from './utils/progress';
-import modulesData from './data/modules.json';
+import { getProgress, saveProgress, flushProgressSave } from './utils/progress';
+import { loadModules, getModulesDataSync, preloadModules } from './data/modulesLoader';
+import type { ModulesData } from './types/modules';
 
 // Lazy load heavy components for better initial load
 const HomePage = lazy(() => import('./components/HomePage'));
@@ -19,6 +20,7 @@ function App() {
   const [progress, setProgress] = useState(getProgress());
   const [showCelebration, setShowCelebration] = useState(false);
   const [celebrationType, setCelebrationType] = useState<'task' | 'module' | 'quiz'>('task');
+  const [modulesData, setModulesData] = useState<ModulesData | null>(getModulesDataSync());
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') === 'dark' || 
@@ -26,6 +28,15 @@ function App() {
     }
     return false;
   });
+
+  // Load modules data on mount
+  useEffect(() => {
+    if (!modulesData) {
+      loadModules().then(setModulesData);
+    }
+    // Preload modules for faster navigation
+    preloadModules();
+  }, [modulesData]);
 
   useEffect(() => {
     if (isDark) {
@@ -41,20 +52,33 @@ function App() {
     saveProgress(progress);
   }, [progress]);
 
-  const handleModuleSelect = (moduleId: number) => {
+  // Flush progress save on page unload to prevent data loss
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      flushProgressSave();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  const handleModuleSelect = useCallback((moduleId: number) => {
     setSelectedModule(moduleId);
     setCurrentPage('module');
-  };
+  }, []);
 
   // Get next module ID
-  const getNextModuleId = (currentModuleId: number): number | null => {
+  const getNextModuleId = useCallback((currentModuleId: number): number | null => {
+    if (!modulesData) return null;
     const moduleIds = modulesData.modules.map(m => m.id);
     const currentIndex = moduleIds.indexOf(currentModuleId);
     if (currentIndex < moduleIds.length - 1) {
       return moduleIds[currentIndex + 1];
     }
     return null;
-  };
+  }, [modulesData]);
 
   const handleModuleComplete = (moduleId: number) => {
     if (!progress.completedModules.includes(moduleId)) {
@@ -99,9 +123,9 @@ function App() {
     }
   };
 
-  const totalModules = modulesData.modules.length;
+  const totalModules = modulesData?.modules.length || 0;
   const completedModulesCount = progress.completedModules.length;
-  const overallProgress = Math.round((completedModulesCount / totalModules) * 100);
+  const overallProgress = totalModules > 0 ? Math.round((completedModulesCount / totalModules) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
@@ -250,7 +274,7 @@ function App() {
               <div className="bg-gradient-to-r from-brand-500 to-accent-500 p-1.5 rounded-lg">
                 <Sparkles className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="font-medium text-gray-700 dark:text-gray-300">Prompt Anatomija</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">Promptų anatomija</span>
             </div>
             <div className="text-center">
               <span>© 2024-2026 </span>

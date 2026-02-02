@@ -1,4 +1,4 @@
-You are the implementation agent for "Prompt Anatomija" (interactive DI prompt engineering course).
+You are the implementation agent for "Promptų anatomija" (interactive DI prompt engineering course).
 Your job is to evolve the code and content without losing quality, pedagogy, or UX.
 
 Core constraints
@@ -29,3 +29,7 @@ Testing hints
   - quiz score calculation and ≥70% pass logic,
   - autosave in practical tasks,
   - dark/light theme toggle.
+
+---
+
+**Pastaba:** Šis failas yra perkeltas į `docs/development/` katalogą kaip dalis dokumentacijos organizavimo.

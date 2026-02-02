@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { logWarning } from './logger';
 
 /**
  * Hook for auto-saving form values to localStorage with debounce
@@ -22,7 +23,10 @@ export function useAutoSave<T>(
         try {
           localStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
-          console.warn('Failed to save to localStorage:', error);
+          logWarning('Failed to save to localStorage', {
+            key,
+            error: error instanceof Error ? error.message : String(error),
+          });
         }
       }
     }, delay);
@@ -46,7 +50,10 @@ export function loadAutoSave<T>(key: string, defaultValue: T): T {
       return JSON.parse(saved);
     }
   } catch (error) {
-    console.warn('Failed to load from localStorage:', error);
+    logWarning('Failed to load from localStorage', {
+      key,
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
   return defaultValue;
 }
@@ -58,6 +65,9 @@ export function clearAutoSave(key: string): void {
   try {
     localStorage.removeItem(key);
   } catch (error) {
-    console.warn('Failed to clear localStorage:', error);
+    logWarning('Failed to clear localStorage', {
+      key,
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
 }

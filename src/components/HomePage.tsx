@@ -48,7 +48,7 @@ export default function HomePage({ onStart, progress }: HomePageProps) {
           
           {/* Title */}
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
-            Prompt <span className="gradient-text">Anatomija</span>
+            Promptų <span className="gradient-text">anatomija</span>
           </h1>
           
           {/* Subtitle */}

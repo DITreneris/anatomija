@@ -1,4 +1,4 @@
-# Prompt Anatomija - Interaktyvus DI Mokymas
+# Promptų anatomija - Interaktyvus DI Mokymas
 
 Interaktyvus mokymas apie DI (dirbtinio intelekto) prompt struktūrą su 3 moduliais, praktinėmis užduotimis ir apklausa. Orientuotas į verslo problemų sprendimą.
 
@@ -34,6 +34,8 @@ Interaktyvus mokymas apie DI (dirbtinio intelekto) prompt struktūrą su 3 modul
 - **Error Boundary** (globalus error handling)
 - **Loading States** (Suspense + lazy loading)
 - **TypeScript** (pilnas type safety)
+- **Testų infrastruktūra** (Vitest + React Testing Library)
+- **Klaidų logavimas** (paruošta Sentry integracijai)
 
 ### Dizainas
 - **Navy/Gold spalvų schema** (verslo orientuota)
@@ -76,6 +78,27 @@ npm run build
 npm run preview
 ```
 
+### Testavimas
+
+```bash
+# Paleisti testus (watch mode)
+npm test
+
+# Vienkartinis testų paleidimas
+npm run test:run
+
+# Testai su coverage report
+npm run test:coverage
+
+# Vitest UI
+npm run test:ui
+```
+
+**Testų rezultatai:**
+- ✅ 21/21 progress.ts testai (100%)
+- ✅ 6/6 integration testai (100%)
+- ✅ 100% kritinių funkcionalumų test coverage
+
 ## 📦 Deployment ir GitHub Pages
 
 ### GitHub Pages (rekomenduojama)
@@ -98,7 +121,7 @@ Jei keičiate repo pavadinimą, atnaujinkite base.
 ```bash
 git init
 git add .
-git commit -m "Initial commit: Prompt Anatomija"
+git commit -m "Initial commit: Promptų anatomija"
 git remote add origin https://github.com/DITreneris/anatomija.git
 git branch -M main
 git push -u origin main
@@ -135,8 +158,13 @@ prompt-anatomy-training/
 │   │   ├── modules.json    # Modulių turinys
 │   │   └── promptLibrary.json # Promptų šablonai
 │   ├── utils/
-│   │   ├── progress.ts     # Progreso valdymas
-│   │   └── useAutoSave.ts  # Auto-save hook
+│   │   ├── progress.ts     # Progreso valdymas (su versijavimu)
+│   │   ├── useAutoSave.ts  # Auto-save hook
+│   │   └── logger.ts       # Klaidų logavimas
+│   ├── test/
+│   │   └── setup.ts        # Test setup su mocks
+│   ├── utils/__tests__/    # Unit testai
+│   └── components/__tests__/ # Integration testai
 │   ├── main.tsx            # Entry point
 │   └── index.css           # Global stiliai
 ├── public/                  # Statiniai failai
@@ -244,9 +272,21 @@ npm run build
 
 ## 📖 Dokumentacija
 
-- `turinio_pletra.md` - Detalus turinio planas ir pedagoginė logika
-- `UI_UX_IMPROVEMENTS.md` - UI/UX patobulinimų sąrašas
-- `QUICK_START.md` - Greito starto gidas
+### Pagrindinė Dokumentacija (Root)
+- `README.md` - Šis failas (pagrindinis aprašymas)
+- `ROADMAP.md` - Plėtros planas ir prioritetai
+- `TODO.md` - Dabartinės užduotys ir progresas
+- `CHANGELOG.md` - Versijų istorija
+- `turinio_pletra.md` - Detalus turinio planas ir pedagoginė logika (source of truth)
+
+### Organizuota Dokumentacija (`docs/`)
+- `docs/README.md` - Dokumentacijos struktūra
+- `docs/getting-started/` - Pradžios gidai
+- `docs/development/` - Development dokumentacija (testavimas, system prompt)
+- `docs/deployment/` - Deployment instrukcijos
+- `docs/archive/` - Pasenusios dokumentacijos versijos
+
+**Pastaba:** Dokumentacija buvo reorganizuota 2026-02-02. Seni failai perkelti į `docs/` katalogą.
 
 ## 📝 Changelog
 
@@ -294,7 +334,7 @@ Prisidėti yra kviečiami visi! Sukurkite issue arba pull request.
 
 <div align="center">
 
-**Prompt Anatomija** - Interaktyvus DI Mokymas
+**Promptų anatomija** - Interaktyvus DI Mokymas
 
 Autorinė mokymo medžiaga © 2024-2026 Tomas Staniulis
 

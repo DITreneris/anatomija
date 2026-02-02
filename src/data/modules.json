@@ -247,6 +247,12 @@
         },
         {
           "id": 8,
+          "title": "Mąstymo Modeliai",
+          "subtitle": "CoT vs ToT – kaip valdoma DI sprendimo logika?",
+          "type": "reasoning-models"
+        },
+        {
+          "id": 9,
           "title": "4️⃣ Reasoning Blokas",
           "subtitle": "Mąstymo logika – kaip DI turi mąstyti?",
           "type": "reasoning",
@@ -254,7 +260,7 @@
           "keyQuestion": "Kaip mąstyti prieš atsakant?"
         },
         {
-          "id": 9,
+          "id": 10,
           "title": "5️⃣ Quality Control Blokas",
           "subtitle": "Kokybės kriterijai – kaip patikrinti?",
           "type": "quality",
@@ -262,7 +268,7 @@
           "keyQuestion": "Kaip patikrinti rezultato kokybę?"
         },
         {
-          "id": 10,
+          "id": 11,
           "title": "6️⃣ Advanced Parameters",
           "subtitle": "Pažangūs parametrai – kaip tiksliai kontroliuoti?",
           "type": "advanced",
@@ -270,19 +276,19 @@
           "keyQuestion": "Kokie modelio specifiniai parametrai?"
         },
         {
-          "id": 11,
+          "id": 12,
           "title": "Pilnas Prompt Pavyzdys",
           "subtitle": "Visi 6 blokai veikia kartu",
           "type": "full-example"
         },
         {
-          "id": 12,
+          "id": 13,
           "title": "Prieš vs Po",
           "subtitle": "Struktūruoto ir nestruktūruoto prompt palyginimas",
           "type": "comparison"
         },
         {
-          "id": 13,
+          "id": 14,
           "title": "Modulio Santrauka",
           "subtitle": "Pagrindinės idėjos ir ką išmokote",
           "type": "summary"
@@ -481,9 +487,56 @@
           "practicalTask": {
             "title": "Sukurkite pilną promptą šiam scenarijui",
             "placeholder": "META: Jūs esate...\n\nINPUT: Duomenys...\n\nOUTPUT: Formatas...\n\nREASONING: Mąstymo seka...\n\nQUALITY: Kriterijai...\n\nADVANCED: Parametrai...",
-            "templateLabel": "Peržiūrėti pavyzdį",
+            "templateLabel": "Peržiūrėti pilną pavyzdį",
             "template": "META: Jūs esate vyresnysis verslo analitikas su 8 metų patirtimi e-commerce srityje. Jūsų tikslas – parengti Q3 pardavimų ataskaitą valdybos nariams, kurie priims strateginius Q4 sprendimus.\n\nINPUT: Q3 2024 duomenys: 250k EUR pajamos (+15% vs Q2), 1200 užsakymų, vidutinis čekis 208 EUR, grąžinimų rodiklis 3.2%. Kategorijos: Elektronika 45%, Apranga 30%, Namai 25%. Apribojimai: 3 dienos, 6 valdybos nariai su skirtinga patirtimi.\n\nOUTPUT: Executive Summary formatas (1-2 puslapiai). Struktūra: 1) Pagrindinės metrikos, 2) Tendencijos, 3) Kategorijų analizė, 4) Rekomendacijos Q4. Kalba: lietuvių, verslo tonas.\n\nREASONING: 1) Apibendrinti pagrindinius KPI 2) Palyginti su ankstesniu laikotarpiu 3) Identifikuoti augimo ir problemų sritis 4) Suformuluoti 3 aiškias rekomendacijas.\n\nQUALITY: ✓ Visi skaičiai tikslūs ✓ Palyginimas su Q2 ✓ Aiškios rekomendacijos ✓ Tinkamas ilgis (1-2 psl.)\n\nADVANCED: Temperature 0.3 (faktinis tonas), Format: struktūruotas verslo dokumentas.",
-            "explanation": "Šis pavyzdys rodo, kaip kiekvienas blokas papildo kitą ir sukuria pilną kontekstą."
+            "explanation": "Šis pavyzdys rodo, kaip kiekvienas blokas papildo kitą ir sukuria pilną kontekstą.",
+            "instructions": {
+              "title": "Žingsnis po žingsnio instrukcija",
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "META blokas - Pradėkite nuo rolės",
+                  "description": "Apibrėžkite, kas esate ir kam skirtas dokumentas",
+                  "hint": "Rolė: verslo analitikas. Tikslas: Q3 pardavimų ataskaita. Auditorija: valdybos nariai.",
+                  "partialSolution": "META:\nJūs esate vyresnysis verslo analitikas su 8 metų patirtimi e-commerce srityje. Jūsų tikslas – parengti Q3 pardavimų ataskaitą valdybos nariams, kurie priims strateginius Q4 sprendimus."
+                },
+                {
+                  "step": 2,
+                  "title": "INPUT blokas - Surinkite duomenis",
+                  "description": "Išskirkite konkretūs skaičiai, metrikos ir apribojimai",
+                  "hint": "Duomenys: 250k EUR, +15%, 1200 užsakymų, kategorijos. Apribojimai: 3 dienos, 6 nariai su skirtinga patirtimi.",
+                  "partialSolution": "INPUT:\nQ3 2024 duomenys: 250k EUR pajamos (+15% vs Q2), 1200 užsakymų, vidutinis čekis 208 EUR, grąžinimų rodiklis 3.2%. Kategorijos: Elektronika 45%, Apranga 30%, Namai 25%.\n\nApribojimai: 3 dienos, 6 valdybos nariai su skirtinga patirtimi."
+                },
+                {
+                  "step": 3,
+                  "title": "OUTPUT blokas - Apibrėžkite formatą",
+                  "description": "Nurodykite, kokį dokumentą norite gauti",
+                  "hint": "Formatas: Executive Summary. Struktūra: metrikos, tendencijos, analizė, rekomendacijos. Kalba: lietuvių, verslo tonas.",
+                  "partialSolution": "OUTPUT:\nFormatas: Executive Summary (1-2 puslapiai). Struktūra: 1) Pagrindinės metrikos, 2) Tendencijos, 3) Kategorijų analizė, 4) Rekomendacijos Q4. Kalba: lietuvių, verslo tonas."
+                },
+                {
+                  "step": 4,
+                  "title": "REASONING blokas - Nustatykite mąstymo seką",
+                  "description": "Nurodykite, kaip DI turi mąstyti prieš kuriant ataskaitą",
+                  "hint": "Naudokite CoT (Chain of Thought). 1) Apibendrinti KPI, 2) Palyginti su Q2, 3) Identifikuoti sritis, 4) Suformuluoti rekomendacijas.",
+                  "partialSolution": "REASONING:\n1) Apibendrinti pagrindinius KPI vienoje vietoje\n2) Palyginti su ankstesniu laikotarpiu (Q2)\n3) Identifikuoti augimo ir problemų sritis\n4) Suformuluoti 3 aiškias, veiksmais pagrįstas rekomendacijas"
+                },
+                {
+                  "step": 5,
+                  "title": "QUALITY blokas - Nustatykite kokybės kriterijus",
+                  "description": "Apibrėžkite, kaip patikrinti rezultato kokybę",
+                  "hint": "Tikrinimo kriterijai: tikslūs skaičiai, palyginimas su Q2, aiškios rekomendacijos, tinkamas ilgis.",
+                  "partialSolution": "QUALITY:\n✓ Visi skaičiai tikslūs ir patikrinti\n✓ Palyginimas su Q2 pateiktas\n✓ Rekomendacijos konkrečios ir įgyvendinamos\n✓ Dokumentas neviršija 2 puslapių\n✓ Tinkamas valdybos nariams"
+                },
+                {
+                  "step": 6,
+                  "title": "ADVANCED blokas - Nustatykite parametrus",
+                  "description": "Pasirinkite modelio parametrus (jei reikia)",
+                  "hint": "Temperature: 0.3 (faktinis, tikslus tonas). Reasoning: normalus.",
+                  "partialSolution": "ADVANCED:\nTemperature: 0.3 (faktinis, tikslus tonas)\nReasoning: normalus\nFormat: struktūruotas verslo dokumentas"
+                }
+              ]
+            }
           }
         },
         {
@@ -500,7 +553,56 @@
           "practicalTask": {
             "title": "Sukurkite pilną promptą marketingo planui",
             "placeholder": "META: Jūs esate...\n\nINPUT: Duomenys...\n\nOUTPUT: Formatas...\n\nREASONING: Mąstymo seka...\n\nQUALITY: Kriterijai...\n\nADVANCED: Parametrai...",
-            "explanation": "Pritaikykite 6 blokų sistemą marketingo kontekstui. Atkreipkite dėmesį į B2B specifiką."
+            "explanation": "Pritaikykite 6 blokų sistemą marketingo kontekstui. Atkreipkite dėmesį į B2B specifiką.",
+            "instructions": {
+              "title": "Žingsnis po žingsnio instrukcija",
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "META blokas - Pradėkite nuo rolės",
+                  "description": "Apibrėžkite, kas esate ir kam skirtas dokumentas",
+                  "hint": "Rolė: marketingo vadovas. Tikslas: Q1 2025 marketingo planas. Auditorija: generalinis direktorius.",
+                  "partialSolution": "META:\nJūs esate marketingo vadovas su 10+ metų B2B patirtimi. Jūsų tikslas – parengti Q1 2025 marketingo strateginį planą generaliniam direktoriui, kuris priims biudžeto sprendimus."
+                },
+                {
+                  "step": 2,
+                  "title": "INPUT blokas - Surinkite duomenis",
+                  "description": "Išskirkite konkretūs skaičiai, metrikos ir apribojimai",
+                  "hint": "Duomenys: Q4 rezultatai, CAC, konversija, konkurentai. Apribojimai: 2 savaitės, 3 žmonės komanda, B2B prioritetas.",
+                  "partialSolution": "INPUT:\nQ4 2024 rezultatai: 45 nauji klientai, CAC 6500 EUR, konversija 2.8%. Konkurentų augimas: +25% ir +18%. Planuojamas Q1 biudžetas: 300k EUR.\n\nApribojimai: Planas turi būti parengtas per 2 savaites. Komanda: 3 žmonės. Prioritetas – B2B segmentas."
+                },
+                {
+                  "step": 3,
+                  "title": "OUTPUT blokas - Apibrėžkite formatą",
+                  "description": "Nurodykite, kokį dokumentą norite gauti",
+                  "hint": "Formatas: strateginis dokumentas. Struktūra: veiksmų planas + KPI. Kalba: lietuvių, verslo tonas.",
+                  "partialSolution": "OUTPUT:\nFormatas: Strateginis dokumentas (5-7 puslapių). Struktūra: 1) Situacijos analizė, 2) Q1 tikslai ir KPI, 3) Veiksmų planas pagal kanalus, 4) Biudžeto paskirstymas, 5) Rizikos ir prielaidos. Kalba: lietuvių, profesionalus verslo tonas."
+                },
+                {
+                  "step": 4,
+                  "title": "REASONING blokas - Nustatykite mąstymo seką",
+                  "description": "Nurodykite, kaip DI turi mąstyti prieš kuriant planą",
+                  "hint": "Naudokite CoT (Chain of Thought) - viena loginė seka. 1) Analizuoti Q4 rezultatus, 2) Įvertinti konkurentų grėsmę, 3) Nustatyti Q1 tikslus, 4) Suformuluoti strategiją.",
+                  "partialSolution": "REASONING (CoT):\n1) Išanalizuoti Q4 2024 rezultatus ir identifikuoti stipriąsias/silpnąsias puses\n2) Įvertinti konkurentų augimo grėsmę ir rinkos tendencijas\n3) Nustatyti Q1 2025 tikslus pagal biudžetą (300k EUR) ir B2B prioritetą\n4) Suformuluoti konkretų veiksmų planą su KPI ir biudžeto paskirstymu"
+                },
+                {
+                  "step": 5,
+                  "title": "QUALITY blokas - Nustatykite kokybės kriterijus",
+                  "description": "Apibrėžkite, kaip patikrinti rezultato kokybę",
+                  "hint": "Tikrinimo kriterijai: konkretūs KPI, biudžeto paskirstymas, B2B orientacija, įgyvendinamumas.",
+                  "partialSolution": "QUALITY:\n✓ Visi KPI konkretūs ir matuojami\n✓ Biudžetas (300k EUR) paskirstytas pagal kanalus\n✓ Planas orientuotas į B2B segmentą\n✓ Veiksmai įgyvendinami per 2 savaites su 3 žmonių komanda\n✓ Dokumentas tinkamas generaliniam direktoriui (strateginis lygis)"
+                },
+                {
+                  "step": 6,
+                  "title": "ADVANCED blokas - Nustatykite parametrus",
+                  "description": "Pasirinkite modelio parametrus (jei reikia)",
+                  "hint": "Temperature: 0.4-0.5 (strateginis, bet kūrybiškas). Reasoning: normalus arba extended.",
+                  "partialSolution": "ADVANCED:\nTemperature: 0.4 (strateginis mąstymas su kūrybiškumu)\nReasoning: extended (reikia gilesnės analizės)\nFormat: struktūruotas verslo dokumentas"
+                }
+              ]
+            },
+            "templateLabel": "Peržiūrėti pilną pavyzdį",
+            "template": "META:\nJūs esate marketingo vadovas su 10+ metų B2B patirtimi. Jūsų tikslas – parengti Q1 2025 marketingo strateginį planą generaliniam direktoriui, kuris priims biudžeto sprendimus.\n\nINPUT:\nQ4 2024 rezultatai: 45 nauji klientai, CAC 6500 EUR, konversija 2.8%. Konkurentų augimas: +25% ir +18%. Planuojamas Q1 biudžetas: 300k EUR.\n\nApribojimai: Planas turi būti parengtas per 2 savaites. Komanda: 3 žmonės. Prioritetas – B2B segmentas.\n\nOUTPUT:\nFormatas: Strateginis dokumentas (5-7 puslapių). Struktūra: 1) Situacijos analizė, 2) Q1 tikslai ir KPI, 3) Veiksmų planas pagal kanalus, 4) Biudžeto paskirstymas, 5) Rizikos ir prielaidos. Kalba: lietuvių, profesionalus verslo tonas.\n\nREASONING (CoT):\n1) Išanalizuoti Q4 2024 rezultatus ir identifikuoti stipriąsias/silpnąsias puses\n2) Įvertinti konkurentų augimo grėsmę ir rinkos tendencijas\n3) Nustatyti Q1 2025 tikslus pagal biudžetą (300k EUR) ir B2B prioritetą\n4) Suformuluoti konkretų veiksmų planą su KPI ir biudžeto paskirstymu\n\nQUALITY:\n✓ Visi KPI konkretūs ir matuojami\n✓ Biudžetas (300k EUR) paskirstytas pagal kanalus\n✓ Planas orientuotas į B2B segmentą\n✓ Veiksmai įgyvendinami per 2 savaites su 3 žmonių komanda\n✓ Dokumentas tinkamas generaliniam direktoriui (strateginis lygis)\n\nADVANCED:\nTemperature: 0.4 (strateginis mąstymas su kūrybiškumu)\nReasoning: extended (reikia gilesnės analizės)\nFormat: struktūruotas verslo dokumentas"
           }
         },
         {
@@ -517,7 +619,56 @@
           "practicalTask": {
             "title": "Sukurkite pilną promptą HR analizei",
             "placeholder": "META: Jūs esate...\n\nINPUT: Duomenys...\n\nOUTPUT: Formatas...\n\nREASONING: Mąstymo seka...\n\nQUALITY: Kriterijai...\n\nADVANCED: Parametrai...",
-            "explanation": "HR kontekstas reikalauja jautrumo darbuotojų duomenims. Atkreipkite dėmesį į konfidencialumą."
+            "explanation": "HR kontekstas reikalauja jautrumo darbuotojų duomenims. Atkreipkite dėmesį į konfidencialumą.",
+            "instructions": {
+              "title": "Žingsnis po žingsnio instrukcija",
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "META blokas - Pradėkite nuo rolės",
+                  "description": "Apibrėžkite, kas esate ir kam skirtas dokumentas",
+                  "hint": "Rolė: HR vadovas. Tikslas: apklausos analizė ir rekomendacijos. Auditorija: vadovybė.",
+                  "partialSolution": "META:\nJūs esate HR vadovas su 8+ metų patirtimi darbuotojų patirties valdyme. Jūsų tikslas – išanalizuoti metinės darbuotojų apklausos rezultatus ir pateikti konkrečias rekomendacijas vadovybei, kuri priims veiksmų plano sprendimus."
+                },
+                {
+                  "step": 2,
+                  "title": "INPUT blokas - Surinkite duomenis",
+                  "description": "Išskirkite konkretūs skaičiai, metrikos ir apribojimai",
+                  "hint": "Duomenys: dalyvavimas, pasitenkinimas, problemos sritys, stipriosios pusės. Apribojimai: biudžetas 50k EUR, konkrečius veiksmų planas.",
+                  "partialSolution": "INPUT:\nDalyvavo 156/180 darbuotojų (87%). Bendras pasitenkinimas: 7.2/10 (+0.4 vs praėjusių metų). Probleminės sritys: karjeros galimybės (5.8), darbo/asmeninio gyvenimo balansas (6.1). Stipriosios pusės: komandinis darbas (8.4), vadovų palaikymas (7.9).\n\nApribojimai: Vadovybė nori konkrečių veiksmų plano. Biudžetas iniciatyvoms: 50k EUR. Konfidencialumas: neatskleisti individualių atsakymų."
+                },
+                {
+                  "step": 3,
+                  "title": "OUTPUT blokas - Apibrėžkite formatą",
+                  "description": "Nurodykite, kokį dokumentą norite gauti",
+                  "hint": "Formatas: ataskaita. Struktūra: analizė + vizualizacijos + veiksmų planas. Kalba: lietuvių, jautrus tonas.",
+                  "partialSolution": "OUTPUT:\nFormatas: Ataskaita su vizualizacijomis (6-8 puslapių). Struktūra: 1) Bendras apžvalga, 2) Probleminių sričių analizė, 3) Stipriųjų pusių išryškinimas, 4) Konkretus veiksmų planas su biudžeto paskirstymu, 5) Tikėtini rezultatai. Kalba: lietuvių, profesionalus, bet jautrus tonas."
+                },
+                {
+                  "step": 4,
+                  "title": "REASONING blokas - Nustatykite mąstymo seką",
+                  "description": "Nurodykite, kaip DI turi mąstyti prieš kuriant analizę",
+                  "hint": "Naudokite CoT (Chain of Thought). 1) Analizuoti problemines sritis, 2) Įvertinti priežastis, 3) Suformuluoti sprendimus, 4) Paskirstyti biudžetą.",
+                  "partialSolution": "REASONING (CoT):\n1) Išanalizuoti problemines sritis (karjeros galimybės 5.8, darbo/asmeninio gyvenimo balansas 6.1) ir jų priežastis\n2) Įvertinti, kodėl stipriosios pusės veikia gerai (komandinis darbas 8.4, vadovų palaikymas 7.9)\n3) Suformuluoti konkrečius, įgyvendinamus sprendimus kiekvienai probleminei sričiai\n4) Paskirstyti biudžetą (50k EUR) pagal prioritetus ir tikėtiną poveikį"
+                },
+                {
+                  "step": 5,
+                  "title": "QUALITY blokas - Nustatykite kokybės kriterijus",
+                  "description": "Apibrėžkite, kaip patikrinti rezultato kokybę",
+                  "hint": "Tikrinimo kriterijai: jautrumas duomenims, konkretūs veiksmai, biudžeto paskirstymas, įgyvendinamumas.",
+                  "partialSolution": "QUALITY:\n✓ Jautrus požiūris į darbuotojų duomenis (konfidencialumas)\n✓ Konkretūs, įgyvendinami veiksmai kiekvienai probleminei sričiai\n✓ Biudžetas (50k EUR) paskirstytas pagal prioritetus\n✓ Veiksmų planas turi aiškius terminus ir atsakingus asmenis\n✓ Dokumentas tinkamas vadovybei (strateginis lygis su detaliais veiksmais)"
+                },
+                {
+                  "step": 6,
+                  "title": "ADVANCED blokas - Nustatykite parametrus",
+                  "description": "Pasirinkite modelio parametrus (jei reikia)",
+                  "hint": "Temperature: 0.3-0.4 (jautrus, bet profesionalus). Reasoning: extended (reikia gilesnės analizės).",
+                  "partialSolution": "ADVANCED:\nTemperature: 0.3 (jautrus, profesionalus tonas)\nReasoning: extended (reikia gilesnės analizės ir empatijos)\nFormat: struktūruotas HR dokumentas su vizualizacijomis"
+                }
+              ]
+            },
+            "templateLabel": "Peržiūrėti pilną pavyzdį",
+            "template": "META:\nJūs esate HR vadovas su 8+ metų patirtimi darbuotojų patirties valdyme. Jūsų tikslas – išanalizuoti metinės darbuotojų apklausos rezultatus ir pateikti konkrečias rekomendacijas vadovybei, kuri priims veiksmų plano sprendimus.\n\nINPUT:\nDalyvavo 156/180 darbuotojų (87%). Bendras pasitenkinimas: 7.2/10 (+0.4 vs praėjusių metų). Probleminės sritys: karjeros galimybės (5.8), darbo/asmeninio gyvenimo balansas (6.1). Stipriosios pusės: komandinis darbas (8.4), vadovų palaikymas (7.9).\n\nApribojimai: Vadovybė nori konkrečių veiksmų plano. Biudžetas iniciatyvoms: 50k EUR. Konfidencialumas: neatskleisti individualių atsakymų.\n\nOUTPUT:\nFormatas: Ataskaita su vizualizacijomis (6-8 puslapių). Struktūra: 1) Bendras apžvalga, 2) Probleminių sričių analizė, 3) Stipriųjų pusių išryškinimas, 4) Konkretus veiksmų planas su biudžeto paskirstymu, 5) Tikėtini rezultatai. Kalba: lietuvių, profesionalus, bet jautrus tonas.\n\nREASONING (CoT):\n1) Išanalizuoti problemines sritis (karjeros galimybės 5.8, darbo/asmeninio gyvenimo balansas 6.1) ir jų priežastis\n2) Įvertinti, kodėl stipriosios pusės veikia gerai (komandinis darbas 8.4, vadovų palaikymas 7.9)\n3) Suformuluoti konkrečius, įgyvendinamus sprendimus kiekvienai probleminei sričiai\n4) Paskirstyti biudžetą (50k EUR) pagal prioritetus ir tikėtiną poveikį\n\nQUALITY:\n✓ Jautrus požiūris į darbuotojų duomenis (konfidencialumas)\n✓ Konkretūs, įgyvendinami veiksmai kiekvienai probleminei sričiai\n✓ Biudžetas (50k EUR) paskirstytas pagal prioritetus\n✓ Veiksmų planas turi aiškius terminus ir atsakingus asmenis\n✓ Dokumentas tinkamas vadovybei (strateginis lygis su detaliais veiksmais)\n\nADVANCED:\nTemperature: 0.3 (jautrus, profesionalus tonas)\nReasoning: extended (reikia gilesnės analizės ir empatijos)\nFormat: struktūruotas HR dokumentas su vizualizacijomis"
           }
         },
         {
@@ -534,7 +685,56 @@
           "practicalTask": {
             "title": "Sukurkite pilną promptą produkto aprašymui",
             "placeholder": "META: Jūs esate...\n\nINPUT: Duomenys...\n\nOUTPUT: Formatas...\n\nREASONING: Mąstymo seka...\n\nQUALITY: Kriterijai...\n\nADVANCED: Parametrai...",
-            "explanation": "Produkto aprašymui svarbu: aiški nauda, SEO raktažodžiai, call-to-action."
+            "explanation": "Produkto aprašymui svarbu: aiški nauda, SEO raktažodžiai, call-to-action.",
+            "instructions": {
+              "title": "Žingsnis po žingsnio instrukcija",
+              "steps": [
+                {
+                  "step": 1,
+                  "title": "META blokas - Pradėkite nuo rolės",
+                  "description": "Apibrėžkite, kas esate ir kam skirtas tekstas",
+                  "hint": "Rolė: produkto vadovas. Tikslas: produkto aprašymas. Auditorija: potencialūs klientai (5-20 darbuotojų įmonės).",
+                  "partialSolution": "META:\nJūs esate produkto vadovas su 7+ metų patirtimi SaaS produktų kūrime ir rinkodaroje. Jūsų tikslas – parengti įtikinantį produkto aprašymą svetainei ir reklaminei kampanijai, orientuotą į mažas įmones (5-20 darbuotojų)."
+                },
+                {
+                  "step": 2,
+                  "title": "INPUT blokas - Surinkite duomenis",
+                  "description": "Išskirkite konkretūs produktų duomenys, USP, konkurentai",
+                  "hint": "Duomenys: SaaS platforma, 49 EUR/mėn, 80% automatizacija, konkurentai 2x brangesni. Apribojimai: SEO optimizacija, 500 žodžių, profesionalus bet draugiškas tonas.",
+                  "partialSolution": "INPUT:\nProduktas: SaaS platforma mažoms įmonėms. Kaina: 49 EUR/mėn. USP: automatizuoja 80% rutininių užduočių. Tikslinė auditorija: 5-20 darbuotojų įmonės. Konkurentai: 2x brangesni, bet su daugiau funkcijų.\n\nApribojimai: Aprašymas turi būti SEO optimizuotas. Maksimalus ilgis: 500 žodžių. Tonas: profesionalus, bet draugiškas."
+                },
+                {
+                  "step": 3,
+                  "title": "OUTPUT blokas - Apibrėžkite formatą",
+                  "description": "Nurodykite, kokį tekstą norite gauti",
+                  "hint": "Formatas: svetainės tekstas + 3 reklaminiai teiginiai. Struktūra: įvadas, nauda, funkcijos, CTA. Kalba: lietuvių, SEO optimizuotas.",
+                  "partialSolution": "OUTPUT:\nFormatas: Svetainės tekstas (500 žodžių) + 3 reklaminiai teiginiai (po 1 sakinį). Struktūra: 1) Įvadas su problema, 2) Sprendimas (produktas), 3) Pagrindinės funkcijos ir nauda, 4) Kainos argumentacija, 5) Call-to-action. Kalba: lietuvių, SEO optimizuotas, profesionalus bet draugiškas tonas."
+                },
+                {
+                  "step": 4,
+                  "title": "REASONING blokas - Nustatykite mąstymo seką",
+                  "description": "Nurodykite, kaip DI turi mąstyti prieš kuriant aprašymą",
+                  "hint": "Naudokite CoT (Chain of Thought). 1) Identifikuoti klientų problemą, 2) Pateikti sprendimą, 3) Įrodyti naudą, 4) Skatinti veiksmą.",
+                  "partialSolution": "REASONING (CoT):\n1) Identifikuoti pagrindinę problemą, kurią sprendžia produktas (rutininės užduotys užima daug laiko)\n2) Pateikti sprendimą (automatizacija 80% užduočių) ir pagrįsti naudą\n3) Įrodyti, kodėl kaina (49 EUR/mėn) yra teisinga palyginus su konkurentais (2x brangesni)\n4) Suformuluoti aiškų call-to-action, kuris skatina bandomąjį laikotarpį"
+                },
+                {
+                  "step": 5,
+                  "title": "QUALITY blokas - Nustatykite kokybės kriterijus",
+                  "description": "Apibrėžkite, kaip patikrinti rezultato kokybę",
+                  "hint": "Tikrinimo kriterijai: SEO optimizacija, aiški nauda, konkretūs skaičiai, CTA, ilgis 500 žodžių.",
+                  "partialSolution": "QUALITY:\n✓ SEO optimizuotas (raktiniai žodžiai: SaaS, automatizacija, mažoms įmonėms)\n✓ Aiški nauda pateikta pirmoje pastraipoje\n✓ Konkretūs skaičiai (80% automatizacija, 49 EUR/mėn)\n✓ Call-to-action aiškus ir veiksmingas\n✓ Ilgis neviršija 500 žodžių\n✓ Tonas profesionalus, bet draugiškas (tinkamas mažoms įmonėms)"
+                },
+                {
+                  "step": 6,
+                  "title": "ADVANCED blokas - Nustatykite parametrus",
+                  "description": "Pasirinkite modelio parametrus (jei reikia)",
+                  "hint": "Temperature: 0.5-0.6 (kūrybiškas, bet kontroliuojamas). Reasoning: normalus.",
+                  "partialSolution": "ADVANCED:\nTemperature: 0.5 (kūrybiškas, bet kontroliuojamas tonas)\nReasoning: normalus (aiški struktūra)\nFormat: SEO optimizuotas marketingo tekstas"
+                }
+              ]
+            },
+            "templateLabel": "Peržiūrėti pilną pavyzdį",
+            "template": "META:\nJūs esate produkto vadovas su 7+ metų patirtimi SaaS produktų kūrime ir rinkodaroje. Jūsų tikslas – parengti įtikinantį produkto aprašymą svetainei ir reklaminei kampanijai, orientuotą į mažas įmones (5-20 darbuotojų).\n\nINPUT:\nProduktas: SaaS platforma mažoms įmonėms. Kaina: 49 EUR/mėn. USP: automatizuoja 80% rutininių užduočių. Tikslinė auditorija: 5-20 darbuotojų įmonės. Konkurentai: 2x brangesni, bet su daugiau funkcijų.\n\nApribojimai: Aprašymas turi būti SEO optimizuotas. Maksimalus ilgis: 500 žodžių. Tonas: profesionalus, bet draugiškas.\n\nOUTPUT:\nFormatas: Svetainės tekstas (500 žodžių) + 3 reklaminiai teiginiai (po 1 sakinį). Struktūra: 1) Įvadas su problema, 2) Sprendimas (produktas), 3) Pagrindinės funkcijos ir nauda, 4) Kainos argumentacija, 5) Call-to-action. Kalba: lietuvių, SEO optimizuotas, profesionalus bet draugiškas tonas.\n\nREASONING (CoT):\n1) Identifikuoti pagrindinę problemą, kurią sprendžia produktas (rutininės užduotys užima daug laiko)\n2) Pateikti sprendimą (automatizacija 80% užduočių) ir pagrįsti naudą\n3) Įrodyti, kodėl kaina (49 EUR/mėn) yra teisinga palyginus su konkurentais (2x brangesni)\n4) Suformuluoti aiškų call-to-action, kuris skatina bandomąjį laikotarpį\n\nQUALITY:\n✓ SEO optimizuotas (raktiniai žodžiai: SaaS, automatizacija, mažoms įmonėms)\n✓ Aiški nauda pateikta pirmoje pastraipoje\n✓ Konkretūs skaičiai (80% automatizacija, 49 EUR/mėn)\n✓ Call-to-action aiškus ir veiksmingas\n✓ Ilgis neviršija 500 žodžių\n✓ Tonas profesionalus, bet draugiškas (tinkamas mažoms įmonėms)\n\nADVANCED:\nTemperature: 0.5 (kūrybiškas, bet kontroliuojamas tonas)\nReasoning: normalus (aiški struktūra)\nFormat: SEO optimizuotas marketingo tekstas"
           }
         },
         {
@@ -564,74 +764,142 @@
       {
         "id": 1,
         "question": "Nuo ko geriausia pradėti promptą?",
-        "options": ["Nuo rolės ir tikslo (Meta)", "Nuo rezultatų formato (Output)", "Nuo papildomų parametrų (Advanced)", "Nuo pavyzdžių"],
-        "correct": 0
+        "options": ["Nuo rezultatų formato (Output)", "Nuo rolės ir tikslo (Meta)", "Nuo papildomų parametrų (Advanced)", "Nuo pavyzdžių"],
+        "correct": 1,
+        "explanation": "Meta blokas yra svarbiausias – jis nustato kontekstą visam likusiam promptui. Pavyzdys: \\\"Tu esi verslo analitikas su 8 metų patirtimi. Tavo tikslas – parengti Q3 ataskaitą valdybai.\\\" Be Meta bloko DI nežino, kas jis yra ir ką turi daryti."
       },
       {
         "id": 2,
         "question": "Ką turi apimti Meta blokas?",
-        "options": ["Rolę, patirtį ir tikslinę auditoriją", "Tik skaičius ir duomenis", "Tik rezultato formatą", "Tik kokybės kriterijus"],
-        "correct": 0
+        "options": ["Tik skaičius ir duomenis", "Rolę, patirtį ir tikslinę auditoriją", "Tik rezultato formatą", "Tik kokybės kriterijus"],
+        "correct": 1,
+        "explanation": "Meta blokas apibrėžia KAS esate, KOKIA patirtis ir KAM skirtas rezultatas. Pavyzdys: \\\"Tu esi marketingo vadovas (rolė) su 10 metų B2B patirtimi (patirtis). Tavo tikslas – parengti Q1 planą generaliniam direktoriui (auditorija).\\\""
       },
       {
         "id": 3,
         "question": "Kas yra 'konkretus input'?",
-        "options": ["Tikslūs skaičiai, datos, metrikos", "Bendra nuotaika", "Tik klausimai", "Tik norimas tonas"],
-        "correct": 0
+        "options": ["Bendra nuotaika", "Tikslūs skaičiai, datos, metrikos", "Tik klausimai", "Tik norimas tonas"],
+        "correct": 1,
+        "explanation": "Konkretus input = konkretūs duomenys: 250k EUR, +15%, 1200 užsakymų, Q3 2024. Priešingai: \\\"gerai sekasi\\\", \\\"daug klientų\\\" – tai ne konkretus input. Konkretus input leidžia DI dirbti su tiksliais faktais."
       },
       {
         "id": 4,
         "question": "Kam skirtas Output blokas?",
-        "options": ["Nurodyti rezultato formatą ir struktūrą", "Nustatyti DI rolę", "Pateikti pradinius duomenis", "Patikrinti klaidas"],
-        "correct": 0
+        "options": ["Nustatyti DI rolę", "Nurodyti rezultato formatą ir struktūrą", "Pateikti pradinius duomenis", "Patikrinti klaidas"],
+        "correct": 1,
+        "explanation": "Output blokas nurodo TIKSLŲ formatą: lentelė, 5 stulpeliai, lietuvių kalba. Pavyzdys: \\\"Formatas: Executive Summary (1-2 puslapiai). Struktūra: 1) KPI 2) Tendencijos 3) Rekomendacijos. Kalba: lietuvių, verslo tonas.\\\""
       },
       {
         "id": 5,
         "question": "Norite gauti 5 punktų sąrašą lietuviškai. Kurį bloką turite nurodyti?",
-        "options": ["Output", "Meta", "Input", "Quality Control"],
-        "correct": 0
+        "options": ["Meta", "Output", "Input", "Quality Control"],
+        "correct": 1,
+        "explanation": "Formatas (sąrašas, 5 punktai, kalba) – tai Output bloko atsakomybė. Pavyzdys: \\\"OUTPUT: Formatas – numeruotas sąrašas, 5 punktai. Kalba: lietuvių.\\\" Meta nustato rolę, Input – duomenis, bet formatas visada Output bloke."
       },
       {
         "id": 6,
         "question": "Kam skirtas Reasoning blokas?",
-        "options": ["Nurodyti, kaip DI turi mąstyti", "Pridėti stilių", "Pakeisti kalbą", "Sutrumpinti tekstą"],
-        "correct": 0
+        "options": ["Pridėti stilių", "Nurodyti, kaip DI turi mąstyti", "Pakeisti kalbą", "Sutrumpinti tekstą"],
+        "correct": 1,
+        "explanation": "Reasoning blokas nurodo MĄSTYMO SEKĄ: 1) Analizuoti 2) Palyginti 3) Rekomenduoti. Pavyzdys: \\\"REASONING: 1) Apibendrinti pagrindinius KPI 2) Palyginti su Q2 3) Identifikuoti augimo sritis 4) Suformuluoti 3 rekomendacijas.\\\" Tai leidžia DI mąstyti struktūriškai."
       },
       {
         "id": 7,
         "question": "Kam skirtas Quality Control blokas?",
-        "options": ["Nustatyti kokybės kriterijus", "Pridėti stilių", "Pakeisti kalbą", "Sutrumpinti tekstą"],
-        "correct": 0
+        "options": ["Pridėti stilių", "Nustatyti kokybės kriterijus", "Pakeisti kalbą", "Sutrumpinti tekstą"],
+        "correct": 1,
+        "explanation": "Quality Control = tikrinimo kriterijai: Ar logiška? Ar pilna? Ar tikslūs faktai? Pavyzdys: \\\"QUALITY: ✓ Visi skaičiai tikslūs ✓ Palyginimas su Q2 pateiktas ✓ Rekomendacijos konkrečios ✓ Dokumentas neviršija 2 puslapių.\\\""
       },
       {
         "id": 8,
         "question": "Norite kūrybiškesnio atsakymo. Ką verta pakeisti?",
-        "options": ["Temperature (pakelti)", "Input kiekį", "Kalbos nustatymą", "Quality Control kiekį"],
-        "correct": 0
+        "options": ["Input kiekį", "Temperature (pakelti)", "Kalbos nustatymą", "Quality Control kiekį"],
+        "correct": 1,
+        "explanation": "Temperature 0.8-1.0 = kūrybiškesnis, įvairesnis atsakymas. Temperature 0.1-0.3 = tikslesnis, faktinis. Pavyzdys: kūrybai (šūkiai, idėjos) – 0.8-1.0; verslo dokumentams (ataskaitos, analizės) – 0.2-0.4."
       },
       {
         "id": 9,
         "question": "Kiek blokų turi pilnas struktūruotas promptas?",
         "options": ["3", "4", "5", "6"],
-        "correct": 3
+        "correct": 3,
+        "explanation": "6 blokai: Meta, Input, Output, Reasoning, Quality, Advanced. Pavyzdys: 1) Meta (rolė, tikslas) 2) Input (duomenys) 3) Output (formatas) 4) Reasoning (mąstymo seka) 5) Quality (kriterijai) 6) Advanced (temperature, parametrai)."
       },
       {
         "id": 10,
         "question": "Koks minimalus promptas aiškiam rezultatui?",
-        "options": ["Meta + Input + Output", "Tik Output", "Tik Meta", "Reasoning + Quality"],
-        "correct": 0
+        "options": ["Tik Output", "Meta + Input + Output", "Tik Meta", "Reasoning + Quality"],
+        "correct": 1,
+        "explanation": "Minimalus = 3 blokai: KAS esate (Meta) + KĄ turite (Input) + KO norite (Output). Pavyzdys: \\\"META: Tu esi analitikas. Tikslas – SWOT analizė. INPUT: Produktas EcoBox, mažmeninė prekyba. OUTPUT: Lentelė, S/W/O/T po 3 punktus.\\\""
       },
       {
         "id": 11,
         "question": "Kuo išsiskiria workflow užklausa?",
-        "options": ["Aiškus formatas ir rezultatas", "Tik trumpas tekstas", "Nėra apribojimų", "Tik kūrybinė užduotis"],
-        "correct": 0
+        "options": ["Tik trumpas tekstas", "Aiškus formatas ir rezultatas", "Nėra apribojimų", "Tik kūrybinė užduotis"],
+        "correct": 1,
+        "explanation": "Workflow apibrėžia formatą, reikalavimus ir laukiamą rezultatą. Pavyzdys: Basic – \\\"Paaiškink, kas yra prompt inžinerija?\\\" Workflow – \\\"Sukurk 5 punktų paaiškinimą. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių.\\\""
       },
       {
         "id": 12,
         "question": "Kuri technika naudoja pavyzdžius?",
-        "options": ["Few-shots", "Zero-shot", "Manipuliacija", "Reasoning"],
-        "correct": 0
+        "options": ["Zero-shot", "Few-shots", "Manipuliacija", "Reasoning"],
+        "correct": 1,
+        "explanation": "Few-shots pateikia 1–2 pavyzdžius, po to prašo naujų. Pavyzdys: \\\"Pavyzdžiai: 1) 'Mažiau streso, daugiau energijos.' 2) 'Tavo sveikata – tavo planas.' Sukurk dar 3 panašaus stiliaus šūkius.\\\" Zero-shot – be pavyzdžių, tiesiog prašymas."
+      },
+      {
+        "id": 13,
+        "question": "Kokį Temperature reikšmę naudoti verslo ataskaitoms (Q3 pardavimų analizė)?",
+        "options": ["0.8-1.0 (kūrybiškas)", "0.1-0.3 (faktinis, tikslus)", "0.5-0.7 (subalansuotas)", "1.2-1.5 (labai kūrybiškas)"],
+        "correct": 1,
+        "explanation": "Verslo ataskaitoms reikia tikslumo ir faktų, todėl Temperature 0.1-0.3 yra optimalus. Pavyzdys: Q3 pardavimų analizėje reikia tikslūs skaičiai (250k EUR, +15%), ne kūrybiški aprašymai. Kūrybai (šūkiai, idėjos) – 0.8-1.0."
+      },
+      {
+        "id": 14,
+        "question": "Ką daro Frequency penalty parametras?",
+        "options": ["Sumažina pasikartojimus", "Padidina kūrybiškumą", "Nustato atsakymo ilgį", "Keičia kalbą"],
+        "correct": 0,
+        "explanation": "Frequency penalty (0.3-0.5) sumažina žodžių/frazės pasikartojimus. Pavyzdys: jei DI kartotų \\\"verslo analizė\\\" 10 kartų, Frequency penalty 0.5 paskatintų naudoti sinonimus. Tai svarbu ilgiems dokumentams."
+      },
+      {
+        "id": 15,
+        "question": "Kokį Reasoning depth naudoti sudėtingai verslo analizei?",
+        "options": ["Fast (greitas)", "Normal (standartinis)", "Deep (gilus)", "Nereikia nurodyti"],
+        "correct": 2,
+        "explanation": "Sudėtingoms analizėms (Q3 pardavimų analizė su tendencijomis, palyginimais, rekomendacijomis) reikia Deep reasoning. Fast – paprastiems klausimams, Normal – standartinėms užduotims, Deep – sudėtingoms analizėms, kur reikia daug žingsnių."
+      },
+      {
+        "id": 16,
+        "question": "Kokį Max tokens reikšmę naudoti Executive Summary (1-2 puslapiai)?",
+        "options": ["50-100 tokens", "150-300 tokens", "500-800 tokens", "1000+ tokens"],
+        "correct": 1,
+        "explanation": "Executive Summary (1-2 puslapiai) ≈ 150-300 tokens. 50-100 – per trumpai, 500-800 – per ilgai (3-4 puslapiai), 1000+ – labai ilgas dokumentas. Praktinis patarimas: 1 puslapis ≈ 150 tokens, 2 puslapiai ≈ 300 tokens."
+      },
+      {
+        "id": 17,
+        "question": "Ką reiškia Top-p parametras?",
+        "options": ["Kontroliuoja atsakymo įvairovę", "Nustato kalbą", "Sumažina pasikartojimus", "Padidina tikslumą"],
+        "correct": 0,
+        "explanation": "Top-p (0.5-0.8) kontroliuoja, kiek variantų DI gali pasirinkti. Top-p 0.7 = 70% tikėtinų variantų. Mažesnis (0.5) = fokusuotasis, didesnis (0.8) = įvairesnis. Safe default verslo dokumentams: 0.7."
+      },
+      {
+        "id": 18,
+        "question": "Modulio pavyzdyje (Q3 pardavimų analizė) naudojamas Temperature 0.3. Kodėl?",
+        "options": ["Kad būtų kūrybiškesnis", "Kad būtų tikslus ir faktinis", "Kad būtų trumpesnis", "Kad būtų ilgesnis"],
+        "correct": 1,
+        "explanation": "Q3 pardavimų analizėje reikia tikslūs skaičiai (250k EUR, +15%), ne kūrybiški aprašymai. Temperature 0.3 = faktinis, tikslus tonas. Jei būtų 0.8-1.0, DI galėtų \\\"kurti\\\" skaičius arba per daug kūrybiškai aprašyti tendencijas."
+      },
+      {
+        "id": 19,
+        "question": "Kada naudoti Presence penalty?",
+        "options": ["Kai reikia daugiau naujų temų", "Kai reikia daugiau pasikartojimų", "Kai reikia trumpesnio atsakymo", "Kai reikia ilgesnio atsakymo"],
+        "correct": 0,
+        "explanation": "Presence penalty (0.0-0.3) skatina naudoti naujas temas/raktažodžius, ne tik tuos, kurie jau buvo paminėti. Pavyzdys: jei analizėje jau buvo \\\"pardavimai\\\", \\\"klientai\\\", Presence penalty 0.3 paskatintų pridėti \\\"konversija\\\", \\\"retention\\\" – naujas aspektas."
+      },
+      {
+        "id": 20,
+        "question": "Kuris blokas yra neprivalomas, bet labai naudingas sudėtingoms užduotims?",
+        "options": ["Meta", "Input", "Advanced Parameters", "Output"],
+        "correct": 2,
+        "explanation": "Advanced Parameters yra neprivalomas, bet labai naudingas blokas. Jis leidžia tiksliai kontroliuoti DI elgesį: Temperature (kūrybiškumas), Reasoning depth (analizės gylis), Max tokens (ilgis), penalties (pasikartojimai). Meta, Input, Output yra privalomi minimaliam promptui."
       }
     ]
   }

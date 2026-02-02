@@ -1,4 +1,4 @@
-# 🗺️ Prompt Anatomija - Plėtros Roadmap
+# 🗺️ Promptų anatomija - Plėtros Roadmap
 
 > **Data:** 2026-02-01  
 > **Versija:** 2.0.0  
@@ -518,7 +518,7 @@
 
 <div align="center">
 
-**Prompt Anatomija** - Realistinis Plėtros Planas
+**Promptų anatomija** - Realistinis Plėtros Planas
 
 *Sukurta 2026-02-01 | Versija 2.0.0*
 

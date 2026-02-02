@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, ArrowLeft, ArrowRight, Trophy } from 'lucide-react';
 import { Progress } from '../utils/progress';
-import modulesData from '../data/modules.json';
+import { getModulesSync, preloadModules } from '../data/modulesLoader';
+import { LoadingSpinner } from './ui';
 import SlideContent from './SlideContent';
 import CircularProgress from './CircularProgress';
 
@@ -15,7 +16,7 @@ interface ModuleViewProps {
   totalModules: number;
 }
 
-export default function ModuleView({
+function ModuleView({
   moduleId,
   onBack,
   onComplete,
@@ -24,15 +25,44 @@ export default function ModuleView({
   progress,
   totalModules,
 }: ModuleViewProps) {
-  const module = modulesData.modules.find((m) => m.id === moduleId);
+  // Get modules data (synchronously if already loaded)
+  const modules = getModulesSync();
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showModuleComplete, setShowModuleComplete] = useState(false);
 
-  if (!module) return null;
+  // Memoize module lookup
+  const module = useMemo(() => 
+    modules?.find((m) => m.id === moduleId),
+    [modules, moduleId]
+  );
 
-  const moduleIndex = modulesData.modules.findIndex(m => m.id === moduleId);
-  const isLastModule = moduleIndex === modulesData.modules.length - 1;
-  const isModuleCompleted = progress.completedModules.includes(moduleId);
+  // Memoize module index and related calculations
+  const moduleIndex = useMemo(() => 
+    modules?.findIndex(m => m.id === moduleId) ?? -1,
+    [modules, moduleId]
+  );
+
+  const isLastModule = useMemo(() => 
+    moduleIndex >= 0 && moduleIndex === (modules?.length ?? 0) - 1,
+    [moduleIndex, modules?.length]
+  );
+
+  // Show loading if modules not yet loaded or module not found
+  if (!modules || !module) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <LoadingSpinner size="lg" text="Kraunama..." />
+      </div>
+    );
+  }
+
+  const isModuleCompleted = useMemo(() => 
+    progress.completedModules.includes(moduleId),
+    [progress.completedModules, moduleId]
+  );
+
+  if (!module) return null;
 
   const nextSlide = useCallback(() => {
     if (currentSlide < module.slides.length - 1) {
@@ -59,6 +89,23 @@ export default function ModuleView({
     setCurrentSlide(0);
     setShowModuleComplete(false);
   }, [moduleId]);
+
+  // Preload next module and slide components in background
+  useEffect(() => {
+    if (!modules) return;
+
+    // Preload modules data
+    preloadModules();
+
+    // Preload next module's slide components when current module is loaded
+    const nextModuleIndex = moduleIndex + 1;
+    if (nextModuleIndex < modules.length) {
+      // Preload SlideContent components in background
+      import('./SlideContent').then(() => {
+        // Components are now ready for next module
+      });
+    }
+  }, [moduleId, moduleIndex, modules]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -90,16 +137,32 @@ export default function ModuleView({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide, onBack, showModuleComplete]);
 
-  const handleTaskComplete = (taskId: number) => {
+  const handleTaskComplete = useCallback((taskId: number) => {
     if (!progress.completedTasks[moduleId]?.includes(taskId)) {
       onTaskComplete(moduleId, taskId);
     }
-  };
+  }, [progress.completedTasks, moduleId, onTaskComplete]);
 
-  const currentSlideData = module.slides[currentSlide];
-  const isLastSlide = currentSlide === module.slides.length - 1;
-  const isFirstSlide = currentSlide === 0;
-  const slideProgress = ((currentSlide + 1) / module.slides.length) * 100;
+  // Memoize current slide data and related calculations
+  const currentSlideData = useMemo(() => 
+    module.slides[currentSlide],
+    [module.slides, currentSlide]
+  );
+
+  const isLastSlide = useMemo(() => 
+    currentSlide === module.slides.length - 1,
+    [currentSlide, module.slides.length]
+  );
+
+  const isFirstSlide = useMemo(() => 
+    currentSlide === 0,
+    [currentSlide]
+  );
+
+  const slideProgress = useMemo(() => 
+    ((currentSlide + 1) / module.slides.length) * 100,
+    [currentSlide, module.slides.length]
+  );
 
   // Module complete screen
   if (showModuleComplete) {
@@ -174,10 +237,10 @@ export default function ModuleView({
           {!isLastModule && (
             <div className="mt-8 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-xl border border-brand-200 dark:border-brand-800">
               <p className="text-sm text-brand-700 dark:text-brand-300 font-medium">
-                Kitas: {modulesData.modules[moduleIndex + 1]?.title}
+                Kitas: {modules[moduleIndex + 1]?.title}
               </p>
               <p className="text-xs text-brand-600 dark:text-brand-400 mt-1">
-                {modulesData.modules[moduleIndex + 1]?.subtitle}
+                {modules[moduleIndex + 1]?.subtitle}
               </p>
             </div>
           )}
@@ -264,7 +327,7 @@ export default function ModuleView({
         <div className="flex items-center justify-between gap-4">
           {/* Module indicator */}
           <div className="hidden sm:flex items-center gap-2">
-            {modulesData.modules.map((m, idx) => (
+            {modules.map((m, idx) => (
               <div
                 key={m.id}
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
@@ -334,3 +397,24 @@ export default function ModuleView({
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+// Custom comparison to handle early return case
+export default memo(ModuleView, (prevProps, nextProps) => {
+  // Re-render if moduleId changes
+  if (prevProps.moduleId !== nextProps.moduleId) return false;
+  
+  // Re-render if progress changes (completed modules or tasks)
+  if (
+    prevProps.progress.completedModules.length !== nextProps.progress.completedModules.length ||
+    JSON.stringify(prevProps.progress.completedTasks) !== JSON.stringify(nextProps.progress.completedTasks)
+  ) {
+    return false;
+  }
+  
+  // Re-render if totalModules changes
+  if (prevProps.totalModules !== nextProps.totalModules) return false;
+  
+  // Don't re-render if only callback references changed (they should be stable)
+  return true;
+});

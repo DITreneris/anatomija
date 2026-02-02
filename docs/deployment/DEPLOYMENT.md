@@ -5,3 +5,7 @@ Detalios instrukcijos yra `README.md`:
 - Vercel / Netlify
 - Lokalus testavimas
 - Base path
+
+---
+
+**Pastaba:** Šis failas yra perkeltas į `docs/deployment/` katalogą. Aktualiausios instrukcijos yra `README.md` faile.

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ArrowLeft, CheckCircle, XCircle, Trophy, RefreshCw, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Progress } from '../utils/progress';
-import modulesData from '../data/modules.json';
+import { getModulesDataSync } from '../data/modulesLoader';
+import { LoadingSpinner } from './ui';
 import CircularProgress from './CircularProgress';
 
 interface QuizPageProps {
@@ -16,16 +17,31 @@ export default function QuizPage({
   progress,
   onQuizComplete,
 }: QuizPageProps) {
+  // Get modules data (synchronously if already loaded)
+  const modulesData = getModulesDataSync();
+
   // progress is available for showing completed modules count or quiz history
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
 
-  const questions = modulesData.quiz.questions;
+  // Memoize questions
+  const questions = useMemo(() => modulesData?.quiz.questions || [], [modulesData]);
+
+  // Show loading if modules not yet loaded
+  if (!modulesData) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <LoadingSpinner size="lg" text="Kraunama..." />
+      </div>
+    );
+  }
 
   const handleAnswerSelect = (questionId: number, answerIndex: number) => {
     setSelectedAnswers((prev) => ({ ...prev, [questionId]: answerIndex }));
+    setShowExplanation(true);
   };
 
   const handleSubmit = () => {
@@ -65,6 +81,7 @@ export default function QuizPage({
     setCurrentQuestion(0);
     setSelectedAnswers({});
     setShowResults(false);
+    setShowExplanation(false);
     setScore(0);
   };
 
@@ -147,6 +164,22 @@ export default function QuizPage({
                       </div>
                     ))}
                   </div>
+                  {/* Explanation in results */}
+                  {q.explanation && (
+                    <div className={`mt-4 p-3 rounded-lg border-l-4 ${
+                      isCorrect
+                        ? 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-500'
+                        : 'bg-amber-100 dark:bg-amber-900/30 border-amber-500'
+                    }`}>
+                      <p className={`text-sm ${
+                        isCorrect
+                          ? 'text-emerald-800 dark:text-emerald-200'
+                          : 'text-amber-800 dark:text-amber-200'
+                      }`}>
+                        <strong>{isCorrect ? '✓ Paaiškinimas:' : '✗ Paaiškinimas:'}</strong> {q.explanation}
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -236,28 +269,40 @@ export default function QuizPage({
         <div className="space-y-3">
           {currentQ.options.map((option, idx) => {
             const isSelected = selectedAnswers[currentQ.id] === idx;
+            const isCorrect = idx === currentQ.correct;
             return (
               <button
                 key={idx}
                 onClick={() => handleAnswerSelect(currentQ.id, idx)}
                 className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-200 ${
                   isSelected
-                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30 shadow-lg scale-[1.02]'
+                    ? isCorrect
+                      ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 shadow-lg scale-[1.02]'
+                      : 'border-rose-500 bg-rose-50 dark:bg-rose-900/30 shadow-lg scale-[1.02]'
                     : 'border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700 hover:bg-brand-50/50 dark:hover:bg-brand-900/10 bg-white dark:bg-gray-800'
                 } focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2`}
                 aria-label={`Pasirinkti atsakymą: ${option}`}
                 aria-pressed={isSelected}
+                disabled={showExplanation}
               >
                 <div className="flex items-center gap-4">
                   <div
                     className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
                       isSelected
-                        ? 'border-brand-500 bg-brand-500'
+                        ? isCorrect
+                          ? 'border-emerald-500 bg-emerald-500'
+                          : 'border-rose-500 bg-rose-500'
                         : 'border-gray-300 dark:border-gray-600'
                     }`}
                   >
                     {isSelected && (
-                      <div className="w-3 h-3 rounded-full bg-white animate-scale-in" />
+                      <>
+                        {isCorrect ? (
+                          <CheckCircle className="w-4 h-4 text-white" />
+                        ) : (
+                          <XCircle className="w-4 h-4 text-white" />
+                        )}
+                      </>
                     )}
                   </div>
                   <span className="text-gray-800 dark:text-gray-200 font-medium">{option}</span>
@@ -266,6 +311,39 @@ export default function QuizPage({
             );
           })}
         </div>
+
+        {/* Explanation */}
+        {showExplanation && currentQ.explanation && (
+          <div className={`mt-6 p-4 rounded-xl border-l-4 ${
+            selectedAnswers[currentQ.id] === currentQ.correct
+              ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500'
+              : 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+          } animate-fade-in`}>
+            <div className="flex items-start gap-3">
+              {selectedAnswers[currentQ.id] === currentQ.correct ? (
+                <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+              ) : (
+                <XCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+              )}
+              <div>
+                <p className={`text-sm font-semibold mb-1 ${
+                  selectedAnswers[currentQ.id] === currentQ.correct
+                    ? 'text-emerald-800 dark:text-emerald-200'
+                    : 'text-amber-800 dark:text-amber-200'
+                }`}>
+                  {selectedAnswers[currentQ.id] === currentQ.correct ? '✓ Teisingai!' : '✗ Neteisingai.'}
+                </p>
+                <p className={`text-sm ${
+                  selectedAnswers[currentQ.id] === currentQ.correct
+                    ? 'text-emerald-700 dark:text-emerald-300'
+                    : 'text-amber-700 dark:text-amber-300'
+                }`}>
+                  {currentQ.explanation}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Navigation */}
         <div className="mt-8 flex justify-between">
@@ -290,7 +368,10 @@ export default function QuizPage({
             </button>
           ) : (
             <button
-              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+              onClick={() => {
+                setCurrentQuestion(currentQuestion + 1);
+                setShowExplanation(false);
+              }}
               disabled={!hasAnswer}
               className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               aria-label="Kitas klausimas"
