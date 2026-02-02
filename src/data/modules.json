@@ -75,8 +75,8 @@
                 "note": "Ribota kontrolė, mažai struktūros."
               },
               {
-                "title": "2) Workflow dokumentams ir darbui",
-                "subtitle": "DI tampa darbo įrankiu, o ne pašnekovu.",
+                "title": "2) Workflow naudojimas (procesams)",
+                "subtitle": "Tinka dokumentų generavimui ir užduotims.",
                 "steps": ["Input (promptas + duomenys)", "LLM", "Output (analizė/dokumentas/planas)"],
                 "note": "Aiškūs reikalavimai, formatas ir rezultatas."
               }

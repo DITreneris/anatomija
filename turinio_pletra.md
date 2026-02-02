@@ -86,8 +86,8 @@
 **Tikslas:** Parodyti skirtumą tarp paprasto pokalbio ir darbo workflow.
 
 **Turinys:**
-- Schema 1: Input (klausimas) → LLM → Output (atsakymas)
-- Schema 2: Input (promptas + duomenys) → LLM → Output (analizė/dokumentas/planas)
+- Schema 1: Basic naudojimas (pokalbis) - Input (klausimas) → LLM → Output (atsakymas)
+- Schema 2: Workflow naudojimas (procesams) - Input (promptas + duomenys) → LLM → Output (analizė/dokumentas/planas)
 - 2 kopijuojami pavyzdžiai (basic naudojimas + workflow naudojimas)
 
 ---
