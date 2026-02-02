@@ -83,11 +83,11 @@
             ],
             "examples": [
               {
-                "title": "Basic (pokalbis, su humoru)",
-                "prompt": "Paaiškink, kas yra prompt inžinerija, trumpai ir su švelniu humoru."
+                "title": "Basic naudojimas",
+                "prompt": "Paaiškink, kas yra prompt inžinerija, trumpai ir aiškiai."
               },
               {
-                "title": "Detaliau (liepiantis)",
+                "title": "Workflow naudojimas",
                 "prompt": "Sukurk 5 punktų paaiškinimą apie prompt inžineriją. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių."
               }
             ]

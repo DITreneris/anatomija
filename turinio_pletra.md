@@ -88,7 +88,7 @@
 **Turinys:**
 - Schema 1: Input (klausimas) → LLM → Output (atsakymas)
 - Schema 2: Input (promptas + duomenys) → LLM → Output (analizė/dokumentas/planas)
-- 2 kopijuojami pavyzdžiai (basic su humoru + detalesnis liepiantis)
+- 2 kopijuojami pavyzdžiai (basic naudojimas + workflow naudojimas)
 
 ---
 
