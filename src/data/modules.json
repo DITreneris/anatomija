@@ -69,7 +69,7 @@
             "intro": "Workflow – tai aiški veiksmų seka, kaip informacija juda nuo įvedimo iki rezultato.",
             "diagrams": [
               {
-                "title": "1) Basic naudojimas (pokalbis)",
+                "title": "1) Basic naudojimas (pokalbiams)",
                 "subtitle": "Tinka idėjoms, paaiškinimams, diskusijoms.",
                 "steps": ["Input (klausimas)", "LLM", "Output (atsakymas)"],
                 "note": "Ribota kontrolė, mažai struktūros."
