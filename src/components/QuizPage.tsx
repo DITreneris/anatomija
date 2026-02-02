@@ -27,8 +27,47 @@ export default function QuizPage({
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
 
-  // Memoize questions
-  const questions = useMemo(() => modulesData?.quiz.questions || [], [modulesData]);
+  // Shuffle function using Fisher-Yates algorithm
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Shuffle questions and options, preserving correct answer index
+  const questions = useMemo(() => {
+    if (!modulesData?.quiz.questions) return [];
+    
+    const originalQuestions = modulesData.quiz.questions;
+    
+    // Shuffle questions order
+    const shuffledQuestions = shuffleArray(originalQuestions);
+    
+    // Shuffle options for each question and update correct index
+    return shuffledQuestions.map((q) => {
+      const originalOptions = [...q.options];
+      const originalCorrect = q.correct;
+      
+      // Create array with indices
+      const indices = originalOptions.map((_, idx) => idx);
+      const shuffledIndices = shuffleArray(indices);
+      
+      // Map original correct index to new shuffled index
+      const newCorrectIndex = shuffledIndices.indexOf(originalCorrect);
+      
+      // Create shuffled options array
+      const shuffledOptions = shuffledIndices.map((idx) => originalOptions[idx]);
+      
+      return {
+        ...q,
+        options: shuffledOptions,
+        correct: newCorrectIndex,
+      };
+    });
+  }, [modulesData]);
 
   // Show loading if modules not yet loaded
   if (!modulesData) {

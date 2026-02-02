@@ -145,7 +145,7 @@ function App() {
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                Prompt <span className="gradient-text">Anatomija</span>
+                Promptų <span className="gradient-text">anatomija</span>
               </h1>
             </div>
             
