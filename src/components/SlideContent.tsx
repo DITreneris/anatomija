@@ -453,7 +453,7 @@ function WorkflowSummarySlide({ content }: { content?: WorkflowSummaryContent })
               <p className="text-sm text-gray-600 dark:text-gray-400">{diagram.subtitle}</p>
             </div>
             
-            {/* Vizualizacijos paveikslėlis - PIRMAS, prieš tekstinę diagramą */}
+            {/* Vizualizacijos paveikslėlis */}
             {diagramImages[idx] && (
               <div className="mb-4 bg-white dark:bg-gray-900 rounded-xl p-3 border-2 border-brand-200 dark:border-brand-800 overflow-hidden">
                 <img 
@@ -472,24 +472,11 @@ function WorkflowSummarySlide({ content }: { content?: WorkflowSummaryContent })
                 />
               </div>
             )}
-
-            {/* Tekstinė diagrama (kaip papildoma informacija) - ANTRA, po paveikslėliu */}
-            <div className="flex flex-wrap items-center gap-2 bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-3">
-              {diagram.steps.map((step, stepIdx) => (
-                <div key={stepIdx} className="flex items-center gap-2">
-                  <div className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                    {step.toLowerCase().includes('input') && <MessageSquare className="w-4 h-4 text-brand-600 dark:text-brand-300" />}
-                    {step.toLowerCase().includes('llm') && <Sparkles className="w-4 h-4 text-accent-600 dark:text-accent-300" />}
-                    {step.toLowerCase().includes('duomenys') && <Database className="w-4 h-4 text-brand-600 dark:text-brand-300" />}
-                    {!step.toLowerCase().includes('input') && !step.toLowerCase().includes('llm') && !step.toLowerCase().includes('duomenys') && <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-300" />}
-                    {step}
-                  </div>
-                  {stepIdx < diagram.steps.length - 1 && <span className="text-gray-400">→</span>}
-                </div>
-              ))}
-            </div>
             
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 italic">{diagram.note}</p>
+            {/* Pastaba - tik svarbi informacija, kurią piešinukas neparodo */}
+            {diagram.note && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 italic">{diagram.note}</p>
+            )}
           </div>
         ))}
       </div>
