@@ -48,22 +48,47 @@
 | 4️⃣ | Loading/Error states | ✅ Baigta | `src/components/ui/*` |
 | 5️⃣ | TypeScript types | ✅ Baigta | `src/types/modules.ts` |
 
-## 🔄 Kitas Žingsnis
+## 🔄 MVP - Likę Privalomi Darbai
 
-**Prioritetas:** SEO optimizacija + Monitoring (Sentry)
+> **Pastaba:** MVP fokusas - tik tai, kas būtina stabilumui ir patikimumui. Kiti dalykai (SEO, Monitoring, PWA, etc.) gali būti vėliau.
 
-### Artimiausios Užduotys (pagal ROADMAP.md Sprint 2)
+### ✅ MVP Statusas - Visi Privalomi Darbai Užbaigti!
 
-1. **SEO optimizacija** 🟡 VIDUTINIS
-   - React Helmet arba react-helmet-async
-   - Meta tags (title, description, keywords)
-   - Open Graph tags
-   - Structured data (JSON-LD)
-   - Sitemap generavimas
-   - robots.txt
+**Patikrinta:**
+- ✅ Testų scriptai sutampa su dokumentacija (`test:run` yra package.json)
+- ✅ Visi kritiniai funkcionalumai veikia
+- ✅ Error handling implementuotas
+- ✅ Testų infrastruktūra veikia
+- ✅ Dokumentacija sinchronizuota
 
-2. **Produkcijos monitoring** 🟡 VIDUTINIS
-   - Sentry error tracking integracija
-   - Google Analytics 4
-   - Performance monitoring (Web Vitals)
+---
+
+## 📊 MVP Statusas
+
+### ✅ Kas Jau Veikia (MVP Ready)
+- ✅ TypeScript strict mode, 0 linting klaidų
+- ✅ Error Boundary, Loading states, Lazy loading
+- ✅ Testų infrastruktūra (21 unit testas, 5+ integration testai)
+- ✅ localStorage validacija ir versijavimas
+- ✅ Performance optimizacijos (code splitting, memoization)
+- ✅ Modernus UX/UI (dark mode, responsive, keyboard navigation)
+- ✅ Pagrindinis funkcionalumas (3 moduliai, testas, praktika)
+- ✅ Dokumentacija sinchronizuota su kodu
+
+---
+
+## 📝 Pastaba apie Kitus Dalykus
+
+**Ne-MVP dalykai (gali būti vėliau):**
+- SEO optimizacija (react-helmet-async) - ne kritinis MVP
+- Monitoring (Sentry, GA4) - ne kritinis MVP
+- PWA funkcionalumas - ne kritinis MVP
+- Eksportas/Importas - ne kritinis MVP
+- Sertifikato generavimas - ne kritinis MVP
+- SlideContent refactoring - veikia, nors ir didelis
+- Accessibility audit - gali būti vėliau
+- DI grįžtamasis ryšys - ne MVP
+- Multi-language - ne MVP
+
+**Išsami analizė visų problemų:** Žr. `CODE_REVIEW_ANALYSIS.md` (ten yra visi dalykai su prioritetais, bet ne visi reikalingi MVP)
 

@@ -65,7 +65,7 @@ export default class ErrorBoundary extends Component<Props, State> {
               Atnaujinti puslapį
             </button>
           </div>
-          {process.env.NODE_ENV === 'development' && this.state.error && (
+          {import.meta.env.DEV && this.state.error && (
             <details className="mt-6 text-left w-full max-w-lg">
               <summary className="text-xs text-gray-500 dark:text-gray-400 cursor-pointer">
                 Techninė informacija

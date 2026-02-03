@@ -8,7 +8,7 @@ const setupLocalStorage = () => {
   if (typeof localStorage === 'undefined') {
     const store: Record<string, string> = {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (global as any).localStorage = {
+    (globalThis as any).localStorage = {
       getItem: (key: string) => store[key] || null,
       setItem: (key: string, value: string) => {
         store[key] = value.toString();
@@ -34,7 +34,7 @@ const setupLocalStorage = () => {
 const setupStorage = () => {
   if (typeof Storage === 'undefined') {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (global as any).Storage = class Storage {
+    (globalThis as any).Storage = class Storage {
       private store: Record<string, string> = {};
       getItem(key: string) { return this.store[key] || null; }
       setItem(key: string, value: string) { this.store[key] = value.toString(); }
@@ -202,9 +202,7 @@ describe('useAutoSave', () => {
         localStorage.clear();
       }
       // Restore original Storage methods
-      if (Storage.prototype.setItem) {
-        vi.restoreAllMocks();
-      }
+      vi.restoreAllMocks();
     });
 
     it('should load saved value from localStorage', () => {

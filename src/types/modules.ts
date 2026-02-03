@@ -31,6 +31,7 @@ export interface TaskInstructions {
 export interface PracticalTask {
   title: string;
   placeholder: string;
+  motivation?: string;
   templateLabel?: string;
   template?: string;
   explanation?: string;
@@ -124,6 +125,7 @@ export type SlideType =
   | 'reasoning'
   | 'quality'
   | 'advanced'
+  | 'advanced-2'
   | 'full-example'
   | 'comparison'
   | 'summary'

@@ -12,29 +12,33 @@
 
 ```
 📚 MODULIS 1: "6 Blokų Sistema" (MOKYMASIS) - 25 min
-   ├── 1. Įvadas į Prompt Inžineriją
+   ├── 1. Įvadas į Promptų Inžineriją (su DI įrankiais bloku) ✅
    ├── 2. Ką Reiškia "Promptas"? (apibrėžimai, 3 aspektai) ✅
    ├── 3. Workflow Samprata (2 schemos + 2 promptų pavyzdžiai) ✅
    ├── 4. Pagrindiniai Promptų Tipai (sisteminiai, kontekstiniai, vaidmens) ✅
-   ├── 5. Promptavimo Technikos (6 technikos + kopijuojami pavyzdžiai) ✅
-   ├── 6. Hierarchinė Struktūra (6 blokų apžvalga)
-   ├── 7. 1️⃣ Meta Blokas (rolė, kontekstas, tikslas)
-   ├── 8. 2️⃣ Input Blokas (duomenys, faktai, apribojimai)
-   ├── 9. 3️⃣ Output Blokas (formatas, struktūra, reikalavimai)
-   ├── 10. Mąstymo Modeliai (CoT vs ToT)
-   ├── 11. 4️⃣ Reasoning Blokas (mąstymo seka, logika)
-   ├── 12. 5️⃣ Quality Control (kokybės kriterijai)
-   ├── 13. 6️⃣ Advanced Parameters (temperature, reasoning gylis)
-   ├── 14. Pilnas Prompt Pavyzdys (visi 6 blokai)
-   ├── 15. Prieš vs Po (palyginimas)
-   └── 16. Modulio Santrauka
+   ├── 5. Prompting'o Technikos (6 technikos + kopijuojami pavyzdžiai) ✅
+   ├── 6. Gero Prompto Šablonas (META + INPUT + OUTPUT) ✅
+   ├── 7. Ko jau išmokome? (3→6 blokų perėjimas) ✅
+   ├── 8. Hierarchinė Struktūra (6 blokų apžvalga)
+   ├── 9. 1️⃣ Meta Blokas (rolė, kontekstas, tikslas)
+   ├── 10. 2️⃣ Input Blokas (duomenys, faktai, apribojimai)
+   ├── 11. 3️⃣ Output Blokas (formatas, struktūra, reikalavimai)
+   ├── 12. Mąstymo Modeliai (CoT vs ToT)
+   ├── 13. 4️⃣ Reasoning Blokas (mąstymo seka, logika)
+   ├── 14. 5️⃣ Quality Control (kokybės kriterijai)
+   ├── 15. 6️⃣ Advanced Parameters (temperature, reasoning gylis)
+   ├── 16. 6️⃣ Advanced Parameters (II) (atsakymo kontrolė) ✅
+   ├── 17. Pilnas Prompto Pavyzdys (visi 6 blokai)
+   ├── 18. Prieš vs Po (palyginimas)
+   └── 19. Modulio Santrauka
    
 📝 MODULIS 2: "Žinių Patikrinimas" (TESTAS) - 10 min
-   ├── Testo Įvadas
+   ├── Testo Įvadas (12 klausimų apie 6 blokus ir workflow)
    ├── Meta Blokas – Testas (2 klausimai)
    ├── Input ir Output – Testas (3 klausimai)
    ├── Reasoning ir Quality – Testas (2 klausimai)
    ├── Advanced ir Bendra – Testas (3 klausimai)
+   ├── Workflow ir Technikos – Testas (2 klausimai) ✅
    └── Testo Rezultatai
    
 💼 MODULIS 3: "Praktinis Pritaikymas" (PRAKTIKA) - 20 min
@@ -56,7 +60,7 @@
 
 **Turinys:**
 - **Promptas** – tekstinė instrukcija ar klausimas DI modeliui
-- **Prompt inžinerija** – menas ir mokslas efektyviai bendrauti su DI
+- **Promptų inžinerija** – menas ir mokslas efektyviai bendrauti su DI
 
 **3 Pagrindiniai Aspektai:**
 | Aspektas | Aprašymas |
@@ -65,7 +69,7 @@
 | 🔵 Kalbos išmanymas | Sintaksė, semantika, žodžių parinkimas |
 | 🟡 Psichologija ir kūrybiškumas | Kūrybinė motyvacija, kritinis mąstymas |
 
-**Išvada (inžinerinis požiūris):** Prompt inžinerija = Specifikacija + Struktūra + Iteracija
+**Išvada (inžinerinis požiūris):** Promptų inžinerija = Specifikacija + Struktūra + Iteracija
 
 **Kodėl tai inžinerija:**
 - **Specifikacija** – aiškus tikslas, auditorija, reikalavimai
@@ -421,38 +425,98 @@ REASONING:
 
 ---
 
-## 📚 Modulis 1: 6 Blokų Sistema (16 Skaidrių)
+## 📚 Modulis 1: 6 Blokų Sistema (18 Skaidrių)
 
-### Skaidrė 1: Įvadas
-- Kas yra prompt inžinerija?
-- Kodėl struktūra svarbi?
-- Ką išmoksite (6 blokai)
-- Mokymo trukmė (~45 min viso)
+### Skaidrė 1: Įvadas į Promptų Inžineriją ✅
+**Tikslas:** Supažindinti su mokymu, jo tikslais ir DI įrankiais.
+
+**Turinys:**
+- **Apie šį mokymą** – aprašymas, kodėl struktūra svarbi
+- **🛠️ Kokius DI įrankius naudoti?** – blokas su 5 įrankiais:
+  - ChatGPT (OpenAI) – https://chat.openai.com
+  - Claude (Anthropic) – https://claude.ai
+  - Gemini (Google) – https://gemini.google.com
+  - Copilot (Microsoft) – https://copilot.microsoft.com
+  - Grok (xAI) – https://grok.x.ai
+  - Pastaba: Mokymuose dėmesys skiriamas promptų struktūrai, todėl tie patys principai veikia skirtinguose įrankiuose
+- **Po šio mokymo galėsite:** (3 punktai su checkmarks)
+- **Mokymo trukmė:** 3 moduliai, praktinės užduotys, ~45 minučių
+- **Praktinė užduotis:** Pagalvokite apie vieną verslo užduotį, kurią norėtumėte automatizuoti ar pagerinti naudojant DI
 
 ### Skaidrė 2: Apibrėžimai ✅
 - Kas yra promptas?
-- Prompt inžinerija = Specifikacija + Struktūra + Iteracija
+- Promptų inžinerija = Specifikacija + Struktūra + Iteracija
 - 3 aspektai (inžinerinis požiūris)
 
 ### Skaidrė 3: Workflow Samprata ✅
+**ID:** 15 (kode)
 - 2 schemos (pokalbis vs dokumentų workflow)
 - 2 kopijuojami pavyzdžiai (basic + liepiantis)
 
-### Skaidrė 4: Promptų Tipai ✅
+### Skaidrė 4: Pagrindiniai Promptų Tipai ✅
+**ID:** 3 (kode)
 - Sisteminiai promptai
 - Kontekstiniai promptai
 - Vaidmens promptai
 - Praktinis patarimas: kombinuokite visus tris
 
-### Skaidrė 5: Promptavimo Technikos ✅
+### Skaidrė 5: Prompting'o Technikos ✅
+**ID:** 14 (kode)
 - 6 technikos su kopijuojamais pavyzdžiais
 
-### Skaidrė 6: Hierarchinė Struktūra
+### Skaidrė 6: Gero Prompto Šablonas ✅
+**ID:** 16 (kode)
+- META + INPUT + OUTPUT šablonas
+- Kopijuojamas pavyzdys
+
+### Skaidrė 7: Ko jau išmokome? ✅
+**ID:** 17 (kode)
+- Pereiname nuo 3 blokų (META + INPUT + OUTPUT) prie 6 blokų
+- Pridedame Reasoning, Quality ir Advanced – tikrinimui ir stabilumui
+
+### Skaidrė 8: Hierarchinė Struktūra
+**ID:** 4 (kode)
 - 6 blokų piramidė (nuo svarbiausio)
 - Kiekvieno bloko prioritetas
 - Trumpi apibūdinimai kiekvienam blokui
 
-### Skaidrės 7-12: Kiekvienas Blokas
+### Skaidrės 9-11: Pagrindiniai 3 Blokai
+**ID:** 5, 6, 7 (kode)
+
+**Skaidrė 9: 1️⃣ Meta Blokas**
+- Rolė, kontekstas ir tikslas – kas esate ir ką darote?
+
+**Skaidrė 10: 2️⃣ Input Blokas**
+- Faktai, duomenys ir apribojimai – ką turite?
+
+**Skaidrė 11: 3️⃣ Output Blokas**
+- Formatas ir struktūra – ko tikitės?
+
+### Skaidrė 12: Mąstymo Modeliai
+**ID:** 8 (kode)
+- CoT vs ToT – kaip valdoma DI sprendimo logika?
+
+### Skaidrės 13-15: Papildomi 3 Blokai
+**ID:** 9, 10, 11 (kode)
+
+**Skaidrė 13: 4️⃣ Reasoning Blokas**
+- Mąstymo logika – kaip DI turi mąstyti?
+
+**Skaidrė 14: 5️⃣ Quality Control Blokas**
+- Kokybės kriterijai – kaip patikrinti?
+
+**Skaidrė 15: 6️⃣ Advanced Parameters**
+- Pažangūs parametrai – kaip tiksliai kontroliuoti?
+
+### Skaidrė 16: 6️⃣ Advanced Parameters (II) ✅
+**ID:** 18 (kode)
+- Atsakymo kontrolė – ilgis, fokusas, pasikartojimai
+- Frequency penalty, Presence penalty, Max tokens, Top-p parametrai
+
+### Skaidrės 17-19: Pavyzdžiai ir Santrauka
+
+**Skaidrė 17: Pilnas Prompto Pavyzdys**
+**ID:** 12 (kode)
 Kiekviena skaidrė turi:
 - **Pagrindinį klausimą** (pvz., "Kas esate ir ką darote?")
 - **Apibrėžimą** (kas tai yra)
@@ -470,17 +534,17 @@ QUALITY: ✓ [kriterijus] ✓ [kriterijus] ✓ [kriterijus]
 ADVANCED: Temperature: [0.2–0.7]. Reasoning: [normal/extended].
 ```
 
-### Skaidrė 14: Pilnas Pavyzdys
-- Q4 Pardavimų Strategija
 - Visi 6 blokai veikia kartu
-- Aiškus kontekstas ir rezultatas
+- Praktinė užduotis: sukurkite savo pilną promptą
 
-### Skaidrė 15: Prieš vs Po
+### Skaidrė 18: Prieš vs Po
+**ID:** 13 (kode)
 - Nestruktūruotas promptas (40% tikslumas)
 - Struktūruotas promptas (85% tikslumas)
 - Rezultatų palyginimas
 
-### Skaidrė 16: Modulio Santrauka
+### Skaidrė 19: Modulio Santrauka
+**ID:** 14 (kode)
 
 **Tikslas:** Apibendrinti visą Modulio 1 turinį ir motyvuoti pereiti prie Modulio 2.
 
@@ -506,7 +570,7 @@ ADVANCED: Temperature: [0.2–0.7]. Reasoning: [normal/extended].
      - Zero-shot - be pavyzdžių
      - Few-shots - su pavyzdžiais
      - Minčių grandinė - žingsniais
-     - Promptų seka - rezultatų grandinimas
+     - Promptų seka - rezultatas tampa promptu
      - Instruktavimas - formatas, tonas
      - Manipuliacija - ko vengti
 
@@ -741,7 +805,7 @@ Sertifikatas → Baigus visus 3 modulius + ≥70% teste
 |-----------|-------------|
 | AI | DI (Dirbtinis Intelektas) |
 | prompt | promptas |
-| prompt engineering | prompt inžinerija |
+| prompt engineering | promptų inžinerija |
 | input | įvestis / duomenys |
 | output | išvestis / rezultatas |
 
@@ -754,7 +818,7 @@ Sertifikatas → Baigus visus 3 modulius + ≥70% teste
 
 ## 📋 Pavyzdžių Biblioteka
 
-### Pilnas Prompt Pavyzdys (Scenarijus 1)
+### Pilnas Prompto Pavyzdys (Scenarijus 1)
 
 ```
 META:

@@ -210,6 +210,73 @@ function IntroSlide() {
         </p>
       </div>
 
+      <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-6 rounded-xl">
+        <h3 className="font-bold text-xl mb-3 text-amber-900 dark:text-amber-100 flex items-center gap-2">
+          <span className="text-2xl">🛠️</span> Kokius DI įrankius naudoti?
+        </h3>
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          Visas šiuose mokymuose pateiktas praktines užduotis galite atlikti naudodami bet kurį modernų generatyvinio dirbtinio intelekto įrankį.
+        </p>
+        <div className="mb-4">
+          <p className="text-sm font-semibold text-amber-900 dark:text-amber-100 mb-2">Galimi įrankiai:</p>
+          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <li className="flex items-start gap-2">
+              <span className="text-amber-600 dark:text-amber-400 mt-1">•</span>
+              <span>
+                <strong>ChatGPT (OpenAI)</strong> –{' '}
+                <a href="https://chat.openai.com" target="_blank" rel="noreferrer" className="text-amber-700 dark:text-amber-300 underline hover:text-amber-900 dark:hover:text-amber-100">
+                  https://chat.openai.com
+                </a>
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-600 dark:text-amber-400 mt-1">•</span>
+              <span>
+                <strong>Claude (Anthropic)</strong> –{' '}
+                <a href="https://claude.ai" target="_blank" rel="noreferrer" className="text-amber-700 dark:text-amber-300 underline hover:text-amber-900 dark:hover:text-amber-100">
+                  https://claude.ai
+                </a>
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-600 dark:text-amber-400 mt-1">•</span>
+              <span>
+                <strong>Gemini (Google)</strong> –{' '}
+                <a href="https://gemini.google.com" target="_blank" rel="noreferrer" className="text-amber-700 dark:text-amber-300 underline hover:text-amber-900 dark:hover:text-amber-100">
+                  https://gemini.google.com
+                </a>
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-600 dark:text-amber-400 mt-1">•</span>
+              <span>
+                <strong>Copilot (Microsoft)</strong> –{' '}
+                <a href="https://copilot.microsoft.com" target="_blank" rel="noreferrer" className="text-amber-700 dark:text-amber-300 underline hover:text-amber-900 dark:hover:text-amber-100">
+                  https://copilot.microsoft.com
+                </a>
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-600 dark:text-amber-400 mt-1">•</span>
+              <span>
+                <strong>Grok (xAI)</strong> –{' '}
+                <a href="https://grok.x.ai" target="_blank" rel="noreferrer" className="text-amber-700 dark:text-amber-300 underline hover:text-amber-900 dark:hover:text-amber-100">
+                  https://grok.x.ai
+                </a>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div className="bg-amber-100 dark:bg-amber-900/30 p-3 rounded-lg border border-amber-200 dark:border-amber-800">
+          <p className="text-sm text-amber-900 dark:text-amber-100 flex items-start gap-2">
+            <span className="text-amber-600 dark:text-amber-400 mt-0.5">🔹</span>
+            <span>
+              <strong>Svarbu:</strong> Mokymuose dėmesys skiriamas promptų struktūrai, todėl tie patys principai veikia skirtinguose įrankiuose.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 gap-4 mt-6">
         <div className="bg-emerald-50 dark:bg-emerald-900/20 p-5 rounded-xl">
           <h4 className="font-bold text-emerald-900 dark:text-emerald-100 mb-3">
@@ -273,7 +340,7 @@ function DefinitionsSlide({ content }: { content?: DefinitionsContent }) {
 
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
         <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-          <span className="text-2xl">🔧</span> Kas yra Prompt Inžinerija?
+          <span className="text-2xl">🔧</span> Kas yra Promptų Inžinerija?
         </h3>
         <p className="text-gray-700 dark:text-gray-300 mb-6">
           {content?.engineeringDefinition}
@@ -324,7 +391,7 @@ function DefinitionsSlide({ content }: { content?: DefinitionsContent }) {
 
       <div className="bg-brand-50 dark:bg-brand-900/20 p-5 rounded-xl space-y-3">
         <p className="text-sm text-brand-800 dark:text-brand-200">
-          <strong>💡 Svarbu:</strong> Prompt inžinerija pirmiausia yra inžinerinis procesas.
+          <strong>💡 Svarbu:</strong> Promptų inžinerija pirmiausia yra inžinerinis procesas.
           Kūrybiškumas padeda, bet branduolys yra aiški specifikacija, struktūra ir iteracija.
         </p>
         {content?.sources && content.sources.length > 0 && (
@@ -408,7 +475,7 @@ function PromptTechniquesSlide({ content }: { content?: PromptTechniquesContent 
   return (
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-brand-50 to-accent-50 dark:from-brand-900/20 dark:to-accent-900/20 p-6 rounded-xl">
-            <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">Promptavimo technikų logika</h3>
+            <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">Prompting&apos;o technikų logika</h3>
         <ol className="text-sm text-gray-700 dark:text-gray-300 space-y-1 list-decimal list-inside">
           {content?.logicSteps.map((step, idx) => <li key={idx}>{step}</li>)}
         </ol>
@@ -1963,7 +2030,7 @@ function FullExampleSlide({ onRenderTask }: { onRenderTask: () => JSX.Element | 
     { num: 3, name: 'OUTPUT', color: 'amber', content: '10 skaidrių: Executive Summary, Dabartinė situacija, Konkurentų analizė, Q4 tikslai, Strategija, Veiksmų planas, Biudžetas, Rizikos, Metrikos, Išvados. Formatas: PowerPoint, lietuvių kalba, verslo tonas.' },
     { num: 4, name: 'REASONING', color: 'emerald', content: '1) Apibrėžti pagrindinę žinutę 2) Analizuoti duomenis 3) Įvertinti variantus 4) Palyginti su konkurentais 5) Nustatyti kompromisus 6) Rekomenduoti strategiją' },
     { num: 5, name: 'QUALITY', color: 'brand', content: '✓ Aiški žinutė ✓ Duomenimis pagrįsta ✓ Realistiškas ROI ✓ Veiksmų planas ✓ Rizikų analizė ✓ Išmatuojami tikslai' },
-    { num: 6, name: 'ADVANCED', color: 'violet', content: 'Temperature: 0.4, Reasoning: Gilus, Kalba: LT, Formatas: Verslo dokumentas' },
+    { num: 6, name: 'ADVANCED', color: 'violet', content: 'Temperature: 0.4. Reasoning: Gilus. Max tokens: [150-300]. Top-p: [0.5-0.8]. Frequency penalty: [0.3-0.5]. Presence penalty: [0.0-0.3]. Kalba: LT. Formatas: Verslo dokumentas.' },
   ];
 
   return (
@@ -1986,6 +2053,21 @@ function FullExampleSlide({ onRenderTask }: { onRenderTask: () => JSX.Element | 
           );
         })}
       </div>
+
+      <TemplateBlock 
+        label="📋 Lengvai kopijuojamas šablonas" 
+        template={`META: Tu esi [vaidmuo su patirtimi]. Tavo tikslas - [rezultatas] [auditorijai], kurie [kontekstas].
+
+INPUT: [Konkretūs duomenys, skaičiai, metrikos]. [Apribojimai, kontekstas, priešistorė].
+
+OUTPUT: [Formatas ir struktūra]. [Kalba, tonas, stilius].
+
+REASONING: 1) [Pirmas žingsnis] 2) [Antras žingsnis] 3) [Trečias žingsnis] 4) [Ketvirtas žingsnis] 5) [Penktas žingsnis] 6) [Šeštas žingsnis].
+
+QUALITY: ✓ [Kriterijus 1] ✓ [Kriterijus 2] ✓ [Kriterijus 3] ✓ [Kriterijus 4] ✓ [Kriterijus 5].
+
+ADVANCED: Temperature: [0.2-0.7]. Reasoning: [normal/extended]. Max tokens: [150-300]. Top-p: [0.5-0.8]. Frequency penalty: [0.3-0.5]. Presence penalty: [0.0-0.3]. Kalba: [LT/EN]. Formatas: [Verslo dokumentas/Prezentacija/Straipsnis].`}
+      />
 
       {onRenderTask()}
     </div>
@@ -2130,7 +2212,7 @@ function SummarySlide() {
             <p>• <strong>Zero-shot</strong> - be pavyzdžių</p>
             <p>• <strong>Few-shots</strong> - su pavyzdžiais</p>
             <p>• <strong>Minčių grandinė</strong> - žingsniais</p>
-            <p>• <strong>Promptų seka</strong> - rezultatų grandinimas</p>
+            <p>• <strong>Promptų seka</strong> - rezultatas tampa promptu</p>
             <p>• <strong>Instruktavimas</strong> - formatas, tonas</p>
             <p>• <strong>Manipuliacija</strong> - ko vengti</p>
           </div>

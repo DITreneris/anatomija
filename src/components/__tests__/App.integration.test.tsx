@@ -6,7 +6,7 @@ const setupLocalStorage = () => {
   if (typeof localStorage === 'undefined') {
     const store: Record<string, string> = {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (global as any).localStorage = {
+    (globalThis as any).localStorage = {
       getItem: (key: string) => store[key] || null,
       setItem: (key: string, value: string) => {
         store[key] = value.toString();

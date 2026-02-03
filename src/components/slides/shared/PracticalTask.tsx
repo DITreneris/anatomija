@@ -73,6 +73,14 @@ export default function PracticalTask({
         </p>
       </div>
 
+      {task.motivation && (
+        <div className="mb-4 bg-gradient-to-r from-brand-50 to-accent-50 dark:from-brand-900/20 dark:to-accent-900/20 border-l-4 border-brand-400 dark:border-brand-600 p-4 rounded-lg">
+          <p className="text-sm font-semibold text-brand-800 dark:text-brand-200">
+            {task.motivation}
+          </p>
+        </div>
+      )}
+
       {task.instructions && (
         <div className="mb-6 bg-white dark:bg-gray-800 border border-brand-200 dark:border-brand-800 rounded-xl overflow-hidden">
           <button

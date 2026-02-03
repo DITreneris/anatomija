@@ -38,6 +38,12 @@ if (typeof window !== 'undefined') {
   });
 }
 
+// Define global type for test environment
+declare global {
+  // eslint-disable-next-line no-var
+  var global: typeof globalThis;
+}
+
 if (typeof global !== 'undefined') {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (global as any).localStorage = localStorageMock;
@@ -68,7 +74,8 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock IntersectionObserver (used by some components)
-global.IntersectionObserver = class IntersectionObserver {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(globalThis as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}

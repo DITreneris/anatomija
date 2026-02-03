@@ -163,6 +163,15 @@ function ModuleView({
     );
   }
 
+  // Show loading if current slide data is not available
+  if (!currentSlideData) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <LoadingSpinner size="lg" text="Kraunama skaidrė..." />
+      </div>
+    );
+  }
+
   // Module complete screen
   if (showModuleComplete) {
     return (

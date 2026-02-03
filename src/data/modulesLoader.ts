@@ -15,7 +15,8 @@ export const loadModules = async (): Promise<ModulesData> => {
 
   if (!modulesPromise) {
     modulesPromise = import('./modules.json').then(m => {
-      modulesCache = m.default;
+      // Type assertion needed because JSON imports don't preserve literal types
+      modulesCache = m.default as ModulesData;
       return modulesCache!;
     }).catch(error => {
       modulesPromise = null; // Reset on error to allow retry

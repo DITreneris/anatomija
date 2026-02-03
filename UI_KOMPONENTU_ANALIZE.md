@@ -6,7 +6,7 @@
 
 | Skaidrė ID | Pavadinimas | Tipas | UI Komponentas | Statusas |
 |------------|-------------|-------|----------------|----------|
-| 1 | Įvadas į Prompt Inžineriją | `intro` | `IntroSlide` | ✅ Sukurtas |
+| 1 | Įvadas į Promptų Inžineriją | `intro` | `IntroSlide` | ✅ Sukurtas |
 | 2 | Ką Reiškia 'Promptas'? | `definitions` | `DefinitionsSlide` | ✅ Sukurtas |
 | 15 | Workflow Samprata | `workflow-summary` | `WorkflowSummarySlide` | ✅ Sukurtas |
 | 3 | Pagrindiniai Promptų Tipai | `prompt-types` | `PromptTypesSlide` | ✅ Sukurtas |
@@ -21,7 +21,7 @@
 | 9 | 4️⃣ Reasoning Blokas | `reasoning` | `ReasoningBlockSlide` | ✅ Sukurtas |
 | 10 | 5️⃣ Quality Control Blokas | `quality` | `QualityBlockSlide` | ✅ Sukurtas |
 | 11 | 6️⃣ Advanced Parameters | `advanced` | `AdvancedBlockSlide` | ✅ Sukurtas |
-| 12 | Pilnas Prompt Pavyzdys | `full-example` | `FullExampleSlide` | ✅ Sukurtas |
+| 12 | Pilnas Prompto Pavyzdys | `full-example` | `FullExampleSlide` | ✅ Sukurtas |
 | 13 | Prieš vs Po | `comparison` | `ComparisonSlide` | ✅ Sukurtas |
 | 14 | Modulio Santrauka | `summary` | `SummarySlide` | ✅ Sukurtas |
 

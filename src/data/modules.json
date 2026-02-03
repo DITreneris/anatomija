@@ -11,7 +11,7 @@
       "slides": [
         {
           "id": 1,
-          "title": "Įvadas į Prompt Inžineriją",
+          "title": "Įvadas į Promptų Inžineriją",
           "subtitle": "Kodėl struktūra svarbi ir ką išmoksite",
           "type": "intro"
         },
@@ -22,7 +22,7 @@
           "type": "definitions",
           "content": {
             "promptDefinition": "Promptas – tai tekstinė instrukcija ar klausimas, kurį pateikiate DI modeliui, siekdami gauti norimą atsakymą. Tai jūsų komunikacijos su dirbtinio intelekto sistema forma.",
-            "engineeringDefinition": "Prompt inžinerija – tai inžinerinis požiūris į DI užklausų kūrimą: aiški specifikacija, struktūra ir iteracinis tobulinimas, siekiant nuspėjamų ir patikimų rezultatų.",
+            "engineeringDefinition": "Promptų inžinerija – tai inžinerinis požiūris į DI užklausų kūrimą: aiški specifikacija, struktūra ir iteracinis tobulinimas, siekiant nuspėjamų ir patikimų rezultatų.",
             "aspects": [
               {
                 "icon": "Target",
@@ -43,7 +43,7 @@
                 "example": "Iteracija: 1) formatas 2) KPI 3) kriterijai. Trumpai – ką tikrinti."
               }
             ],
-            "keyInsight": "Prompt inžinerija = Specifikacija + Struktūra + Iteracija",
+            "keyInsight": "Promptų inžinerija = Specifikacija + Struktūra + Iteracija",
             "sources": [
               {
                 "label": "OpenAI Prompt Engineering Guide",
@@ -84,11 +84,11 @@
             "examples": [
               {
                 "title": "Basic naudojimas",
-                "prompt": "Paaiškink, kas yra prompt inžinerija, trumpai ir aiškiai."
+                "prompt": "Paaiškink, kas yra promptų inžinerija, trumpai ir aiškiai."
               },
               {
                 "title": "Workflow naudojimas",
-                "prompt": "Sukurk 5 punktų paaiškinimą apie prompt inžineriją. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių."
+                "prompt": "Sukurk 5 punktų paaiškinimą apie promptų inžineriją. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių."
               }
             ]
           }
@@ -135,7 +135,7 @@
               "Zero-shot (be konteksto)",
               "Few-shots (su pavyzdžiais)",
               "Minčių grandinė (žingsniai)",
-              "Promptų seka (rezultatų grandinimas)",
+              "Promptų seka (rezultatas tampa promptu)",
               "Instruktavimas (formatas, tonas)",
               "Manipuliacija (ko vengti)"
             ],
@@ -284,9 +284,15 @@
         },
         {
           "id": 12,
-          "title": "Pilnas Prompt Pavyzdys",
+          "title": "Pilnas Prompto Pavyzdys",
           "subtitle": "Visi 6 blokai veikia kartu",
-          "type": "full-example"
+          "type": "full-example",
+          "practicalTask": {
+            "title": "Sukurkite savo pilną promptą",
+            "motivation": "💼 Panaudokite ją savo darbe – sukurkite struktūruotą promptą realiai užduočiai iš savo darbo ar verslo.",
+            "placeholder": "META: Tu esi...\n\nINPUT: Duomenys...\n\nOUTPUT: Formatas...\n\nREASONING: Mąstymo seka...\n\nQUALITY: Kriterijai...\n\nADVANCED: Parametrai...",
+            "explanation": "Naudokite aukščiau pateiktą šabloną ir sukurkite pilną promptą savo realiai užduočiai. Atminkite: kiekvienas blokas papildo kitą ir sukuria aiškų kontekstą DI modeliui."
+          }
         },
         {
           "id": 13,
@@ -843,7 +849,7 @@
         "question": "Kuo išsiskiria workflow užklausa?",
         "options": ["Tik trumpas tekstas", "Aiškus formatas ir rezultatas", "Nėra apribojimų", "Tik kūrybinė užduotis"],
         "correct": 1,
-        "explanation": "Workflow apibrėžia formatą, reikalavimus ir laukiamą rezultatą. Pavyzdys: Basic – \\\"Paaiškink, kas yra prompt inžinerija?\\\" Workflow – \\\"Sukurk 5 punktų paaiškinimą. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių.\\\""
+        "explanation": "Workflow apibrėžia formatą, reikalavimus ir laukiamą rezultatą. Pavyzdys: Basic – \\\"Paaiškink, kas yra promptų inžinerija?\\\" Workflow – \\\"Sukurk 5 punktų paaiškinimą. Formatas: numeruotas sąrašas. Tonas: profesionalus. Maks. 120 žodžių.\\\""
       },
       {
         "id": 12,
