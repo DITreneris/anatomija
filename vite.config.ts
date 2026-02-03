@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: import.meta.env.MODE === 'production' ? '/anatomija/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/anatomija/' : '/',
   server: {
     port: 3000,
     host: '0.0.0.0',
