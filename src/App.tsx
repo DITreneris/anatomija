@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, Suspense, lazy } from 'react';
-import { Home, BookOpen, ClipboardCheck, Moon, Sun, Sparkles } from 'lucide-react';
+import { Home, BookOpen, ClipboardCheck, Moon, Sun, Sparkles, Menu, X } from 'lucide-react';
 import Celebration from './components/Celebration';
 import { ErrorBoundary, LoadingSpinner } from './components/ui';
 import { getProgress, saveProgress, flushProgressSave } from './utils/progress';
@@ -28,6 +28,7 @@ function App() {
     }
     return false;
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Load modules data on mount
   useEffect(() => {
@@ -63,6 +64,32 @@ function App() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
+
+  // Close mobile menu when clicking outside or when page changes
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const handleClickOutside = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest('nav')) {
+          setIsMobileMenuOpen(false);
+        }
+      };
+
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setIsMobileMenuOpen(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+      
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('keydown', handleEscape);
+      };
+    }
+  }, [isMobileMenuOpen]);
 
   const handleModuleSelect = useCallback((moduleId: number) => {
     setSelectedModule(moduleId);
@@ -149,10 +176,11 @@ function App() {
               </h1>
             </div>
             
-            <div className="flex items-center gap-2">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-2">
               {/* Progress indicator */}
               {overallProgress > 0 && (
-                <div className="hidden sm:flex items-center gap-2 mr-4 px-3 py-1.5 bg-brand-50 dark:bg-brand-900/20 rounded-full">
+                <div className="flex items-center gap-2 mr-4 px-3 py-1.5 bg-brand-50 dark:bg-brand-900/20 rounded-full">
                   <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full transition-all duration-500"
@@ -167,15 +195,18 @@ function App() {
               
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
+                className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Perjungti tamsųjį režimą"
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
               
               <button
-                onClick={() => setCurrentPage('home')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                onClick={() => {
+                  setCurrentPage('home');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
                   currentPage === 'home'
                     ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
@@ -184,12 +215,15 @@ function App() {
                 aria-current={currentPage === 'home' ? 'page' : undefined}
               >
                 <Home className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium">Pagrindinis</span>
+                <span className="font-medium">Pagrindinis</span>
               </button>
               
               <button
-                onClick={() => setCurrentPage('modules')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                onClick={() => {
+                  setCurrentPage('modules');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
                   currentPage === 'modules' || currentPage === 'module'
                     ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
@@ -198,12 +232,15 @@ function App() {
                 aria-current={currentPage === 'modules' || currentPage === 'module' ? 'page' : undefined}
               >
                 <BookOpen className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium">Moduliai</span>
+                <span className="font-medium">Moduliai</span>
               </button>
               
               <button
-                onClick={() => setCurrentPage('quiz')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                onClick={() => {
+                  setCurrentPage('quiz');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
                   currentPage === 'quiz'
                     ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
@@ -212,10 +249,102 @@ function App() {
                 aria-current={currentPage === 'quiz' ? 'page' : undefined}
               >
                 <ClipboardCheck className="w-5 h-5" />
-                <span className="hidden sm:inline font-medium">Apklausa</span>
+                <span className="font-medium">Apklausa</span>
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center gap-2">
+              {overallProgress > 0 && (
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-brand-50 dark:bg-brand-900/20 rounded-full">
+                  <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full transition-all duration-500"
+                      style={{ width: `${overallProgress}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-semibold text-brand-600 dark:text-brand-400">
+                    {overallProgress}%
+                  </span>
+                </div>
+              )}
+              
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Perjungti tamsųjį režimą"
+              >
+                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+              
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2.5 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label={isMobileMenuOpen ? 'Uždaryti meniu' : 'Atidaryti meniu'}
+                aria-expanded={isMobileMenuOpen}
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-200/50 dark:border-gray-800 animate-fade-in overflow-hidden">
+              <div className="py-2 space-y-1">
+                <button
+                  onClick={() => {
+                    setCurrentPage('home');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
+                    currentPage === 'home'
+                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
+                  }`}
+                  aria-label="Pagrindinis puslapis"
+                  aria-current={currentPage === 'home' ? 'page' : undefined}
+                >
+                  <Home className="w-5 h-5 flex-shrink-0" />
+                  <span className="font-medium">Pagrindinis</span>
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setCurrentPage('modules');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
+                    currentPage === 'modules' || currentPage === 'module'
+                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
+                  }`}
+                  aria-label="Moduliai"
+                  aria-current={currentPage === 'modules' || currentPage === 'module' ? 'page' : undefined}
+                >
+                  <BookOpen className="w-5 h-5 flex-shrink-0" />
+                  <span className="font-medium">Moduliai</span>
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setCurrentPage('quiz');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
+                    currentPage === 'quiz'
+                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
+                  }`}
+                  aria-label="Apklausa"
+                  aria-current={currentPage === 'quiz' ? 'page' : undefined}
+                >
+                  <ClipboardCheck className="w-5 h-5 flex-shrink-0" />
+                  <span className="font-medium">Apklausa</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 

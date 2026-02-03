@@ -264,23 +264,25 @@ function ModuleView({
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg px-2 py-1"
+            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-h-[44px]"
             aria-label="Grįžti į modulių sąrašą"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="hidden sm:inline">Atgal į modulius</span>
+            <span className="sm:hidden">Atgal</span>
           </button>
           
         </div>
       </div>
 
-      {/* Slide Content with side navigation */}
-      <div className="grid grid-cols-[auto,1fr,auto] items-center gap-4">
-        <div className="flex justify-center">
+      {/* Slide Content with side navigation (desktop) / full width (mobile) */}
+      <div className="grid grid-cols-1 md:grid-cols-[auto,1fr,auto] items-center gap-4">
+        {/* Desktop: Left navigation button */}
+        <div className="hidden md:flex justify-center">
           <button
             onClick={prevSlide}
             disabled={isFirstSlide}
-            className="btn-secondary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-secondary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
             aria-label="Ankstesnė skaidrė"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -315,10 +317,11 @@ function ModuleView({
           />
         </div>
 
-        <div className="flex justify-center">
+        {/* Desktop: Right navigation button */}
+        <div className="hidden md:flex justify-center">
           <button
             onClick={nextSlide}
-            className="btn-primary flex items-center gap-2"
+            className="btn-primary flex items-center gap-2 min-h-[44px]"
             aria-label={isLastSlide ? 'Baigti modulį' : 'Kita skaidrė'}
           >
             <span className="hidden lg:inline">
@@ -329,6 +332,44 @@ function ModuleView({
           </button>
         </div>
       </div>
+
+      {/* Mobile: Bottom Navigation Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/50 dark:border-gray-800 shadow-lg z-30 safe-area-inset-bottom">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
+            <button
+              onClick={prevSlide}
+              disabled={isFirstSlide}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              aria-label="Ankstesnė skaidrė"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span className="font-medium">Atgal</span>
+            </button>
+
+            {/* Slide counter in middle */}
+            <div className="flex flex-col items-center justify-center px-4 min-w-[80px]">
+              <p className="text-xs text-gray-500 dark:text-gray-400">Skaidrė</p>
+              <p className="text-lg font-bold text-brand-600 dark:text-brand-400">
+                {currentSlide + 1}/{module.slides.length}
+              </p>
+            </div>
+
+            <button
+              onClick={nextSlide}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all min-h-[52px] bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/25 hover:from-brand-600 hover:to-brand-700 hover:shadow-xl hover:shadow-brand-500/30 active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              aria-label={isLastSlide ? 'Baigti modulį' : 'Kita skaidrė'}
+            >
+              <span className="font-medium">{isLastSlide ? 'Baigti' : 'Pirmyn'}</span>
+              {!isLastSlide && <ChevronRight className="w-5 h-5" />}
+              {isLastSlide && <CheckCircle className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Spacer for mobile bottom nav */}
+      <div className="md:hidden h-20" />
 
       {/* Progress info moved below content */}
       <div className="mt-6 space-y-3">
@@ -374,7 +415,7 @@ function ModuleView({
           </div>
         </div>
         
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <p className="hidden md:block text-xs text-gray-500 dark:text-gray-400 text-center">
           Naudokite <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs font-mono">←</kbd> <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-xs font-mono">→</kbd> klavišus navigacijai
         </p>
       </div>
@@ -389,9 +430,9 @@ function ModuleView({
                 setCurrentSlide(idx);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 hover:scale-125 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+              className={`w-3 h-3 md:w-3 md:h-3 rounded-full transition-all duration-300 hover:scale-125 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-w-[12px] min-h-[12px] ${
                 idx === currentSlide
-                  ? 'bg-brand-500 w-6 md:w-8 shadow-md'
+                  ? 'bg-brand-500 w-8 md:w-8 shadow-md'
                   : idx < currentSlide
                   ? 'bg-brand-300 dark:bg-brand-700'
                   : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
