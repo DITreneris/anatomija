@@ -14,6 +14,7 @@ import type {
   HierarchyBlock,
   QualityCriteria,
   FullExampleBlock,
+  ProductivityInfographicContent,
 } from '../types/modules';
 
 interface SlideContentProps {
@@ -181,6 +182,9 @@ export default function SlideContent({
 
     case 'practice-summary':
       return <PracticeSummarySlide />;
+
+    case 'infographic':
+      return <ProductivityInfographicSlide content={slide.content as ProductivityInfographicContent} />;
 
     default:
       return (
@@ -2580,6 +2584,144 @@ function PracticeScenarioSlide({ slide, onRenderTask }: { slide: Slide; onRender
       </div>
 
       {onRenderTask()}
+    </div>
+  );
+}
+
+function ProductivityInfographicSlide({ content }: { content?: ProductivityInfographicContent }) {
+  const [showSources, setShowSources] = useState(false);
+  
+  if (!content) return null;
+
+  return (
+    <div className="w-full max-w-7xl mx-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+        <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[550px]">
+          {/* Left Section - Hero */}
+          <div className="lg:col-span-1 bg-gradient-to-br from-brand-600 via-brand-500 to-violet-600 dark:from-brand-700 dark:via-brand-600 dark:to-violet-700 text-white p-6 lg:p-8 flex flex-col justify-center relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 text-8xl opacity-10 select-none">
+              🚀
+            </div>
+            
+            <h2 className="text-xl lg:text-2xl font-black mb-6 leading-tight relative z-10">
+              {content.title}
+            </h2>
+            
+            <div className="mb-6 relative z-10">
+              <div className="text-5xl lg:text-6xl font-black mb-2 drop-shadow-lg">
+                {content.heroNumber}
+              </div>
+              <div className="text-lg lg:text-xl font-bold uppercase tracking-wider">
+                {content.heroText}
+              </div>
+            </div>
+            
+            <div className="mt-auto relative z-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+              <p className="text-xs lg:text-sm leading-relaxed italic">
+                &ldquo;{content.conclusion}&rdquo;
+              </p>
+            </div>
+          </div>
+          
+          {/* Right Section - Cards and Insights */}
+          <div className="lg:col-span-2 p-6 lg:p-8 bg-gray-50 dark:bg-gray-900 flex flex-col">
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              {content.cards.map((card, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md dark:shadow-xl hover:shadow-lg dark:hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 border-t-4 border-brand-500 dark:border-brand-400"
+                >
+                  <div className="text-3xl mb-2">{card.icon}</div>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-3">
+                    {card.title}
+                  </h3>
+                  <div className="space-y-1.5">
+                    {card.stats.map((stat, statIdx) => (
+                      <div
+                        key={statIdx}
+                        className="flex justify-between items-center p-1.5 bg-gray-50 dark:bg-gray-900/50 rounded"
+                      >
+                        <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                          {stat.label}
+                        </span>
+                        <span className="text-base font-black text-brand-600 dark:text-brand-400">
+                          {stat.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Insights Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              {content.insights.map((insight, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white dark:bg-gray-800 p-3 rounded-lg text-center shadow-sm dark:shadow-md border border-gray-200 dark:border-gray-700"
+                >
+                  <div className="text-2xl mb-1">{insight.emoji}</div>
+                  <div className="text-lg font-black text-brand-600 dark:text-brand-400 mb-0.5">
+                    {insight.value}
+                  </div>
+                  <div className="text-[10px] font-semibold text-gray-600 dark:text-gray-400 leading-tight">
+                    {insight.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Sources Section - Collapsible */}
+            {content.sources && content.sources.length > 0 && (
+              <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={() => setShowSources(!showSources)}
+                  className="w-full flex items-center justify-between text-xs font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <span>📚</span> Šaltiniai ({content.sources.length})
+                  </span>
+                  <span className={`transform transition-transform ${showSources ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </button>
+                {showSources && (
+                  <div className="mt-3 space-y-2">
+                    {content.sources.map((source, idx) => (
+                      <div
+                        key={idx}
+                        className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed bg-white dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-700"
+                      >
+                        <div className="font-semibold text-gray-700 dark:text-gray-300 mb-0.5">
+                          {idx + 1}. {source.label}
+                        </div>
+                        {source.journal && (
+                          <div className="text-gray-500 dark:text-gray-500 mb-1">
+                            {source.journal}
+                          </div>
+                        )}
+                        {source.url && (
+                          <a
+                            href={source.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 underline"
+                          >
+                            <span>🔗</span> Atidaryti
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,101 @@
           "type": "intro"
         },
         {
+          "id": 0.5,
+          "title": "Generatyvaus DI Poveikis Produktyvumui",
+          "subtitle": "Statistika ir tyrimų rezultatai",
+          "type": "infographic",
+          "content": {
+            "title": "Generatyvaus DI Poveikis Produktyvumui",
+            "heroNumber": "56%",
+            "heroText": "GREITESNIS DARBAS",
+            "conclusion": "DI perima rutinines užduotis, leidžia dirbti greičiau ir geriau, o pradedantiesiems padeda labiausiai.",
+            "cards": [
+              {
+                "icon": "✍️",
+                "title": "Turinio Rašymas",
+                "stats": [
+                  {
+                    "label": "Greitis",
+                    "value": "+40%"
+                  },
+                  {
+                    "label": "Kokybė",
+                    "value": "+18%"
+                  }
+                ]
+              },
+              {
+                "icon": "💻",
+                "title": "Programavimas",
+                "stats": [
+                  {
+                    "label": "Greitis",
+                    "value": "+56%"
+                  },
+                  {
+                    "label": "Kodas",
+                    "value": "+55%"
+                  }
+                ]
+              },
+              {
+                "icon": "🎧",
+                "title": "Klientų Aptarnavimas",
+                "stats": [
+                  {
+                    "label": "Bendrai",
+                    "value": "+14%"
+                  },
+                  {
+                    "label": "Pradedantys",
+                    "value": "+34%"
+                  }
+                ]
+              }
+            ],
+            "insights": [
+              {
+                "emoji": "⏱",
+                "value": "56%",
+                "text": "Greičiau"
+              },
+              {
+                "emoji": "✨",
+                "value": "18%",
+                "text": "Gerėja Kokybė"
+              },
+              {
+                "emoji": "🚀",
+                "value": "+34%",
+                "text": "Pradedantys"
+              },
+              {
+                "emoji": "🤖",
+                "value": "15%",
+                "text": "Ekspertai"
+              }
+            ],
+            "sources": [
+              {
+                "label": "Shakked Noy & Whitney Zhang, \"Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence\"",
+                "journal": "Science (2023, Vol. 381), MIT",
+                "url": "https://www.science.org/doi/10.1126/science.adh2586"
+              },
+              {
+                "label": "Sida Peng, Aadharsh Kannan, Mert Demirer et al., \"The Impact of AI on Developer Productivity: Evidence from GitHub Copilot\"",
+                "journal": "arXiv (2023), Microsoft Research",
+                "url": "https://arxiv.org/abs/2302.06590"
+              },
+              {
+                "label": "Erik Brynjolfsson, Danielle Li & Lindsey Raymond, \"Generative AI at Work\"",
+                "journal": "NBER (2023), Stanford & MIT",
+                "url": "https://www.nber.org/papers/w31161"
+              }
+            ]
+          }
+        },
+        {
           "id": 2,
           "title": "Ką Reiškia 'Promptas'?",
           "subtitle": "Apibrėžimai ir prompt inžinerijos esmė",

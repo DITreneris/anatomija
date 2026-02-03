@@ -6,13 +6,14 @@
 
 ---
 
-## 📊 Atnaujinta Struktūra (2026-02)
+## 📊 Atnaujinta Struktūra (2026-02-03)
 
 ### ✅ Nauja 3 Modulių Logika
 
 ```
 📚 MODULIS 1: "6 Blokų Sistema" (MOKYMASIS) - 25 min
    ├── 1. Įvadas į Promptų Inžineriją (su DI įrankiais bloku) ✅
+   ├── 1.5. Generatyvaus DI Poveikis Produktyvumui (infografikas su statistika) ✅
    ├── 2. Ką Reiškia "Promptas"? (apibrėžimai, 3 aspektai) ✅
    ├── 3. Workflow Samprata (2 schemos + 2 promptų pavyzdžiai) ✅
    ├── 4. Pagrindiniai Promptų Tipai (sisteminiai, kontekstiniai, vaidmens) ✅
@@ -53,6 +54,25 @@
 ---
 
 ## 🆕 Nauji Skaidrių Turiniai
+
+### Skaidrė 1.5: Generatyvaus DI Poveikis Produktyvumui ✅
+**ID:** 0.5 (kode)
+
+**Tikslas:** Parodyti mokslinius tyrimų rezultatus apie DI produktyvumo poveikį, motyvuoti mokymąsi.
+
+**Turinys:**
+- Infografikas su statistika apie generatyvaus DI poveikį produktyvumui
+- Hero statistika: 56% greitesnis darbas
+- 3 pagrindinės kategorijos su statistikomis
+- 4 insight box'ai su pagrindiniais rezultatais
+- Collapsible šaltinių sekcija su 3 moksliniais tyrimais
+
+**Šaltiniai:**
+1. Shakked Noy & Whitney Zhang - Science (2023), MIT
+2. Sida Peng et al. - arXiv/Microsoft Research (2023)
+3. Erik Brynjolfsson et al. - NBER (2023), Stanford & MIT
+
+**Pastaba:** Ši skaidrė įtraukta po įvado, kad motyvuotų mokymąsi ir parodytų praktinę DI naudos vertę.
 
 ### Skaidrė 2: Ką Reiškia "Promptas"?
 
@@ -442,6 +462,47 @@ REASONING:
 - **Po šio mokymo galėsite:** (3 punktai su checkmarks)
 - **Mokymo trukmė:** 3 moduliai, praktinės užduotys, ~45 minučių
 - **Praktinė užduotis:** Pagalvokite apie vieną verslo užduotį, kurią norėtumėte automatizuoti ar pagerinti naudojant DI
+
+### Skaidrė 1.5: Generatyvaus DI Poveikis Produktyvumui ✅
+**ID:** 0.5 (kode)
+
+**Tikslas:** Parodyti mokslinius tyrimų rezultatus apie DI produktyvumo poveikį, motyvuoti mokymąsi.
+
+**Turinys:**
+- **Infografikas** su statistika apie generatyvaus DI poveikį produktyvumui
+- **Hero statistika:** 56% greitesnis darbas
+- **3 pagrindinės kategorijos:**
+  - **Turinio Rašymas:** +40% greitis, +18% kokybė
+  - **Programavimas:** +56% greitis, +55% kodas
+  - **Klientų Aptarnavimas:** +14% bendrai, +34% pradedantiesiems
+- **4 insight box'ai:**
+  - 56% Greičiau
+  - 18% Gerėja Kokybė
+  - +34% Pradedantys
+  - 15% Ekspertai
+- **Išvada:** "DI perima rutinines užduotis, leidžia dirbti greičiau ir geriau, o pradedantiesiems padeda labiausiai."
+
+**Šaltiniai (moksliniai tyrimai):**
+1. **Shakked Noy & Whitney Zhang**, "Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence"
+   - Science (2023, Vol. 381), MIT
+   - https://www.science.org/doi/10.1126/science.adh2586
+
+2. **Sida Peng, Aadharsh Kannan, Mert Demirer et al.**, "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot"
+   - arXiv (2023), Microsoft Research
+   - https://arxiv.org/abs/2302.06590
+
+3. **Erik Brynjolfsson, Danielle Li & Lindsey Raymond**, "Generative AI at Work"
+   - NBER (2023), Stanford & MIT
+   - https://www.nber.org/papers/w31161
+
+**Techninė implementacija:**
+- Tipas: `infographic`
+- Komponentas: `ProductivityInfographicSlide`
+- Collapsible šaltiniai (pagal nutylėjimą paslėpti)
+- Responsive dizainas su dark mode palaikymu
+- UX optimizacija: kompaktiški insight box'ai, sumažinti padding'ai
+
+**Pastaba:** Ši skaidrė įtraukta po įvado, kad motyvuotų mokymąsi ir parodytų praktinę DI naudos vertę remiantis moksliniais tyrimais.
 
 ### Skaidrė 2: Apibrėžimai ✅
 - Kas yra promptas?

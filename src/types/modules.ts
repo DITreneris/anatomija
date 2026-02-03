@@ -109,6 +109,28 @@ export interface TransitionContent {
   takeaway: string;
 }
 
+export interface ProductivityCard {
+  icon: string;
+  title: string;
+  stats: { label: string; value: string }[];
+}
+
+export interface ProductivityInsight {
+  emoji: string;
+  value: string;
+  text: string;
+}
+
+export interface ProductivityInfographicContent {
+  title: string;
+  heroNumber: string;
+  heroText: string;
+  conclusion: string;
+  cards: ProductivityCard[];
+  insights: ProductivityInsight[];
+  sources?: { label: string; url: string; journal?: string }[];
+}
+
 export type SlideType =
   | 'intro'
   | 'definitions'
@@ -134,7 +156,8 @@ export type SlideType =
   | 'test-results'
   | 'practice-intro'
   | 'practice-scenario'
-  | 'practice-summary';
+  | 'practice-summary'
+  | 'infographic';
 
 export type SlideContent =
   | DefinitionsContent
@@ -142,7 +165,8 @@ export type SlideContent =
   | PromptTechniquesContent
   | WorkflowSummaryContent
   | PromptTemplateContent
-  | TransitionContent;
+  | TransitionContent
+  | ProductivityInfographicContent;
 
 export interface Slide {
   id: number;
