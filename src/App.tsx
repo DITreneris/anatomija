@@ -235,7 +235,9 @@ function App() {
     currentPage === 'glossary' ? `Žodynėlis – ${baseTitle}` :
     currentPage === 'quiz' ? `Apklausa – ${baseTitle}` :
     `${baseTitle} – Interaktyvus Mokymas`;
-  const defaultDescription = 'Mokykitės kurti efektyvius DI promptus: 6 moduliai, praktika ir apklausa.';
+  const defaultDescription = isMvpMode
+    ? 'Mokykitės kurti efektyvius DI promptus: 3 moduliai, praktika ir apklausa.'
+    : 'Mokykitės kurti efektyvius DI promptus: 6 moduliai, praktika ir apklausa.';
   const seoDescription =
     currentPage === 'module' && currentModule?.description ? currentModule.description :
     currentPage === 'modules' ? 'Pasirinkite mokymo modulį: 6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas.' :
@@ -304,7 +306,7 @@ function App() {
                 progress={progress}
               />
             )}
-            {currentPage === 'module' && selectedModule && (
+            {currentPage === 'module' && selectedModule && (!isMvpMode || selectedModule <= 3) && (
               <ModuleView
                 moduleId={selectedModule}
                 initialSlideIndex={initialSlideIndex}

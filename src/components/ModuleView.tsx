@@ -365,11 +365,37 @@ function ModuleView({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onBack]);
 
-  // Show loading if modules not yet loaded or module not found
-  if (!modules || !module) {
+  // Show loading if modules not yet loaded
+  if (!modules) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <LoadingSpinner size="lg" text="Kraunama..." />
+      </div>
+    );
+  }
+
+  // Module not in list (e.g. MVP mode: 4–6 locked) – show fallback and back
+  if (!module) {
+    return (
+      <div className="space-y-6">
+        <div className="card p-4 md:p-6">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg px-3 py-2 min-h-[44px]"
+            aria-label="Grįžti į modulių sąrašą"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Atgal į modulius</span>
+          </button>
+        </div>
+        <div className="card p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
+          <p className="text-gray-600 dark:text-gray-400 mb-2">
+            Šis modulis šiuo metu nepasiekiamas.
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Pasirinkite modulį iš modulių sąrašo.
+          </p>
+        </div>
       </div>
     );
   }

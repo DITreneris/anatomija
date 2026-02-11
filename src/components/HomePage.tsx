@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Target, BookOpen, ClipboardCheck, ArrowRight, Sparkles, CheckCircle, Copy, Check, Lightbulb } from 'lucide-react';
 import { Progress } from '../utils/progress';
 import { getModulesSync } from '../data/modulesLoader';
+import { getIsMvpMode } from '../utils/mvpMode';
 import PromptLibrary from './PromptLibrary';
 import CircularProgress from './CircularProgress';
 
@@ -38,7 +39,11 @@ interface HomePageProps {
 export default function HomePage({ onStart, onGoToQuiz, progress }: HomePageProps) {
   const [copiedQuickId, setCopiedQuickId] = useState<number | null>(null);
   const modulesCompleted = progress.completedModules.length;
-  const totalModules = getModulesSync()?.length ?? 6;
+  const totalModules = (() => {
+    const n = getModulesSync()?.length;
+    if (n != null) return n;
+    return getIsMvpMode() ? 3 : 6;
+  })();
   const totalTasks = Object.values(progress.completedTasks).reduce(
     (sum, tasks) => sum + tasks.length,
     0
