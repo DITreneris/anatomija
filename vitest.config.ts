@@ -20,18 +20,11 @@ export default defineConfig({
       '**/.cache/**',
       '**/.cursor/**',
       '**/.vscode/**',
-      // Exclude system directories that might contain test files
-      '**/AppData/**',
-      '**/Local Settings/**',
-      '**/Desktop/**',
-      '**/Local/**',
-      // Exclude anything outside project root
-      '**/../**',
-      // Exclude Cursor/VS Code extension directories
+      // Exclude Cursor/VS Code extension directories (inside project)
       '**/.cursor/extensions/**',
       '**/.vscode/extensions/**',
-      '**/AppData/Local/Programs/**',
-      '**/Local Settings/Programs/**',
+      // NB: Nenaudoti **/Desktop/** – projektas gali būti Desktop kataloge; include jau riboja į src/**
+      '**/../**',
     ],
     coverage: {
       provider: 'v8',

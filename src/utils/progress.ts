@@ -5,6 +5,8 @@ export interface Progress {
   completedTasks: Record<number, number[]>;
   quizCompleted: boolean;
   quizScore: number | null;
+  /** Modulio testo rezultatas (procentais), pvz. Moduliai 2 ir 5 */
+  moduleTestScores?: Record<number, number>;
 }
 
 // Internal storage format with versioning
@@ -14,6 +16,7 @@ interface ProgressV2 {
   completedTasks: Record<number, number[]>;
   quizCompleted: boolean;
   quizScore: number | null;
+  moduleTestScores?: Record<number, number>;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -72,6 +75,12 @@ function validateProgress(data: unknown): data is Progress {
   if (typeof obj.completedTasks !== 'object' || obj.completedTasks === null) return false;
   if (typeof obj.quizCompleted !== 'boolean') return false;
   if (obj.quizScore !== null && typeof obj.quizScore !== 'number') return false;
+  if (obj.moduleTestScores !== undefined && (typeof obj.moduleTestScores !== 'object' || obj.moduleTestScores === null)) return false;
+  if (obj.moduleTestScores && typeof obj.moduleTestScores === 'object') {
+    for (const k of Object.keys(obj.moduleTestScores)) {
+      if (typeof (obj.moduleTestScores as Record<string, unknown>)[k] !== 'number') return false;
+    }
+  }
   
   // Validate completedModules array
   if (!obj.completedModules.every((item: unknown) => typeof item === 'number')) {
@@ -100,20 +109,66 @@ function migrateV1ToV2(v1: ProgressV1): ProgressV2 {
     completedTasks: v1.completedTasks,
     quizCompleted: v1.quizCompleted,
     quizScore: v1.quizScore,
+    moduleTestScores: {},
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
 }
 
 /**
+ * Skaidrių identifikavimas: completedTasks[moduleId] = masyvas slide.id (unikalu modulio viduje).
+ * slide.id gali būti sveikasis arba trupmeninis skaičius (pvz. 0.5, 13.5) – įterptoms skaidrėms.
+ * Progresas visada rašomas pagal (moduleId, slideId) – kolizijos tarp skirtingų modulių nebūna.
+ * Pastaba: Modulio 4 ir Modulio 6 gali naudoti tą patį skaitinį id (pvz. 60, 61) – jie saugomi
+ * skirtinguose completedTasks[4] ir completedTasks[6] masyvuose, todėl konfliktų nėra.
+ */
+
+/** Migruoja Modulio 3 skaidrių id (4→6 scenarijai, 2026-02): 35 (summary) → 37, pašalina 34 (Produkto) */
+function migrateModule3SlideIds(tasks: Record<number, number[]>): Record<number, number[]> {
+  const m3 = tasks[3];
+  if (!m3 || !Array.isArray(m3)) return tasks;
+  const migrated = m3
+    .filter((id) => id !== 34)
+    .map((id) => (id === 35 ? 37 : id));
+  if (JSON.stringify(migrated) === JSON.stringify(m3)) return tasks;
+  return { ...tasks, 3: migrated };
+}
+
+/** Migruoja Modulio 5 skaidrių id (senos versijos) į naujas (modules.json 2026-02/02-09) */
+function migrateModule5SlideIds(tasks: Record<number, number[]>): Record<number, number[]> {
+  const m5 = tasks[5];
+  if (!m5 || !Array.isArray(m5)) return tasks;
+  // Pastaba: completedTasks saugo tik „užduočių“ skaidres (pvz. test-section). Tačiau migruojame visus,
+  // kad progresas būtų stabilus ir tarp versijų neliktų „pamestų“ id.
+  const oldToNew: Record<number, number> = {
+    // Legacy (labai sena): 49–52
+    49: 510,
+    50: 512,
+    51: 513,
+    52: 514,
+    // Ankstesnė M5 versija (2026-02): 501–504
+    501: 510,
+    502: 512,
+    503: 513,
+    504: 514,
+  };
+  const migrated = m5.map((id) => oldToNew[id] ?? id);
+  if (JSON.stringify(migrated) === JSON.stringify(m5)) return tasks;
+  return { ...tasks, 5: migrated };
+}
+
+/**
  * Convert ProgressV2 to Progress (public interface)
  */
 function v2ToProgress(v2: ProgressV2): Progress {
+  let completedTasks = migrateModule3SlideIds(v2.completedTasks);
+  completedTasks = migrateModule5SlideIds(completedTasks);
   return {
     completedModules: v2.completedModules,
-    completedTasks: v2.completedTasks,
+    completedTasks,
     quizCompleted: v2.quizCompleted,
     quizScore: v2.quizScore,
+    moduleTestScores: v2.moduleTestScores,
   };
 }
 
@@ -236,8 +291,8 @@ export const saveProgress = (progress: Progress): void => {
       completedTasks: progress.completedTasks,
       quizCompleted: progress.quizCompleted,
       quizScore: progress.quizScore,
+      moduleTestScores: progress.moduleTestScores ?? {},
       updatedAt: now,
-      // Preserve createdAt if exists, otherwise set it now
       createdAt: existing.createdAt || now,
     };
     
@@ -286,6 +341,7 @@ const getDefaultProgress = (): Progress => ({
   completedTasks: {},
   quizCompleted: false,
   quizScore: null,
+  moduleTestScores: {},
 });
 
 // Export migration function for testing

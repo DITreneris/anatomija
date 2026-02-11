@@ -1,82 +1,121 @@
 {
-  "prompts": [
+  "sections": [
     {
-      "id": "mini-zero-shot",
-      "title": "Mini: Zero-shot šūkis",
-      "description": "Vienas sakinys be pavyzdžių.",
-      "prompt": "Sukurk vieno sakinio produkto šūkį sveikatos programėlei."
+      "id": "slogans",
+      "title": "1. Šūkiai ir pavyzdžiai",
+      "items": [
+        {
+          "id": "mini-zero-shot",
+          "title": "Mini: Zero-shot šūkis",
+          "goal": "Vienas sakinys, be pavyzdžių.",
+          "prompt": "Sukurk vieno sakinio produkto šūkį produktui [ĮRAŠYKITE]."
+        },
+        {
+          "id": "mini-few-shots",
+          "title": "Mini: Few-shot šūkiai",
+          "goal": "Perimti stilių.",
+          "prompt": "Pavyzdžiai:\n„[PAVYZDYS 1]“\n„[PAVYZDYS 2]“\nSukurk dar 3 panašaus stiliaus šūkius produktui [ĮRAŠYKITE]."
+        }
+      ]
     },
     {
-      "id": "mini-few-shots",
-      "title": "Mini: Few-shots šūkiai",
-      "description": "Su 2 pavyzdžiais ir 3 naujais.",
-      "prompt": "Pavyzdžiai:\n1) „Mažiau streso, daugiau energijos.“\n2) „Tavo sveikata – tavo planas.“\nSukurk dar 3 panašaus stiliaus šūkius."
+      "id": "reasoning",
+      "title": "2. Mąstymo struktūravimas",
+      "items": [
+        {
+          "id": "mini-chain",
+          "title": "Mini: Minčių grandinė",
+          "logika": "Problemos → sprendimai → veiksmai",
+          "prompt": "Identifikuok 3 pagrindines problemas, susijusias su [SITUACIJA / PRODUKTU / PROCESU].\nPasiūlyk sprendimus.\nSudaryk trumpą veiksmų planą."
+        },
+        {
+          "id": "mini-sequence",
+          "title": "Mini: Promptų seka",
+          "logika": "Tezės → planas → įvadas",
+          "prompt": "Sukurk 5 pagrindines tezes tema [TEMA].\nSudaryk plano struktūrą.\nParašyk 1 pastraipos įvadą."
+        }
+      ]
     },
     {
-      "id": "mini-chain",
-      "title": "Mini: Minčių grandinė",
-      "description": "Problemos → sprendimai → planas.",
-      "prompt": "Identifikuok 3 klientų problemas. Pasiūlyk sprendimus. Sudaryk veiksmų planą."
+      "id": "instructions",
+      "title": "3. Instrukcijos ir apribojimai",
+      "items": [
+        {
+          "id": "mini-instructions",
+          "title": "Mini: Instruktavimas",
+          "prompt": "Parašyk [ŽODŽIŲ SKAIČIUS] žodžių tekstą tema [TEMA].\nAuditorija: [AUDITORIJA].\nTonas: [TONAS].\nKalba: [KALBA]."
+        },
+        {
+          "id": "mini-restrictions",
+          "title": "Mini: Apribojimai",
+          "goal": "Nustatyti ribas ir tai, ko vengti.",
+          "prompt": "Užduotis: [APRAŠYKITE UŽDUOTĮ].\nApribojimai:\nIlgis: [PVZ. Maks. 200 žodžių / 1 puslapis].\nKo vengti: [PVZ. žargonas, reklama, subjektyvūs įvertinimai].\nFormatas: [PVZ. punktai, lentelė, pastraipos].\nKalba: [KALBA]."
+        }
+      ]
     },
     {
-      "id": "mini-sequence",
-      "title": "Mini: Promptų seka",
-      "description": "Tezės → planas → įvadas.",
-      "prompt": "Sukurk 5 tezes apie darbuotojų įsitraukimą → Sudaryk plano struktūrą → Parašyk 1 pastraipos įvadą."
+      "id": "daily",
+      "title": "4. Kasdieniai darbo promptai",
+      "items": [
+        {
+          "id": "daily-summary",
+          "title": "Dienos santrauka",
+          "prompt": "META: Tu esi [ROLĖ].\nINPUT:\nDienos darbai: [ĮRAŠYKITE]\nRezultatai: [ĮRAŠYKITE]\nKliūtys: [ĮRAŠYKITE]\nRytojaus planas: [ĮRAŠYKITE]\nOUTPUT:\n5 punktų sąrašas\n1–2 sakiniai kiekvienam"
+        },
+        {
+          "id": "meeting-notes",
+          "title": "Susitikimo užrašai",
+          "prompt": "META: Tu esi susitikimo sekretorius.\nINPUT:\nTema: [TEMA]\nDalyviai: [VARDŲ SĄRAŠAS]\nPastabos: [TEKSTAS]\nOUTPUT:\nSantrauka\nSprendimai\nVeiksmai (kas / kada)\nAtviri klausimai"
+        },
+        {
+          "id": "email-reply",
+          "title": "El. laiško atsakymas",
+          "prompt": "META: Tu esi klientų aptarnavimo specialistas.\nINPUT: Gaunamas laiškas: [ĮRAŠYKITE]\nOUTPUT:\n4–6 sakiniai\nProfesionalus, mandagus tonas\nAiškus kitas veiksmas"
+        },
+        {
+          "id": "task-list",
+          "title": "Užduočių sąrašas",
+          "prompt": "META: Tu esi asmeninis darbo asistentas.\nINPUT: Tekstas su idėjomis ar reikalavimais: [TEKSTAS]\nOUTPUT:\nUžduočių sąrašas\nPrioritetai A / B / C\nTerminai, jei paminėti"
+        }
+      ]
     },
     {
-      "id": "mini-instructions",
-      "title": "Mini: Instruktavimas",
-      "description": "Apimtis, tonas, kalba.",
-      "prompt": "Parašyk 180–220 žodžių pranešimą investuotojams. Tonas: formalus. Kalba: LT."
+      "id": "analysis",
+      "title": "5. Sprendimai ir analizė",
+      "items": [
+        {
+          "id": "decision-brief",
+          "title": "Sprendimo santrauka",
+          "prompt": "META: Tu esi verslo analitikas.\nINPUT:\nSituacija: [APRAŠYMAS]\nVariantai: [VARIANTAI]\nDuomenys: [SKAIČIAI / FAKTAI]\nOUTPUT:\nProblema\n2–3 variantai\nRekomendacija\nRizikos"
+        },
+        {
+          "id": "process-outline",
+          "title": "Proceso aprašas",
+          "prompt": "META: Tu esi procesų specialistas.\nINPUT:\nTema: [PROCESAS]\nDabartiniai žingsniai: [ŽINGSNIAI]\nOUTPUT:\n6–10 aiškių žingsnių\nTrumpi sakiniai, veiksmažodžiai"
+        },
+        {
+          "id": "content-rewrite",
+          "title": "Teksto supaprastinimas",
+          "prompt": "META: Tu esi redaktorius.\nINPUT:\nTekstas: [TEKSTAS]\nAuditorija: [AUDITORIJA]\nOUTPUT:\n30–50 % trumpesnė versija\nAiški, paprasta kalba"
+        },
+        {
+          "id": "swot",
+          "title": "SWOT analizė",
+          "prompt": "META: Tu esi verslo konsultantas.\nINPUT:\nProjektas / įmonė: [APRAŠYMAS]\nDuomenys: [FAKTAI]\nOUTPUT:\nSWOT lentelė\n3–5 konkretūs punktai kiekvienoje dalyje"
+        }
+      ]
     },
     {
-      "id": "daily-summary",
-      "title": "Dienos santrauka",
-      "description": "Trumpa ir aiški dienos ataskaita komandai.",
-      "prompt": "META: Tu esi projektų koordinatorius.\nINPUT: Šios dienos darbai: [įrašykite darbus], pasiekti rezultatai: [rezultatai], kliūtys: [kliūtys], rytdienos planas: [planas].\nOUTPUT: 5 punktų sąrašas lietuvių kalba. Kiekvienas punktas 1–2 sakiniai.\nQUALITY: 1) Ar aiškūs veiksmai? 2) Ar paminėtos kliūtys? 3) Ar matomas rytojaus planas?"
-    },
-    {
-      "id": "meeting-notes",
-      "title": "Susitikimo užrašai",
-      "description": "Struktūruotos pastabos po susitikimo.",
-      "prompt": "META: Tu esi susitikimo sekretorius.\nINPUT: Susitikimo tema: [tema]. Dalyviai: [vardai]. Pastabos: [tekstas].\nOUTPUT: Struktūra: 1) Santrauka, 2) Sprendimai, 3) Veiksmai (kas/kada), 4) Atviri klausimai.\nQUALITY: 1) Ar aiškūs sprendimai? 2) Ar nurodyti atsakingi asmenys? 3) Ar liko atviri klausimai?"
-    },
-    {
-      "id": "email-reply",
-      "title": "El. laiško atsakymas",
-      "description": "Mandagus ir trumpas atsakymas klientui ar kolegai.",
-      "prompt": "META: Tu esi klientų aptarnavimo specialistas.\nINPUT: Gaunamas laiškas: [įdėkite laišką].\nOUTPUT: Trumpas atsakymas (4–6 sakiniai), profesionalus tonas, aiškus kitas žingsnis.\nQUALITY: 1) Ar atsakoma į klausimą? 2) Ar aiškus kitas veiksmas? 3) Ar tonas mandagus?"
-    },
-    {
-      "id": "task-list",
-      "title": "Užduočių sąrašas",
-      "description": "Aiškus darbų planas iš ilgo teksto.",
-      "prompt": "META: Tu esi asmeninis darbo asistentas.\nINPUT: Tekstas su reikalavimais ar idėjomis: [įdėkite tekstą].\nOUTPUT: Užduočių sąrašas su prioritetais (A/B/C) ir terminais, jei paminėti.\nQUALITY: 1) Ar viskas paversta į konkrečias užduotis? 2) Ar aiškūs prioritetai?"
-    },
-    {
-      "id": "decision-brief",
-      "title": "Sprendimo santrauka",
-      "description": "Trumpa santrauka vadovui prieš sprendimą.",
-      "prompt": "META: Tu esi verslo analitikas.\nINPUT: Situacija: [aprašymas]. Variantai: [variantai]. Duomenys: [skaičiai].\nOUTPUT: 1 puslapio santrauka: problema, 2–3 variantai, rekomendacija, rizikos.\nQUALITY: 1) Ar aiški rekomendacija? 2) Ar įvardytos rizikos? 3) Ar remtasi duomenimis?"
-    },
-    {
-      "id": "process-outline",
-      "title": "Proceso aprašas",
-      "description": "Paprastas žingsnis po žingsnio procesas.",
-      "prompt": "META: Tu esi procesų specialistas.\nINPUT: Reikia aprašyti procesą: [tema]. Dabartiniai žingsniai: [žingsniai].\nOUTPUT: 6–10 punktų procesas, aiškūs veiksmažodžiai, trumpi sakiniai.\nQUALITY: 1) Ar seka logiška? 2) Ar veiksmai aiškūs?"
-    },
-    {
-      "id": "content-rewrite",
-      "title": "Teksto supaprastinimas",
-      "description": "Trumpesnė ir aiškesnė teksto versija.",
-      "prompt": "META: Tu esi redaktorius.\nINPUT: Tekstas: [įdėkite tekstą]. Tikslas: [auditorija].\nOUTPUT: 30–50% trumpesnė versija, aiški kalba, be žargono.\nQUALITY: 1) Ar prasmė išliko? 2) Ar tekstas paprastesnis?"
-    },
-    {
-      "id": "swot",
-      "title": "SWOT analizė",
-      "description": "Greita verslo ar projekto analizė.",
-      "prompt": "META: Tu esi verslo konsultantas.\nINPUT: Projektas/įmonė: [aprašymas]. Duomenys: [faktai].\nOUTPUT: SWOT lentelė su 3–5 punktais kiekvienoje dalyje.\nQUALITY: 1) Ar punktai konkretūs? 2) Ar remtasi faktais?"
+      "id": "quality-eval",
+      "title": "6. Kokybė ir vertinimas",
+      "items": [
+        {
+          "id": "prompt-quality-5",
+          "title": "Prompto kokybės patikrinimas (pagal 5 principus)",
+          "goal": "Įklijuok savo promptą ir paleisk. Tikrina pagal 5 principus, tinka RAG ir agentams.",
+          "prompt": "ROLE:\nTu esi patyręs promptų inžinierius ir mokymų treneris.\nTavo tikslas – kritiškai įvertinti prompto kokybę ir pasiūlyti pagerinimus.\n\nTASK:\nĮvertink pateiktą promptą pagal 5 principus:\n1) Aiškumas\n2) Eksperimentavimas\n3) Nuo paprasto → prie sudėtingo\n4) Kontekstas\n5) Žodžių pasirinkimas\n\nINPUT:\n[pateikiamas promptas]\n\nEVALUATION FORMAT:\n1. Įvertinimo lentelė (1–5 balai kiekvienam principui)\n2. Trumpas paaiškinimas, KODĖL skirtas toks balas\n3. 3 svarbiausios silpnos vietos\n4. Pasiūlyta patobulinta prompto versija\n\nRULES:\n- Būk konkretus, be bendrinių frazių\n- Jei trūksta informacijos – aiškiai įvardink\n- Jei promptas per sudėtingas – pasiūlyk paprastesnę V1 versiją\n- Neperrašinėk be reikalo – taisyk tik tai, kas duoda realią naudą\n\nOUTPUT:\nStruktūruotas, aiškus, praktiškai pritaikomas atsakymas."
+        }
+      ]
     }
   ]
 }

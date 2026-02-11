@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top AI Turinio Aptikimo Įrankiai 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            animation: fadeIn 1s ease;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .tool-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .tool-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .tool-types {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .type-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .type-text {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .type-image {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .type-video {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .type-plagiat {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .tool-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .tool-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Top AI Turinio Aptikimo Įrankiai 2026</h1>
+            <p class="subtitle">Išsamiausias sąrašas geriausių įrankių AI generuoto turinio aptikimui</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalTools">10</div>
+                <div class="stat-label">Įrankių</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="textTools">8</div>
+                <div class="stat-label">Teksto detektorių</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="imageTools">2</div>
+                <div class="stat-label">Vaizdo detektorių</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <input 
+                type="text" 
+                class="search-bar" 
+                id="searchBar" 
+                placeholder="🔍 Ieškoti įrankių pagal pavadinimą ar aprašymą..."
+            >
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Visi</button>
+                <button class="filter-btn" data-filter="text">📝 Tekstas</button>
+                <button class="filter-btn" data-filter="image">🖼️ Vaizdai</button>
+                <button class="filter-btn" data-filter="video">🎥 Video</button>
+                <button class="filter-btn" data-filter="plagiat">📋 Plagiatas</button>
+            </div>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid"></div>
+        <div class="no-results" id="noResults">
+            Įrankių nerasta. Pabandykite pakeisti paieškos kriterijus.
+        </div>
+    </div>
+
+    <script>
+        const tools = [
+            {
+                number: 1,
+                name: "Winston AI",
+                types: ["text", "plagiat"],
+                description: "Labai tiksli AI turinio detekcija, žema klaidingų teigiamų rodiklių norma; plačiai naudojama mokyklose ir leidybos sektoriuje.",
+                link: "https://gowinston.ai/"
+            },
+            {
+                number: 2,
+                name: "GPTZero",
+                types: ["text"],
+                description: "Benchmark įrankis akademijai – ~99 % tikslumas tekstui; atpažįsta ir mišrų (human+AI) turinį.",
+                link: "https://gptzero.me/"
+            },
+            {
+                number: 3,
+                name: "Copyleaks",
+                types: ["text", "image"],
+                description: "Teksto ir AI paveikslėlių detektorius; nauja plėtra į video/audio detekciją 2026.",
+                link: "https://copyleaks.com/"
+            },
+            {
+                number: 4,
+                name: "Originality.ai",
+                types: ["text"],
+                description: "Labai geras SEO / marketingo turinio detektorius, masinė analizė.",
+                link: "#"
+            },
+            {
+                number: 5,
+                name: "YouScan AI Detector",
+                types: ["text"],
+                description: "Skirta marketingo / social media turiniui analizuoti ir autentiškumą patikrinti.",
+                link: "#"
+            },
+            {
+                number: 6,
+                name: "MyDetector.ai",
+                types: ["text"],
+                description: "Greitas nemokamas AI teksto detektorius be registracijos, palaiko daug kalbų.",
+                link: "https://mydetector.ai/"
+            },
+            {
+                number: 7,
+                name: "Quetext AI Detector",
+                types: ["text", "plagiat"],
+                description: "Nemokamas detektorius su plagiato tikrinimu; geras universalus sprendimas.",
+                link: "#"
+            },
+            {
+                number: 8,
+                name: "ZeroGPT",
+                types: ["text"],
+                description: "Gratis priemonė, skirta greitai patikrinti AI turinį.",
+                link: "https://zerogpt.com/"
+            },
+            {
+                number: 9,
+                name: "Isgen.ai (LT)",
+                types: ["text"],
+                description: "Lietuviškas AI detektorius, gerai aptinka populiarių LLM generuotą tekstą (~96 % tikslumas).",
+                link: "https://isgen.ai/lt"
+            },
+            {
+                number: 10,
+                name: "Google Gemini SynthID",
+                types: ["image", "video"],
+                description: "Nors tai ne atskiras detektorius, Gemini gali atpažinti AI-generuotą turinį per SynthID watermark technologiją (tik Google AI turiniui).",
+                link: "#"
+            }
+        ];
+
+        const typeLabels = {
+            text: { label: 'Tekstas', class: 'type-text' },
+            image: { label: 'Vaizdai', class: 'type-image' },
+            video: { label: 'Video', class: 'type-video' },
+            plagiat: { label: 'Plagiatas', class: 'type-plagiat' }
+        };
+
+        function renderTools(filteredTools) {
+            const grid = document.getElementById('toolsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredTools.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            grid.innerHTML = filteredTools.map(tool => `
+                <div class="tool-card" data-types="${tool.types.join(' ')}">
+                    <div class="tool-header">
+                        <div class="tool-number">${tool.number}</div>
+                        <h2 class="tool-name">${tool.name}</h2>
+                    </div>
+                    <div class="tool-types">
+                        ${tool.types.map(type => `
+                            <span class="type-badge ${typeLabels[type].class}">
+                                ${typeLabels[type].label}
+                            </span>
+                        `).join('')}
+                    </div>
+                    <p class="tool-description">${tool.description}</p>
+                    ${tool.link !== '#' ? `
+                        <a href="${tool.link}" target="_blank" class="tool-link">
+                            Aplankykite svetainę →
+                        </a>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function filterTools() {
+            const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            
+            let filtered = tools;
+            
+            // Filter by type
+            if (activeFilter !== 'all') {
+                filtered = filtered.filter(tool => tool.types.includes(activeFilter));
+            }
+            
+            // Filter by search
+            if (searchTerm) {
+                filtered = filtered.filter(tool => 
+                    tool.name.toLowerCase().includes(searchTerm) ||
+                    tool.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderTools(filtered);
+            updateStats(filtered);
+        }
+
+        function updateStats(filteredTools) {
+            const textCount = filteredTools.filter(t => t.types.includes('text')).length;
+            const imageCount = filteredTools.filter(t => t.types.includes('image')).length;
+            
+            document.getElementById('totalTools').textContent = filteredTools.length;
+            document.getElementById('textTools').textContent = textCount;
+            document.getElementById('imageTools').textContent = imageCount;
+        }
+
+        // Event listeners
+        document.getElementById('searchBar').addEventListener('input', filterTools);
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                filterTools();
+            });
+        });
+
+        // Initial render
+        renderTools(tools);
+    </script>
+</body>
+</html>

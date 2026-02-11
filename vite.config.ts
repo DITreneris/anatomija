@@ -8,7 +8,11 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0',
-    open: true
+    open: true,
+    headers: {
+      // Dev only: Vite HMR uses eval(); Cursor/Chrome strict CSP blocks it.
+      'Content-Security-Policy': "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self'",
+    },
   },
   build: {
     outDir: 'dist',

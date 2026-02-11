@@ -182,16 +182,13 @@ describe('useAutoSave', () => {
 
   describe('loadAutoSave', () => {
     beforeEach(() => {
-      // Ensure we're using real timers for these tests
       vi.useRealTimers();
-      // Clear any mocks from previous tests
       vi.restoreAllMocks();
-      // Reset localStorage
+      // Slėpti logWarning (console.warn) – loadAutoSave su invalid JSON tikėtina kviečia
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
       if (typeof localStorage !== 'undefined') {
         localStorage.clear();
       }
-      // Restore original Storage methods
-      vi.restoreAllMocks();
     });
 
     it('should load saved value from localStorage', () => {

@@ -1,10 +1,10 @@
 # Promptų anatomija - Interaktyvus DI Mokymas
 
-Interaktyvus mokymas apie DI (dirbtinio intelekto) prompt struktūrą su 3 moduliais, praktinėmis užduotimis ir testais. Orientuotas į verslo problemų sprendimą.
+Interaktyvus mokymas apie DI (dirbtinio intelekto) promptų struktūrą: **6 moduliai** (6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas). Orientuotas į verslo problemų sprendimą ir **praktinius rezultatus** – kursas moko kurti promptus ir scenarijus, ne tik suprasti teoriją.
 
 ## 🎯 Apie projektą
 
-Mokymo kursas, kuris moko kurti efektyvius DI promptus naudojant **6 blokų sistemą**:
+Mokymo kursas (treniruoklis), kuris moko **kurti** efektyvius DI promptus naudojant **6 blokų sistemą**:
 
 | Blokas | Paskirtis |
 |--------|-----------|
@@ -17,17 +17,19 @@ Mokymo kursas, kuris moko kurti efektyvius DI promptus naudojant **6 blokų sist
 
 ## ✨ Pagrindinės funkcijos
 
-- **3 moduliai**: Teorija (19 skaidrių) → Testas (12 klausimų) → Praktika (4 scenarijai)
-- **6 blokų sistema** su workflow, technikomis ir mąstymo modeliais
-- **Praktiniai verslo scenarijai**: E-commerce, Marketing, HR, SaaS
-- **Progreso sekimas** ir automatinis išsaugojimas
-- **Responsive dizainas** su tamsiuoju/šviesiuoju režimu
-- **Promptų biblioteka** su kopijavimo funkcija
+- **6 moduliai:** 1) 6 Blokų Sistema (teorija) → 2) Žinių Patikrinimas (testas) → 3) Praktinis Pritaikymas (4 scenarijai) → 4) Konteksto inžinerija (pažangus teorija) → 5) Žinių patikrinimas pažangus (testas) → 6) Projekto kūrimas (praktika)
+- **6 blokų sistema** su workflow, technikomis ir mąstymo modeliais (CoT, ToT)
+- **Praktiniai verslo scenarijai** (Modulis 3) ir **vienas integruotas projektas** (Modulis 6)
+- **Progreso sekimas** (localStorage, versijavimas) ir automatinis išsaugojimas
+- **Žodynėlis** (terminai) ir **Apklausa** (bendras žinių patikrinimas)
+- **Promptų biblioteka** (pagrindiniame puslapyje) su kopijavimo funkcija
+- **Responsive dizainas**, tamsusis/šviesusis režimas, klaviatūros navigacija
+- **Lazy loading** komponentų, **Error Boundary**, **SEO** (react-helmet-async)
 
 ## 🚀 Greitas startas
 
 ### Reikalavimai
-- Node.js 18+
+- Node.js 18+ (rekomenduojama `engines` iš `package.json`: node >=18, npm >=9)
 - npm arba yarn
 
 ### Instaliacija
@@ -43,10 +45,20 @@ Aplikacija bus prieinama: `http://localhost:3000`
 
 ### Build produkcijai
 
+Prieš build automatiškai vykdoma JSON schemų validacija (`npm run validate:schema` per `prebuild`). Komandos:
+
 ```bash
 npm run build
 npm run preview
 ```
+
+**MVP build** (tik moduliai 1–3, testuotojams):
+
+```bash
+VITE_MVP_MODE=1 npm run build
+```
+
+**Windows (PowerShell):** Jei `&&` neveikia, naudokite `;` arba `cmd /c "cd anatomija && npm run build"`.
 
 ### Testavimas
 
@@ -58,36 +70,37 @@ npm run test:coverage # Su coverage report
 
 ## 📚 Modulių struktūra
 
-### Modulis 1: 6 Blokų Sistema (Teorija)
-19 skaidrių apie promptų struktūrą, workflow, technikas ir kiekvieną bloką detaliai.
+| Modulis | Pavadinimas | Turinys |
+|---------|-------------|---------|
+| 1 | **6 Blokų Sistema** | Teorija: promptų struktūra, workflow, technikos, kiekvienas blokas (Meta, Input, Output, Reasoning, Quality, Advanced). |
+| 2 | **Žinių Patikrinimas** | Testas: klausimai su paaiškinimais; sertifikatas nuo 70%. |
+| 3 | **Praktinis Pritaikymas** | 4 verslo scenarijai su žingsniais ir pavyzdiniais sprendimais. |
+| 4 | **Konteksto inžinerija** | Pažangus teorija: RAG, Deep research, tokenų ekonomika, manipuliacijos, žinių patikrinimas. |
+| 5 | **Žinių patikrinimas (pažangus)** | Pažangus testas po Modulio 4. |
+| 6 | **Projekto kūrimas** | Vienas integruotas projektas (capstone) su 6 blokų sistema ir pažangiomis temomis. |
 
-### Modulis 2: Žinių Patikrinimas (Testas)
-12 klausimų su paaiškinimais. Sertifikatas nuo 70% rezultato.
-
-### Modulis 3: Praktinis Pritaikymas
-4 verslo scenarijai su žingsnis po žingsnio instrukcijomis ir pavyzdiniais sprendimais.
+**Navigacija:** Pagrindinis → Moduliai → Žodynėlis → Apklausa. Duomenys: `src/data/modules.json` (moduliai, skaidrės, klausimai).
 
 ## ⚙️ Konfigūracija
 
 ### Modulių duomenų keitimas
 
-Visi modulių duomenys yra `src/data/modules.json` faile. Galite:
-- Pridėti/pašalinti skaidres
-- Keisti tekstus ir klausimus
-- Pridėti naujus verslo pavyzdžius
-
-**Nereikia keisti kodo** – tiesiog redaguokite JSON failą.
+- **Moduliai ir skaidrės:** `src/data/modules.json` (moduliai 1–6, skaidrės, Modulio 2/5 klausimai, apklausa). Galite pridėti/pašalinti skaidres, keisti tekstus ir klausimus.
+- **Žodynėlis:** `src/data/glossary.json`.
+- **Promptų biblioteka:** `src/data/promptLibrary.json`.
+- Duomenys įkraunami per `src/data/modulesLoader.ts` (cache, validacija). **Paprasti turinio pakeitimai** – redaguokite JSON, be kodo keitimo.
 
 ### Spalvų schema
 
-Spalvos konfigūruojamos `tailwind.config.js`:
+Spalvos konfigūruojamos `tailwind.config.js` (brand – navy/slate, accent – auksinė):
 
 ```javascript
-colors: {
-  brand: { 500: '#6366f1', 600: '#4f46e5' },  // Navy mėlyna
-  accent: { 500: '#f59e0b', 600: '#d97706' }  // Auksinė/Amber
-}
+// theme.extend.colors
+brand: { 500: '#627d98', 600: '#486581', ... },  // Navy / slate mėlyna
+accent: { 500: '#d4a520', 600: '#b8860b', ... }  // Auksinė
 ```
+
+Pilna paletė (50–950) ir papildomos spalvos (slate, di-visata) – žr. `tailwind.config.js`.
 
 ## 🌐 Deployment
 
@@ -110,29 +123,39 @@ Prieiga: `https://ditreneris.github.io/anatomija/`
 
 | Technologija | Paskirtis |
 |--------------|-----------|
-| React 18 | UI biblioteka |
-| TypeScript | Type safety |
-| Vite | Build tool |
-| Tailwind CSS | Styling |
-| Vitest | Testing |
+| React 18 | UI biblioteka (lazy loading, Suspense) |
+| TypeScript | Tipai (`src/types/modules.ts`) |
+| Vite | Build ir dev serveris |
+| Tailwind CSS | Styling (brand, accent, dark mode) |
+| Vitest + React Testing Library | Unit ir integraciniai testai |
+| react-helmet-async | SEO (title, description pagal puslapį) |
+| lucide-react | Ikonos; recharts – diagramos (pvz. haliucinacijų rodikliai); canvas-confetti – šventimas |
 
 ## 📁 Projekto struktūra
 
 ```
 src/
-├── components/     # React komponentai
-├── data/          # Modulių duomenys (JSON)
-├── types/         # TypeScript tipai
-├── utils/         # Utilities (progress, auto-save)
-└── test/          # Test setup
+├── components/       # React komponentai
+│   ├── slides/       # Skaidrės: types/ (AllSlides, ContentSlides, BlockSlides, TestPracticeSlides), shared/ (CopyButton, PracticalTask, ProcessStepper, EnlargeableImage, …), utils/
+│   ├── ui/           # ErrorBoundary, LoadingSpinner
+│   ├── HomePage.tsx, ModulesPage.tsx, ModuleView.tsx, QuizPage.tsx, GlossaryPage.tsx
+│   ├── AppNav.tsx, ModuleCompleteScreen.tsx, QuizResultsView.tsx, CircularProgress.tsx
+│   ├── SlideContent.tsx, PromptLibrary.tsx, Celebration.tsx, HallucinationRatesDashboard.tsx
+│   └── __tests__/    # App.integration, App.quiz.integration, QuizPage
+├── data/             # modules.json, modulesLoader.ts, glossary.json, promptLibrary.json, hallucinationRates.ts
+├── types/            # modules.ts (tipai moduliams, skaidrėms, quiz)
+├── utils/            # progress.ts, useAutoSave.ts, useQuizState.ts, useSlideNavigation.ts, useTheme.ts, logger.ts + __tests__
+└── test/             # Vitest setup
 ```
 
 ## 📖 Dokumentacija
 
-- `README.md` - Šis failas
-- `turinio_pletra.md` - Detalus turinio planas (source of truth)
-- `TODO.md` - Dabartinės užduotys
-- `docs/` - Papildoma dokumentacija
+- **README.md** – šis failas
+- **turinio_pletra.md** – turinio planas (Moduliai 1–3, source of truth)
+- **docs/turinio_pletra_moduliai_4_5_6.md** – turinio planas Moduliams 4–6 (SOT)
+- **docs/development/RELEASE_QA_CHECKLIST.md** – 5 min sanity prieš release (nuorodos, mobile, dark, a11y, lietuviškos raidės, MVP)
+- **TODO.md** – dabartinės užduotys
+- **docs/** – papildoma dokumentacija (development, deployment, Modulio 4 skaidrių eilė, agentų planas; žr. `docs/README.md`)
 
 ## 📄 Licencija
 

@@ -1,5 +1,5 @@
-import { useMemo, memo } from 'react';
-import { CheckCircle, ArrowRight, Target, Brain, Settings, Lock, Sparkles } from 'lucide-react';
+import { useMemo, memo, useEffect } from 'react';
+import { CheckCircle, ArrowRight, Target, Brain, Settings, Lock, Sparkles, BookOpen, ClipboardList, Briefcase, PartyPopper } from 'lucide-react';
 import { Progress } from '../utils/progress';
 import { getModulesSync } from '../data/modulesLoader';
 import { LoadingSpinner } from './ui';
@@ -7,6 +7,7 @@ import CircularProgress from './CircularProgress';
 
 interface ModulesPageProps {
   onModuleSelect: (moduleId: number) => void;
+  onGoToQuiz?: () => void;
   progress: Progress;
 }
 
@@ -17,32 +18,38 @@ const levelStyles = {
     bg: 'bg-brand-50 dark:bg-brand-900/20',
     border: 'border-brand-200 dark:border-brand-800',
     text: 'text-brand-700 dark:text-brand-300',
-    badge: '📚 Mokymas',
-    icon: '🎯',
+    badgeIcon: BookOpen,
+    badgeLabel: 'Mokymas',
   },
   test: {
     gradient: 'from-slate-600 to-slate-700',
     bg: 'bg-slate-50 dark:bg-slate-900/20',
     border: 'border-slate-200 dark:border-slate-800',
     text: 'text-slate-700 dark:text-slate-300',
-    badge: '📝 Testas',
-    icon: '🧠',
+    badgeIcon: ClipboardList,
+    badgeLabel: 'Testas',
   },
   practice: {
     gradient: 'from-accent-600 to-accent-700',
     bg: 'bg-accent-50 dark:bg-accent-900/20',
     border: 'border-accent-200 dark:border-accent-800',
     text: 'text-accent-700 dark:text-accent-300',
-    badge: '💼 Praktika',
-    icon: '⚙️',
+    badgeIcon: Briefcase,
+    badgeLabel: 'Praktika',
   },
 };
 
 const moduleLevels = ['learn', 'test', 'practice'] as const;
 
-function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
+function ModulesPage({ onModuleSelect, onGoToQuiz, progress }: ModulesPageProps) {
   // Get modules data (synchronously if already loaded)
   const modules = getModulesSync();
+
+  // Preload ModuleView and SlideContent for faster navigation when user selects a module
+  useEffect(() => {
+    import('./ModuleView');
+    import('./SlideContent');
+  }, []);
 
   // Memoize completed count and total modules (hooks must be called before early return)
   const completedCount = useMemo(() => progress.completedModules.length, [progress.completedModules.length]);
@@ -72,9 +79,12 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
     return map;
   }, [progress.completedTasks, progress.completedModules, modules]);
 
+  // Development arba localhost (preview): moduliai atrakinti; production: užrakinimas įjungtas (žr. TODO.md P2 #16).
+  const DISABLE_MODULE_LOCK = import.meta.env.DEV || (typeof window !== 'undefined' && window.location.hostname === 'localhost');
+
   // Memoize locked modules
   const lockedModules = useMemo(() => {
-    if (!modules) return new Set<number>();
+    if (DISABLE_MODULE_LOCK || !modules) return new Set<number>();
     const locked = new Set<number>();
     modules.forEach((module, index) => {
       if (index === 0) return;
@@ -84,7 +94,7 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
       }
     });
     return locked;
-  }, [progress.completedModules, modules]);
+  }, [DISABLE_MODULE_LOCK, progress.completedModules, modules]);
 
   // Show loading if modules not yet loaded
   if (!modules) {
@@ -111,7 +121,7 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
       {/* Header */}
       <div className="text-center animate-fade-in">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 dark:bg-brand-900/30 rounded-full text-brand-700 dark:text-brand-300 text-sm font-medium mb-4">
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-4 h-4" strokeWidth={1.5} />
           <span>{completedCount}/{totalModules} moduliai baigti</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
@@ -146,8 +156,12 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
           const moduleProgress = getModuleProgress(module.id);
           const isCompleted = progress.completedModules.includes(module.id);
           const locked = isModuleLocked(index);
-          const level = moduleLevels[index];
+          const levelKey = (module as { level?: string }).level;
+          const level = levelKey === 'learn' || levelKey === 'test' || levelKey === 'practice'
+            ? levelKey
+            : moduleLevels[index % moduleLevels.length];
           const styles = levelStyles[level];
+          const BadgeIcon = styles.badgeIcon;
 
           return (
             <div
@@ -188,14 +202,15 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className={`bg-gradient-to-br ${styles.gradient} p-3 rounded-xl shadow-lg`}>
-                      {module.icon === 'Target' && <Target className="w-6 h-6 text-white" />}
-                      {module.icon === 'Brain' && <Brain className="w-6 h-6 text-white" />}
-                      {module.icon === 'Settings' && <Settings className="w-6 h-6 text-white" />}
+                      {module.icon === 'Target' && <Target className="w-6 h-6 text-white" strokeWidth={1.5} />}
+                      {module.icon === 'Brain' && <Brain className="w-6 h-6 text-white" strokeWidth={1.5} />}
+                      {module.icon === 'Settings' && <Settings className="w-6 h-6 text-white" strokeWidth={1.5} />}
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${styles.bg} ${styles.text}`}>
-                          {styles.badge}
+                        <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full ${styles.bg} ${styles.text}`}>
+                          <BadgeIcon className="w-3 h-3" strokeWidth={2} />
+                          {styles.badgeLabel}
                         </span>
                         {isCompleted && (
                           <span className="badge-success text-xs">
@@ -212,8 +227,8 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
                 {/* Subtitle */}
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{module.subtitle}</p>
                 
-                {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                {/* Description – min-h užtikrina vienodą kortelių aukštį grid'e (max 120 simbolių per .cursor/rules/module-description-criteria.mdc) */}
+                <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed min-h-[4.5rem] line-clamp-3">
                   {module.description}
                 </p>
 
@@ -235,9 +250,11 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
                   </div>
                 </div>
 
-                {/* Business examples */}
+                {/* Temos / Verslo pavyzdžiai – testams rodoma „Temos“, mokymui ir praktikai „Verslo pavyzdžiai“ */}
                 <div className="mb-5">
-                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Verslo pavyzdžiai:</p>
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    {level === 'test' ? 'Temos:' : 'Verslo pavyzdžiai:'}
+                  </p>
                   <div className="space-y-1.5">
                     {module.businessExamples.slice(0, 2).map((example, idx) => (
                       <div 
@@ -250,7 +267,7 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
                   </div>
                 </div>
 
-                {/* Action button */}
+                {/* Action button – vienoda CTA visiems moduliams */}
                 <button 
                   className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
                     locked
@@ -262,26 +279,16 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
                     if (!locked) onModuleSelect(module.id);
                   }}
                   disabled={locked}
-                  aria-label={isCompleted ? 'Peržiūrėti modulį' : 'Pradėti modulį'}
+                  aria-label={`Atidaryti modulį: ${module.title}`}
                 >
                   {locked ? (
                     <>
                       <Lock className="w-4 h-4" />
                       Užrakinta
                     </>
-                  ) : isCompleted ? (
-                    <>
-                      Peržiūrėti
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  ) : moduleProgress > 0 ? (
-                    <>
-                      Tęsti
-                      <ArrowRight className="w-4 h-4" />
-                    </>
                   ) : (
                     <>
-                      Pradėti
+                      Atidaryti
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -298,12 +305,23 @@ function ModulesPage({ onModuleSelect, progress }: ModulesPageProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-brand-500 to-accent-500 mb-4">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-            Visi moduliai baigti! 🎉
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center justify-center gap-2">
+            Visi moduliai baigti!
+            <PartyPopper className="w-5 h-5 text-accent-500" strokeWidth={1.5} />
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             Puikiai! Dabar galite išbandyti savo žinias apklausoje.
           </p>
+          {onGoToQuiz && (
+            <button
+              onClick={onGoToQuiz}
+              className="btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold group"
+              aria-label="Į apklausą"
+            >
+              Į apklausą
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          )}
         </div>
       )}
     </div>

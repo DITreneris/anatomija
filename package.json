@@ -1,24 +1,27 @@
 {
   "name": "prompt-anatomy-training",
-  "version": "1.0.0",
-  "description": "Interaktyvus mokymas apie prompt struktūrą su 3 moduliais, praktinėmis užduotimis ir apklausa",
+  "version": "1.2.0",
+  "description": "Interaktyvus mokymas apie prompt struktūrą: 6 moduliai (6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas)",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:run": "vitest run"
+"test:run": "vitest run",
+    "validate:schema": "node scripts/validate-schema.mjs",
+    "prebuild": "npm run validate:schema"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-helmet-async": "^2.0.5"
+    "react-helmet-async": "^2.0.5",
+    "recharts": "^3.7.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.5",
@@ -32,6 +35,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.1.0",
     "@vitest/ui": "^1.1.0",
+    "ajv": "^8.17.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.37.5",

@@ -1,7 +1,7 @@
 # Promptų anatomija - Cursor AI Rules
 
 ## Projekto kontekstas
-- Produktas: interaktyvus DI prompt inžinerijos mokymas su 3 moduliais (Teorija → Testas → Praktika).
+- Produktas: interaktyvus DI promptų inžinerijos mokymas su 3 moduliais (Teorija → Testas → Praktika).
 - Turinio šaltinis ir tiesa: `turinio_pletra.md` (pedagogika, terminologija, struktūra).
 - Duomenys yra duomenų-sluoksnyje: `src/data/modules.json` ir `src/data/promptLibrary.json`.
 - UI/UX logika ir renderinimas: `src/components/*` (ypač `SlideContent.tsx`, `ModuleView.tsx`, `QuizPage.tsx`).

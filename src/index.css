@@ -52,8 +52,8 @@ html {
 
 /* Mobile touch improvements */
 @media (max-width: 768px) {
-  button, a {
-    -webkit-tap-highlight-color: rgba(13, 148, 136, 0.3);
+  button, a, summary {
+    -webkit-tap-highlight-color: rgba(98, 125, 152, 0.35);
   }
   
   button {
@@ -75,8 +75,8 @@ html {
   }
   
   /* Better touch targets for mobile */
-  button, a, [role="button"] {
-    -webkit-tap-highlight-color: rgba(13, 148, 136, 0.2);
+  button, a, summary, [role="button"] {
+    -webkit-tap-highlight-color: rgba(98, 125, 152, 0.25);
     touch-action: manipulation;
   }
 }
@@ -84,6 +84,20 @@ html {
 /* Smooth transitions for all interactive elements */
 button, a, input, textarea, select {
   @apply transition-all duration-150 ease-out;
+}
+
+/* Details/Summary progressive disclosure */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary {
+  list-style: none;
+}
+
+details[open] > summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* Progress Circle Styles */
@@ -107,9 +121,45 @@ button, a, input, textarea, select {
   animation: particle-float 0.8s ease-out forwards;
 }
 
+/* Summary Slide – Confetti fall animation (CSS-only, Duolingo-inspired) */
+@keyframes summaryConfettiFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) rotate(0deg) scale(0);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) rotate(45deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(250px) rotate(720deg) scale(0.3);
+  }
+}
+
 /* Gradient text */
 .gradient-text {
   @apply bg-gradient-to-r from-brand-700 to-accent-600 bg-clip-text text-transparent;
+}
+
+/* Hero title – tamsesnė gradient spalva, aiškesnė hierarchija */
+.gradient-text-hero {
+  @apply bg-gradient-to-r from-brand-800 to-accent-700 bg-clip-text text-transparent;
+}
+
+.dark .gradient-text-hero {
+  @apply from-brand-300 to-accent-400;
+}
+
+/* Hero CTA – vienintelis energinis objektas: tamsesnis mėlynas, +10–15% aukštesnis, subtle glow */
+.btn-hero-cta {
+  @apply rounded-2xl py-6 text-xl min-h-[56px] font-semibold;
+  background: linear-gradient(135deg, #486581 0%, #334e68 100%);
+  box-shadow: 0 4px 18px rgba(36, 59, 83, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+.btn-hero-cta:hover {
+  background: linear-gradient(135deg, #334e68 0%, #243b53 100%);
+  box-shadow: 0 6px 22px rgba(36, 59, 83, 0.5);
 }
 
 /* Glass morphism cards */

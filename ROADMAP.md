@@ -1,8 +1,107 @@
-# 🗺️ Promptų anatomija - Plėtros Roadmap
+# 🗺️ Promptų anatomija – Plėtros Roadmap
 
-> **Data:** 2026-02-01  
+> **Data:** 2026-02-01 | **Atnaujinta:** 2026-02-08  
 > **Versija:** 2.0.0  
-> **Statusas:** Kritinė analizė ir plėtros planas
+> **Statusas:** Sistema testuojama pavieniais testais; 2026-02-07 vertinimai geri. Glaustas tolesnis planas – žr. § „Tolesnis plėtros planas“.
+
+---
+
+## 📊 2026-02-07 Vertinimas (testavimas ir būklė)
+
+- **Testavimas:** Sistema testuojama **pavieniais testais** (unit + integraciniai). Vitest + React Testing Library; 46 testai (progress, useAutoSave, App integracija, QuizPage, App–Quiz flow). CI – GitHub Actions.
+- **Vertinimai:** Geri – kritinėse vietose (progress, migracija, auto-save, navigacija) padengta; Error Boundary, lazy loading, SEO (react-helmet-async), accessibility (skip link, aria) įgyvendinta.
+- **Moduliai:** 6 moduliai (1–3 bazinė triada, 4–6 pažangusis blokas); duomenys `modules.json`, žodynėlis, apklausa.
+- **Dokumentacija:** README atnaujintas pagal kodą; Modulio 4 turinio analizė ir skaidrių eilė; CHANGELOG, docs/README sinchronizuoti.
+
+---
+
+## 🧭 Tolesnis plėtros planas (glaustas)
+
+**Principas:** Stabilumas ir turinys pirmiausia; nauji „dideli“ feature’ai – tik po patvirtinto MVP ir naudotojų grįžtamojo ryšio.
+
+| Etapas | Ką darome | Prioritetas |
+|--------|-----------|-------------|
+| **1. Stabilumas** | E2E testai (1–2 kritiniai flow), modulių užrakinimo įjungimas, monitoring (Sentry/GA4) – tik pagrindinės metrikos | Aukštas |
+| **2. Turinys ir duomenys** | Modulių 4–6 turinio sinchronas su SOT (`modules.json` ↔ `turinio_pletra_moduliai_4_5_6.md`), žodynėlio/klausimų kokybė | Aukštas |
+| **3. UX poliravimas** | Sertifikato generavimas (PDF), eksportas/importas progreso, accessibility audit užbaigimas; **prezentacijos artefakto atsisiuntimas** (Modulio 4, optional skaidrė „8 skaidrių prezentacija“ – vartotojas ruošia artefaktą, kurį galės atsisiųsti) | Vidutinis |
+| **3a. Pedagoginė atitiktis** | Sandbox pranešimas, diagnostinis quiz/praktikos feedback, modulių pabaigos – „kūrinys“ (žr. § Pedagoginės įžvalgos) | Vidutinis |
+| **4. Pasirinktinai** | PWA (offline), DI grįžtamasis ryšys praktinėms užduotims, papildomi scenarijai, role-first, organizacijos atmintis | Žemas / vėliau |
+
+**Ko dabar nedaryti:** Backend/auth (per anksti), multi-language (fokusas LT), advanced gamification. Roadmap atnaujinamas kas mėnesį arba po release; kitas peržiūrėjimas – 2026-03.
+
+---
+
+## 🎓 Pedagoginės įžvalgos: atitiktis ir planas (Must–Should–Want)
+
+> **Paskirtis:** Lyginame 8 pedagogines įžvalgas su dabartiniu kodu; nustatome, ką įgyvendinti jau dabar, o ką kelti toliau (must / should / want). **Post-release:** skyrius „TOP įžvalgos kūrėjams“ – esmė be standarto, kūrėjų atminimui.
+
+### Palyginimas su kodu
+
+| Įžvalga | Dabartinė būklė kode | Atitiktis |
+|--------|----------------------|-----------|
+| **1. Mokyti darymo, ne supratimo** | Moduliuose yra PracticalTask (vartotojas rašo promptą, auto-save, „užbaigta“). Moduliai 1–3: Learn → Test → Practice. Bet baigimas dažnai „peržiūrėjai“; ne visur aiškus **rezultatas** (promptas / eskizas). | ⚠️ Dalinai – praktika yra, bet CTA ir modulių pabaigos ne visur verčia „ką sukūrei“. |
+| **2. Safe-to-fail sandbox** | Viskas localStorage, nėra backend – niekas neišlekia į produkciją. Galima bandyti, grįžti atgal. Bet **UI neaiškina**, kad tai sandbox („galima sugadinti“). | ✅ Architektūriškai atitinka; trūksta aiškaus pranešimo vartotojui. |
+| **3. Skaidrumas = sprendimo kelias, ne „mintys“** | Nėra DI chain-of-thought; nėra „kaip AI galvojo“. Jei bus DI grįžtamasis ryšys – reikia rodyti **žingsnius, bandymus, kur sustojo**, ne žalią logą. | ✅ Dabar nėra klaidinančio skaidrumo; ateičiai – gairė įgyvendinant DI feedback. |
+| **4. Role-first, ne AI-first** | Moduliai bendri (6 blokų sistema); scenarijai pagal kontekstą (marketingas, HR, produkto vadovas) – **turinio lygyje**, bet nėra atskiros „rolės“ (HR / IT / vadovas) kelio. | ⚠️ Turinys jau rolėms panašus; UX ne „pasirink savo rolę“ pirmiausia. |
+| **5. Vertinimas padėti, ne teisti** | Quiz: „Teisingai! / Neteisingai.“ + explanation. Praktinėms užduotims – nėra DI vertinimo; užtenka „užbaigta“. Rizika: **per egzaminą** skamba. | ⚠️ Explanation naudingas, bet framinimas „teisinga/neteisinga“ – ne diagnostinis („čia stipru, čia silpna, pabandyk kitaip“). |
+| **6. Per anksti per daug** | Roadmap jau riboja: MVP pirmiausia, be backend/gamification. 1–2 pagrindiniai scenarijai (6 blokai, testas, praktika). | ✅ Atitinka – nuobodus bet veikiantis MVP. |
+| **7. Organizacijos atmintis** | Progresas (localStorage): atrakinti moduliai, užbaigtos užduotys. **Nėra:** kas bandyta, kas suveikė/ne, kaip evoliucionavo sprendimai. | ❌ Sesijos metu veikia; po mokymų lieka tik „completed“ – ne istorija bandymų. |
+| **8. Teisinė/etinė „by design“** | Nėra realių duomenų siuntimo į API; praktika lokali. Rizikingi veiksmai neblokuojami (nes nėra integracijų). | ⚠️ Kol lokalu – rizika maža; su DI API reikės „neleisti realių duomenų“ ir pan. |
+
+### Ką įgyvendinti jau dabar (low effort, didelė atitiktis)
+
+- **Sandbox pranešimas:** Pirmo modulio / praktinės dalies kontekste trumpas tekstas: „Tai treniruoklis – galite bandyti, klysti ir grįžti atgal; niekas neišlekia į tikrą sistemą.“ (turinis + viena vietė UI.)
+- **„Darymo“ CTA:** Modulių/skaidrių pabaigose, kur yra PracticalTask – aiškiai rašyti „Sukurk…“ / „Rezultatas: jūsų promptas/eskizas“, ne tik „Peržiūrėjai“.
+
+### Must (privaloma – MVP / artimiausia release)
+
+- **Kiekvienas modulis baigiasi kūriniu:** Nė vienas modulis tik „peržiūrėjai“ – bent viena užduotis: promptas, workflow eskizas ar sprendimo fragmentas (jau daug kur yra – patikrinti ir užbaigti).
+- **Vertinimas diagnostinis:** Quiz ir praktikos feedback – ne tik „teisinga/neteisinga“, bet tonas: „čia stipru“, „čia rizika“, „pabandyk kitaip“ + explanation (turinis ir, jei reikia, mažas UI pakeitimas).
+
+### Should (turėtų – po MVP)
+
+- **Role-first įėjimas (pasirink rolę):** HR / marketingas / vadovas / IT / operacijos – skirtinga pirmoji patirtis arba scenarijų rinkinys (turinys + navigacija).
+- **Organizacijos atmintis:** Kaupti, kas bandyta / kas suveikė / kas ne (reikia dizaino: localStorage istorija arba vėliau backend).
+- **Skaidrumas, kai bus DI:** Jei bus DI grįžtamasis ryšys – rodyti sprendimo kelią (žingsniai, bandymai, kur sustojo), ne „kaip AI galvojo“.
+
+### Want (norima – vėliau)
+
+- **Teisinė/etinė by design:** Kai bus realūs API/duomenys – neleisti realių asmens duomenų, stabdyti rizikingus veiksmus, architektūra, ne pamokslas.
+- **Pilna role-first patirtis:** Skirtingi keliai ir turinys pagal rolę.
+
+---
+
+### 📌 TOP įžvalgos kūrėjams (post-release, esmė – be standarto)
+
+> Šios įžvalgos – **ne oficialus standartas**, o konsoliduota esmė iš analizių, kad kūrėjai (vystant platformą) nepamirštų pagrindų.
+
+1. **Sistema turi mokyti darymo, ne supratimo.** Supratimas ≠ gebėjimas veikti. Modulis turi baigtis **rezultatu** (promptas, workflow, eskizas), ne jausmu „aišku“.
+2. **Be safe-to-fail žmonės nemokysis.** Sandbox: galima bandyti, klysti, grįžti; niekas neišlekia į produkciją. Jei atrodo kaip tikras įrankis be apsaugų – žmonės taps pasyvūs.
+3. **Skaidrumas ≠ visko rodymas.** Rodyti **sprendimo kelią** (žingsniai, bandymai, kur sustojo, kodėl nepriėmė), ne „mintis“ – tai moko mąstymo be mistifikacijos.
+4. **Mokymai role-first, ne AI-first.** Tas pats AI skirtingoms rolėms = skirtingas darbas. HR, marketingas, vadovas, IT neturi matyti tos pačios patirties pirmiausia.
+5. **Vertinimas turi padėti, ne teisti.** Diagnostinis: „čia veikia, čia silpna, čia rizika, pabandyk kitaip“ – ne „blogai, kartok“.
+6. **Didžiausia rizika – per anksti per daug.** MVP nuobodus bet veikiantis: 1–2 scenarijai, ribotas funkcionalumas, aiškus rezultatas. Plėtra po realaus naudojimo.
+7. **Mokymų sistema = organizacijos atmintis.** Vertė po sesijos: kas bandyta, kas suveikė, kas ne, kaip evoliucionavo sprendimai. Jei nieko nelieka – buvo renginys, ne sistema.
+8. **Teisinė ir etinė disciplina by design.** Neleisti realių duomenų, stabdyti rizikingus veiksmus, versti galvoti apie pasekmes – architektūra, ne pamokslas.
+
+**Geriau nei „dar viena LMS“:** Ne kurkite mokymų platformos – kurkite **treniruoklį**. Treniruoklis leidžia kartoti, klysti, matyti progresą ir grąžina naudą į realų darbą.
+
+**Top 3 pavojai kūrėjams:** (1) Per daug teorijos, per mažai veiksmo. (2) Bandymas patikti visiems vienu metu. (3) Vertinimas, kuris gąsdina, o ne moko.
+
+---
+
+### Nauji roadmap punktai (iš pedagoginių įžvalgų)
+
+Šie punktai įtraukti į atitinkamus etapus; prioritetai derinami su „Tolesnio plėtros plano“ lentele.
+
+| Prioritetas | Užduotis | Etapas / Sprint |
+|-------------|----------|------------------|
+| Aukštas | Sandbox pranešimas vartotojui („treniruoklis, galite klysti“) | Fazė 1, turinys/UX (kartu su stabilumu) |
+| Aukštas | Quiz/praktikos feedback – diagnostinis tonas („čia stipru / silpna / pabandyk kitaip“) | Fazė 1–2, turinys + mažas UI |
+| Vidutinis | Patikrinti, kad kiekvienas modulis baigiasi kūriniu (ne tik peržiūra) | Fazė 1, turinio auditas |
+| Vidutinis | Role-first įėjimas arba scenarijų pasirinkimas pagal rolę | Fazė 2 |
+| Žemas | Organizacijos atmintis (bandymų istorija) | Fazė 2–3 |
+| Žemas | DI grįžtamasis ryšys – rodyti sprendimo kelią, ne „mintis“ | Fazė 2 (kai bus DI) |
 
 ---
 
@@ -17,47 +116,39 @@
    - ✅ Modernus tech stack (React 18, Vite, Tailwind)
 
 2. **Funkcionalumas**
-   - ✅ 3 modulių sistema (Learn → Test → Practice)
-   - ✅ Progreso sekimas (localStorage)
-   - ✅ Auto-save funkcionalumas
-   - ✅ Dark mode palaikymas
-   - ✅ Responsive dizainas
-   - ✅ Klaviatūros navigacija
+   - ✅ **6 modulių sistema** (1–3: Learn → Test → Practice; 4–6: Konteksto inžinerija → Testas → Projektas)
+   - ✅ Progreso sekimas (localStorage, versijavimas, migracija)
+   - ✅ Auto-save, Error Boundary, lazy loading
+   - ✅ Dark mode, responsive, klaviatūra, SEO (react-helmet-async)
 
-3. **UX/UI**
-   - ✅ Modernus dizainas (Navy/Gold schema)
-   - ✅ Animacijos ir transitions
-   - ✅ Accessibility palaikymas (ARIA labels)
-   - ✅ Mobile-first prieiga
+3. **Testavimas**
+   - ✅ Pavieniai testai (unit + integraciniai), CI
+   - ⚠️ E2E dar nėra
+
+4. **UX/UI**
+   - ✅ Modernus dizainas (Navy/Gold), animacijos, ARIA, mobile-first
 
 ### ⚠️ Kritinės Problemos
 
-#### 🔴 Aukšto prioriteto (veikia dabar)
+#### 🔴 Aukšto prioriteto – įgyvendinta (2026-02)
 
-1. **Nėra klaidų valdymo (Error Boundaries)**
-   - ❌ Jei komponentas nukrenta, visa aplikacija nukrenta
-   - ❌ Nėra fallback UI klaidoms
-   - ❌ Vartotojas mato baltą ekraną klaidų atveju
-   - **Rizika:** Blogas vartotojo patirtis, duomenų praradimas
+1. **Klaidų valdymas (Error Boundaries)** ✅
+   - ✅ ErrorBoundary komponentas, fallback UI, retry
+   - **Data:** 2026-02
 
-2. **Nėra testavimo infrastruktūros**
-   - ❌ 0 testų (unit, integration, e2e)
-   - ❌ Nėra CI/CD testavimo
-   - ❌ Refactoring rizika
-   - **Rizika:** Regresijos, sunku pridėti naują funkcionalumą
+2. **Testavimo infrastruktūra** ✅
+   - ✅ 46 testų (unit + integraciniai), CI (GitHub Actions). Sistema testuojama pavieniais testais; vertinimai geri (2026-02-07).
+   - ⚠️ E2E testų dar nėra (žemas prioritetas)
 
-3. **localStorage duomenų migracijos strategija**
-   - ❌ Nėra versijavimo duomenų struktūroms
-   - ❌ Jei keičiasi Progress interface, seni duomenys gali sugadinti aplikaciją
-   - ❌ Nėra duomenų validacijos
-   - **Rizika:** Duomenų praradimas, aplikacijos lūžimas
+3. **localStorage versijavimas ir migracija** ✅
+   - ✅ Versijavimas (v1/v2), validacija, automatinė migracija
+   - **Data:** 2026-02
 
-4. **Nėra SEO optimizacijos**
-   - ❌ Nėra meta tags
-   - ❌ Nėra Open Graph
-   - ❌ Nėra structured data
-   - ❌ SPA problema su SEO
-   - **Rizika:** Blogas paieškos matomumas
+4. **SEO (bazinė)** ✅
+   - ✅ react-helmet-async, dinaminis title/description pagal puslapį ir modulį
+   - ⚠️ Open Graph, structured data, sitemap – vėliau
+
+#### 🟡 Likusios / vidutinio prioriteto
 
 5. **Nėra produkcijos monitoring**
    - ❌ Nėra error tracking (Sentry, etc.)
@@ -89,11 +180,9 @@
    - ❌ Praktinės užduotys neturi DI vertinimo
    - **Rizika:** Sumažėjęs mokymosi efektyvumas
 
-10. **Nėra versijavimo sistemos**
-    - ❌ Nėra CHANGELOG.md
-    - ❌ Nėra semantinio versijavimo proceso
-    - ❌ Nėra migration scripts
-    - **Rizika:** Sunku sekti pakeitimus
+10. **Versijavimas** – dalinai ✅
+    - ✅ CHANGELOG.md, versijavimas progress duomenims
+    - ⚠️ Semantinio versijavimo procesas – gairės dokumentuose
 
 #### 🟢 Žemo prioriteto (nice-to-have)
 
@@ -124,30 +213,12 @@
 
 #### Sausis-Vasaris (2026-02 - 2026-03)
 
-**Sprint 1: Klaidų valdymas ir stabilumas (2 savaitės)**
-- [ ] **Error Boundaries įgyvendinimas**
-  - Sukurti `ErrorBoundary` komponentą
-  - Apgaubti visus pagrindinius komponentus
-  - Pridėti fallback UI su "Atnaujinti puslapį" mygtuku
-  - Logging klaidų į console (vėliau - Sentry)
-  - **Prioritetas:** 🔴 KRITINIS
-  - **Įvertinimas:** 8 valandos
-
-- [ ] **Duomenų validacija ir migracija**
-  - Sukurti `dataMigration.ts` utility
-  - Pridėti versijavimą Progress interface (v1, v2, etc.)
-  - Validacija localStorage duomenų prieš naudojimą
-  - Automatinė migracija senų duomenų į naują formatą
-  - **Prioritetas:** 🔴 KRITINIS
-  - **Įvertinimas:** 12 valandų
-
-- [ ] **Testavimo infrastruktūra**
-  - Setup Vitest arba Jest
-  - Setup React Testing Library
-  - Parašyti pirmuosius unit testus (utils/progress.ts, utils/useAutoSave.ts)
-  - Parašyti komponentų testus (ErrorBoundary, CircularProgress)
-  - CI/CD integracija (GitHub Actions)
-  - **Prioritetas:** 🔴 KRITINIS
+**Sprint 1: Klaidų valdymas ir stabilumas (2 savaitės)** ✅ *Įgyvendinta 2026-02*
+- [x] **Error Boundaries įgyvendinimas** – ErrorBoundary, fallback UI, retry
+- [x] **Duomenų validacija ir migracija** – versijavimas (v1/v2), validacija, migracija (`progress.ts`)
+- [x] **Testavimo infrastruktūra** – Vitest + RTL, unit (progress, useAutoSave), integraciniai (App, QuizPage), CI (GitHub Actions)
+  - *Sistema testuojama pavieniais testais; 2026-02-07 vertinimai geri.*
+  - **Prioritetas:** ~~🔴 KRITINIS~~ → ✅ Atlikta
   - **Įvertinimas:** 16 valandų
 
 **Sprint 2: SEO ir Monitoring (2 savaitės)**
@@ -345,20 +416,21 @@
 
 ## 📊 Prioritetų Matrica
 
-| Užduotis | Prioritetas | Įvertinimas | Rizika | ROI |
-|----------|-------------|-------------|--------|-----|
-| Error Boundaries | 🔴 KRITINIS | 8h | Žema | Aukštas |
-| Duomenų migracija | 🔴 KRITINIS | 12h | Vidutinė | Aukštas |
-| Testavimo infrastruktūra | 🔴 KRITINIS | 16h | Žema | Aukštas |
-| SEO optimizacija | 🟡 VIDUTINIS | 10h | Žema | Vidutinis |
-| Monitoring | 🟡 VIDUTINIS | 8h | Žema | Vidutinis |
-| PWA | 🟡 VIDUTINIS | 16h | Vidutinė | Vidutinis |
-| Eksportas/Importas | 🟡 VIDUTINIS | 12h | Žema | Vidutinis |
-| Sertifikatas | 🟡 VIDUTINIS | 14h | Žema | Vidutinis |
-| DI grįžtamasis ryšys | 🟡 VIDUTINIS | 24h | Aukšta | Aukštas |
-| Backend integracija | 🟡 VIDUTINIS | 60h | Aukšta | Vidutinis |
-| Multi-language | 🟢 ŽEMAS | 24h | Vidutinė | Žemas |
-| Gamification | 🟢 ŽEMAS | 12h | Žema | Žemas |
+| Užduotis | Prioritetas | Įvertinimas | Rizika | ROI | Statusas |
+|----------|-------------|-------------|--------|-----|----------|
+| Error Boundaries | 🔴→✅ | 8h | Žema | Aukštas | **Atlikta 2026-02** |
+| Duomenų migracija | 🔴→✅ | 12h | Vidutinė | Aukštas | **Atlikta 2026-02** |
+| Testavimo infrastruktūra | 🔴→✅ | 16h | Žema | Aukštas | **Atlikta 2026-02** (pavieniai testai, vertinimai geri) |
+| SEO (bazinė) | 🟡→✅ | 10h | Žema | Vidutinis | **Atlikta 2026-02** (react-helmet-async) |
+| SEO (pilna: OG, sitemap) | 🟡 VIDUTINIS | +6h | Žema | Vidutinis | — |
+| Monitoring | 🟡 VIDUTINIS | 8h | Žema | Vidutinis | — |
+| PWA | 🟡 VIDUTINIS | 16h | Vidutinė | Vidutinis | — |
+| Eksportas/Importas | 🟡 VIDUTINIS | 12h | Žema | Vidutinis | — |
+| Sertifikatas | 🟡 VIDUTINIS | 14h | Žema | Vidutinis | — |
+| DI grįžtamasis ryšys | 🟡 VIDUTINIS | 24h | Aukšta | Aukštas | — |
+| Backend integracija | 🟡 VIDUTINIS | 60h | Aukšta | Vidutinis | — |
+| Multi-language | 🟢 ŽEMAS | 24h | Vidutinė | Žemas | — |
+| Gamification | 🟢 ŽEMAS | 12h | Žema | Žemas | — |
 
 ---
 
@@ -426,22 +498,19 @@
 
 ## 🎯 Rekomendacijos
 
-### Šiandien (2026-02-01) - Pirmieji žingsniai
+### Būsena 2026-02-07 – pirmieji žingsniai atlikti
 
-1. **IMMEDIATE (šią savaitę)**
-   - [ ] Sukurti Error Boundary komponentą
-   - [ ] Pridėti duomenų versijavimą ir validaciją
-   - [ ] Setup testavimo infrastruktūrą (bent jau basic)
+1. **Įgyvendinta (2026-02)**
+   - [x] Error Boundary, duomenų versijavimas ir migracija, testavimo infrastruktūra (pavieniai testai), SEO (react-helmet-async), accessibility (skip link, aria), 6 moduliai, dokumentacija
 
-2. **Šį mėnesį (vasaris 2026)**
-   - [ ] Užbaigti kritines problemas (Error Boundaries, migracija, testai)
-   - [ ] Pridėti SEO optimizaciją
-   - [ ] Integruoti monitoring
+2. **Artimiausiai (vasaris–kovas 2026)**
+   - [ ] E2E 1–2 kritiniams flow (optional, bet rekomenduojama)
+   - [ ] Modulių užrakinimo įjungimas (`DISABLE_MODULE_LOCK = false`), monitoring (Sentry/GA4 – minimalus)
+   - [ ] Modulių 4–6 turinio sinchronas (JSON ↔ SOT)
 
-3. **Artimiausius 3 mėnesius**
-   - [ ] PWA funkcionalumas
-   - [ ] Eksportas/Importas
-   - [ ] Sertifikato generavimas
+3. **Tolesni 3 mėnesiai**
+   - [ ] Sertifikato generavimas, eksportas/importas progreso
+   - [ ] PWA arba papildomi scenarijai – pagal poreikį
 
 ### Ilgalaikės strategijos
 
@@ -506,20 +575,20 @@
 
 ## 🔄 Roadmap Atnaujinimas
 
-Šis roadmap turėtų būti atnaujinamas:
-- **Kas mėnesį:** Peržiūrėti prioritetus
-- **Po kiekvieno didesnio release:** Atnaujinti progresą
-- **Kas ketvirtį:** Peržiūrėti ilgalaikę strategiją
+Šis roadmap atnaujinamas:
+- **Kas mėnesį:** Peržiūrėti prioritetus ir „Tolesnio plėtros plano“ lentelę
+- **Po release:** Pažymėti įgyvendintus punktus
+- **Kas ketvirtį:** Ilgalaikė strategija (Fazės 2–3)
 
-**Paskutinis atnaujinimas:** 2026-02-01  
+**Paskutinis atnaujinimas:** 2026-02-07 (testavimo vertinimas gerai; įtraukta pedagoginių įžvalgų analizė, must–should–want, TOP įžvalgos kūrėjams, nauji roadmap punktai)  
 **Kitas peržiūrėjimas:** 2026-03-01
 
 ---
 
 <div align="center">
 
-**Promptų anatomija** - Realistinis Plėtros Planas
+**Promptų anatomija** – Plėtros Roadmap
 
-*Sukurta 2026-02-01 | Versija 2.0.0*
+*Sukurta 2026-02-01 | Atnaujinta 2026-02-07 | Versija 2.0.0*
 
 </div>

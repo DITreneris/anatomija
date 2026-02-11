@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 560 880" xmlns="http://www.w3.org/2000/svg" aria-labelledby="diagram-title" role="img">
+  <title id="diagram-title">Custom GPT kūrimo procesas – 8 žingsnių schema</title>
+  <defs>
+    <!-- brand-50 / slate-100 fonas -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f4f8"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <!-- Pagrindinės rodyklės: storesnės, didesnis antgalis -->
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto">
+      <path d="M0 0 L12 5 L0 10 Z" fill="#334e68" stroke="#334e68" stroke-width="0.3"/>
+    </marker>
+    <marker id="arrow-fb" markerWidth="16" markerHeight="11" refX="14" refY="5.5" orient="auto">
+      <path d="M0 0 L16 5.5 L0 11 Z" fill="#b8860b" stroke="#7a5807" stroke-width="0.6"/>
+    </marker>
+    <!-- brand (navy) žingsniams -->
+    <linearGradient id="step" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#486581"/>
+      <stop offset="100%" stop-color="#334e68"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="560" height="880" fill="url(#bg)" rx="12"/>
+  <rect width="560" height="880" fill="none" stroke="#bcccdc" stroke-width="1" rx="12"/>
+
+  <!-- Titlas: didesnis, aiškesnė hierarchija -->
+  <text x="280" y="37" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="24" font-weight="800" fill="#102a43">Custom GPT kūrimo procesas</text>
+  <text x="280" y="60" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="500" fill="#334e68">Tikslas → Rolė → Prisijungimas → Konfigūracija → … → Tobulinimas</text>
+
+  <!-- Žingsnis 1 -->
+  <g>
+    <rect x="140" y="78" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="106" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">1 · TIKSLAS</text>
+    <text x="280" y="131" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">Kam skirtas? (pardavimai, mokymai, kūryba)</text>
+  </g>
+  <line x1="280" y1="138" x2="280" y2="158" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 2 -->
+  <g>
+    <rect x="140" y="162" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="190" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">2 · ROLĖ</text>
+    <text x="280" y="215" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">Tonas, stilius, kompetencija</text>
+  </g>
+  <line x1="280" y1="222" x2="280" y2="242" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 3 -->
+  <g>
+    <rect x="140" y="246" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="274" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">3 · PRISIJUNGIMAS</text>
+    <text x="280" y="299" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">ChatGPT → Explore GPTs → Create a GPT</text>
+  </g>
+  <line x1="280" y1="306" x2="280" y2="326" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 4 (į kurį grįžta grįžtamasis ryšys) -->
+  <g>
+    <rect x="140" y="330" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="358" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">4 · KONFIGŪRACIJA</text>
+    <text x="280" y="383" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">Pavadinimas, aprašymas, instrukcijos, persona</text>
+  </g>
+  <line x1="280" y1="390" x2="280" y2="410" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 5 -->
+  <g>
+    <rect x="140" y="414" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="442" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">5 · PAPILDOMOS FUNKCIJOS</text>
+    <text x="280" y="467" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">Dokumentai, API, įrankiai</text>
+  </g>
+  <line x1="280" y1="474" x2="280" y2="494" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 6: Testavimas -->
+  <g>
+    <rect x="140" y="498" width="280" height="56" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="280" y="526" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="white">6 · TESTAVIMAS</text>
+    <text x="280" y="551" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="500" fill="#334e68">Išbandykite ir pataisykite</text>
+  </g>
+  <!-- Šaka: 6 → 7 ir 6 → 8 -->
+  <line x1="280" y1="558" x2="280" y2="588" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="280" y1="588" x2="200" y2="588" stroke="#334e68" stroke-width="2"/>
+  <line x1="280" y1="588" x2="360" y2="588" stroke="#334e68" stroke-width="2"/>
+  <line x1="200" y1="588" x2="200" y2="612" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="360" y1="588" x2="360" y2="612" stroke="#334e68" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Žingsnis 7: Publikavimas -->
+  <g>
+    <rect x="80" y="612" width="160" height="52" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="160" y="636" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="700" fill="white">7 · PUBLIKAVIMAS</text>
+    <text x="160" y="656" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="500" fill="rgba(255,255,255,0.95)">✓ Sėkmė</text>
+  </g>
+  <!-- Žingsnis 8: Tobulinimas -->
+  <g>
+    <rect x="320" y="612" width="160" height="52" rx="12" fill="url(#step)" stroke="#334e68" stroke-width="1.5"/>
+    <text x="400" y="636" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="700" fill="white">8 · TOBULINIMAS</text>
+    <text x="400" y="656" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="500" fill="rgba(255,255,255,0.95)">Grįžtamasis ryšys</text>
+  </g>
+
+  <!-- Grįžtamasis ryšys: išeina iš Tobulinimo (8) dešiniojo šono → į Konfigūraciją (4) -->
+  <path d="M 480 638 L 502 638 Q 512 638 512 626 L 512 362 Q 512 352 502 352 L 421 356" stroke="#b8860b" stroke-width="3" fill="none" stroke-dasharray="10 6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-fb)"/>
+
+  <!-- Apačia: reikalavimai ir legenda -->
+  <g>
+    <rect x="24" y="700" width="512" height="72" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="280" y="724" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#102a43">Svarbu</text>
+    <text x="280" y="743" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="500" fill="#334e68">ChatGPT Plus būtina · Aiškios instrukcijos · Testavimas ir nuolatinis tobulinimas</text>
+    <line x1="48" y1="758" x2="68" y2="758" stroke="#b8860b" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="76" y="763" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="500" fill="#475569">Grįžtamasis ryšys (8 → 4)</text>
+  </g>
+</svg>

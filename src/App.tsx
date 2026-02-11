@@ -1,53 +1,56 @@
 import { useState, useEffect, useCallback, Suspense, lazy } from 'react';
-import { Home, BookOpen, ClipboardCheck, Moon, Sun, Sparkles, Menu, X } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { Sparkles } from 'lucide-react';
 import Celebration from './components/Celebration';
+import { AppNav } from './components/AppNav';
 import { ErrorBoundary, LoadingSpinner } from './components/ui';
 import { getProgress, saveProgress, flushProgressSave } from './utils/progress';
-import { loadModules, getModulesDataSync, preloadModules } from './data/modulesLoader';
+import { logLearningEvent, hasLoggedFirstActionSuccess } from './utils/learningEvents';
+import { useTheme } from './utils/useTheme';
+import { loadModules, getModulesDataSync, preloadModules, clearModulesLoadError } from './data/modulesLoader';
+import { getIsMvpMode } from './utils/mvpMode';
 import type { ModulesData } from './types/modules';
+
+const isMvpMode = getIsMvpMode();
 
 // Lazy load heavy components for better initial load
 const HomePage = lazy(() => import('./components/HomePage'));
 const ModulesPage = lazy(() => import('./components/ModulesPage'));
 const ModuleView = lazy(() => import('./components/ModuleView'));
 const QuizPage = lazy(() => import('./components/QuizPage'));
+const GlossaryPage = lazy(() => import('./components/GlossaryPage'));
 
-type Page = 'home' | 'modules' | 'module' | 'quiz';
+type Page = 'home' | 'modules' | 'module' | 'quiz' | 'glossary';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedModule, setSelectedModule] = useState<number | null>(null);
+  const [initialSlideIndex, setInitialSlideIndex] = useState<number | null>(null);
+  /** A-M3: when viewing Module 1 from Module 2 test results (remediation), allow return to results */
+  const [remediationFrom, setRemediationFrom] = useState<{ sourceModuleId: number } | null>(null);
   const [progress, setProgress] = useState(getProgress());
   const [showCelebration, setShowCelebration] = useState(false);
   const [celebrationType, setCelebrationType] = useState<'task' | 'module' | 'quiz'>('task');
   const [modulesData, setModulesData] = useState<ModulesData | null>(getModulesDataSync());
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-    return false;
-  });
+  const [modulesLoadError, setModulesLoadError] = useState<Error | null>(null);
+  const [isDark, setIsDark] = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Load modules data on mount
   useEffect(() => {
     if (!modulesData) {
-      loadModules().then(setModulesData);
+      loadModules()
+        .then((data) => {
+          setModulesLoadError(null);
+          setModulesData(data);
+        })
+        .catch((err) => {
+          console.error('Nepavyko įkelti modulių:', err);
+          setModulesLoadError(err);
+        });
     }
-    // Preload modules for faster navigation
     preloadModules();
   }, [modulesData]);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDark]);
 
   useEffect(() => {
     saveProgress(progress);
@@ -64,6 +67,15 @@ function App() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
+
+  // MVP: redirect if selectedModule > 3 (e.g. state manipulation, direct link)
+  useEffect(() => {
+    if (isMvpMode && currentPage === 'module' && selectedModule != null && selectedModule > 3) {
+      setCurrentPage('modules');
+      setSelectedModule(null);
+      setRemediationFrom(null);
+    }
+  }, [currentPage, selectedModule]);
 
   // Close mobile menu when clicking outside or when page changes
   useEffect(() => {
@@ -92,6 +104,7 @@ function App() {
   }, [isMobileMenuOpen]);
 
   const handleModuleSelect = useCallback((moduleId: number) => {
+    if (isMvpMode && moduleId > 3) return;
     setSelectedModule(moduleId);
     setCurrentPage('module');
   }, []);
@@ -107,18 +120,68 @@ function App() {
     return null;
   }, [modulesData]);
 
+  const handleRetryModules = useCallback(() => {
+    clearModulesLoadError();
+    setModulesLoadError(null);
+    setModulesData(null);
+    loadModules()
+      .then((data) => {
+        setModulesLoadError(null);
+        setModulesData(data);
+      })
+      .catch((err) => {
+        console.error('Nepavyko įkelti modulių:', err);
+        setModulesLoadError(err);
+      });
+  }, []);
+
   const handleModuleComplete = (moduleId: number) => {
     if (!progress.completedModules.includes(moduleId)) {
       setProgress(prev => ({
         ...prev,
         completedModules: [...prev.completedModules, moduleId],
       }));
-      
+      logLearningEvent('module_completed', { moduleId });
       // Show celebration
       setCelebrationType('module');
       setShowCelebration(true);
     }
   };
+
+  const handleGoToModule = useCallback((moduleId: number, slideIndex?: number, fromRemediationSourceModuleId?: number) => {
+    if (isMvpMode && moduleId > 3) {
+      setCurrentPage('modules');
+      setSelectedModule(null);
+      setRemediationFrom(null);
+      return;
+    }
+    setSelectedModule(moduleId);
+    setInitialSlideIndex(slideIndex ?? null);
+    if (fromRemediationSourceModuleId != null) {
+      setRemediationFrom({ sourceModuleId: fromRemediationSourceModuleId });
+    } else {
+      setRemediationFrom(null);
+    }
+    setCurrentPage('module');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  /** A-M3: return to test-results slide of the module we came from (e.g. Module 2). */
+  const handleReturnToRemediation = useCallback(() => {
+    if (!remediationFrom) return;
+    const sourceId = remediationFrom.sourceModuleId;
+    setRemediationFrom(null);
+    setSelectedModule(sourceId);
+    // Module 2 enriched view: slides = [test-intro, test-section, test-results] → index 2
+    const resultsSlideIndex = sourceId === 2 ? 2 : (() => {
+      const mod = modulesData?.modules?.find((m) => m.id === sourceId);
+      const idx = mod?.slides?.findIndex((s) => s.type === 'test-results') ?? -1;
+      return idx >= 0 ? idx : 0;
+    })();
+    setInitialSlideIndex(resultsSlideIndex);
+    setCurrentPage('module');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [remediationFrom, modulesData]);
 
   // Navigate to next module (called from ModuleView)
   const handleContinueToNextModule = (currentModuleId: number) => {
@@ -134,19 +197,28 @@ function App() {
     }
   };
 
-  const handleTaskComplete = (moduleId: number, taskId: number) => {
-    if (!progress.completedTasks[moduleId]?.includes(taskId)) {
+  const handleTaskComplete = (moduleId: number, taskId: number, testScore?: number) => {
+    const isNewTask = !progress.completedTasks[moduleId]?.includes(taskId);
+    if (isNewTask || testScore !== undefined) {
       setProgress(prev => ({
         ...prev,
-        completedTasks: {
-          ...prev.completedTasks,
-          [moduleId]: [...(prev.completedTasks[moduleId] || []), taskId],
-        },
+        ...(isNewTask && {
+          completedTasks: {
+            ...prev.completedTasks,
+            [moduleId]: [...(prev.completedTasks[moduleId] || []), taskId],
+          },
+        }),
+        ...(testScore !== undefined && {
+          moduleTestScores: { ...(prev.moduleTestScores ?? {}), [moduleId]: testScore },
+        }),
       }));
-      
-      // Show task celebration
-      setCelebrationType('task');
-      setShowCelebration(true);
+      if (isNewTask) {
+        if (!hasLoggedFirstActionSuccess()) {
+          logLearningEvent('first_action_success', { moduleId, taskId });
+        }
+        setCelebrationType('task');
+        setShowCelebration(true);
+      }
     }
   };
 
@@ -154,8 +226,29 @@ function App() {
   const completedModulesCount = progress.completedModules.length;
   const overallProgress = totalModules > 0 ? Math.round((completedModulesCount / totalModules) * 100) : 0;
 
+  const currentModule = selectedModule && modulesData?.modules ? modulesData.modules.find((m) => m.id === selectedModule) : null;
+  const baseTitle = 'Promptų anatomija';
+  const seoTitle =
+    currentPage === 'home' ? `${baseTitle} – Interaktyvus Mokymas` :
+    currentPage === 'modules' ? `Moduliai – ${baseTitle}` :
+    currentPage === 'module' && currentModule ? `${currentModule.title} – ${baseTitle}` :
+    currentPage === 'glossary' ? `Žodynėlis – ${baseTitle}` :
+    currentPage === 'quiz' ? `Apklausa – ${baseTitle}` :
+    `${baseTitle} – Interaktyvus Mokymas`;
+  const defaultDescription = 'Mokykitės kurti efektyvius DI promptus: 6 moduliai, praktika ir apklausa.';
+  const seoDescription =
+    currentPage === 'module' && currentModule?.description ? currentModule.description :
+    currentPage === 'modules' ? 'Pasirinkite mokymo modulį: 6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas.' :
+    currentPage === 'glossary' ? 'Terminų žodynėlis: DI, promptas, RAG, tokenas ir kt.' :
+    currentPage === 'quiz' ? 'Apklausa apie promptų anatomijos temas.' :
+    defaultDescription;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+      </Helmet>
       {/* Celebration overlay */}
       <Celebration
         show={showCelebration}
@@ -163,219 +256,89 @@ function App() {
         onComplete={() => setShowCelebration(false)}
       />
       
-      {/* Navigation */}
-      <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-200/50 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="bg-gradient-to-r from-brand-500 to-accent-500 p-2 rounded-xl">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                Promptų <span className="gradient-text">anatomija</span>
-              </h1>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-2">
-              {/* Progress indicator */}
-              {overallProgress > 0 && (
-                <div className="flex items-center gap-2 mr-4 px-3 py-1.5 bg-brand-50 dark:bg-brand-900/20 rounded-full">
-                  <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full transition-all duration-500"
-                      style={{ width: `${overallProgress}%` }}
-                    />
-                  </div>
-                  <span className="text-xs font-semibold text-brand-600 dark:text-brand-400">
-                    {overallProgress}%
-                  </span>
-                </div>
-              )}
-              
-              <button
-                onClick={() => setIsDark(!isDark)}
-                className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                aria-label="Perjungti tamsųjį režimą"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              
-              <button
-                onClick={() => {
-                  setCurrentPage('home');
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
-                  currentPage === 'home'
-                    ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                }`}
-                aria-label="Pagrindinis puslapis"
-                aria-current={currentPage === 'home' ? 'page' : undefined}
-              >
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Pagrindinis</span>
-              </button>
-              
-              <button
-                onClick={() => {
-                  setCurrentPage('modules');
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
-                  currentPage === 'modules' || currentPage === 'module'
-                    ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                }`}
-                aria-label="Moduliai"
-                aria-current={currentPage === 'modules' || currentPage === 'module' ? 'page' : undefined}
-              >
-                <BookOpen className="w-5 h-5" />
-                <span className="font-medium">Moduliai</span>
-              </button>
-              
-              <button
-                onClick={() => {
-                  setCurrentPage('quiz');
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 min-h-[44px] ${
-                  currentPage === 'quiz'
-                    ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                }`}
-                aria-label="Apklausa"
-                aria-current={currentPage === 'quiz' ? 'page' : undefined}
-              >
-                <ClipboardCheck className="w-5 h-5" />
-                <span className="font-medium">Apklausa</span>
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
-              {overallProgress > 0 && (
-                <div className="flex items-center gap-1.5 px-2 py-1 bg-brand-50 dark:bg-brand-900/20 rounded-full">
-                  <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full transition-all duration-500"
-                      style={{ width: `${overallProgress}%` }}
-                    />
-                  </div>
-                  <span className="text-xs font-semibold text-brand-600 dark:text-brand-400">
-                    {overallProgress}%
-                  </span>
-                </div>
-              )}
-              
-              <button
-                onClick={() => setIsDark(!isDark)}
-                className="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                aria-label="Perjungti tamsųjį režimą"
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2.5 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                aria-label={isMobileMenuOpen ? 'Uždaryti meniu' : 'Atidaryti meniu'}
-                aria-expanded={isMobileMenuOpen}
-              >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu Dropdown */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200/50 dark:border-gray-800 animate-fade-in overflow-hidden">
-              <div className="py-2 space-y-1">
-                <button
-                  onClick={() => {
-                    setCurrentPage('home');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
-                    currentPage === 'home'
-                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                  }`}
-                  aria-label="Pagrindinis puslapis"
-                  aria-current={currentPage === 'home' ? 'page' : undefined}
-                >
-                  <Home className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">Pagrindinis</span>
-                </button>
-                
-                <button
-                  onClick={() => {
-                    setCurrentPage('modules');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
-                    currentPage === 'modules' || currentPage === 'module'
-                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                  }`}
-                  aria-label="Moduliai"
-                  aria-current={currentPage === 'modules' || currentPage === 'module' ? 'page' : undefined}
-                >
-                  <BookOpen className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">Moduliai</span>
-                </button>
-                
-                <button
-                  onClick={() => {
-                    setCurrentPage('quiz');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left min-h-[48px] ${
-                    currentPage === 'quiz'
-                      ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95'
-                  }`}
-                  aria-label="Apklausa"
-                  aria-current={currentPage === 'quiz' ? 'page' : undefined}
-                >
-                  <ClipboardCheck className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">Apklausa</span>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
+      {/* Skip link – matomas tik klaviatūra / ekrano skaitytuvams */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:ring-2 focus:ring-brand-500 focus:bg-white dark:focus:bg-gray-900 focus:outline-none"
+      >
+        Praleisti į turinį
+      </a>
+      <AppNav
+        currentPage={currentPage}
+        onNavigate={setCurrentPage}
+        onToggleDark={() => setIsDark(!isDark)}
+        overallProgress={overallProgress}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
         <ErrorBoundary>
-          <Suspense fallback={<LoadingSpinner size="lg" text="Kraunama..." />}>
+          {(currentPage === 'modules' || currentPage === 'module') && !modulesData && modulesLoadError && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] gap-4 p-6 text-center">
+              <p className="text-gray-600 dark:text-gray-400">
+                Nepavyko įkelti mokymo medžiagos. Pabandykite iš naujo.
+              </p>
+              <button
+                onClick={handleRetryModules}
+                className="px-6 py-3 rounded-xl bg-brand-500 text-white font-medium hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+              >
+                Bandyti iš naujo
+              </button>
+            </div>
+          )}
+          {(!((currentPage === 'modules' || currentPage === 'module') && !modulesData && modulesLoadError)) && (
+            <Suspense fallback={<LoadingSpinner size="lg" text="Kraunama..." />}>
             {currentPage === 'home' && (
               <HomePage
                 onStart={() => setCurrentPage('modules')}
+                onGoToQuiz={() => setCurrentPage('quiz')}
                 progress={progress}
               />
             )}
             {currentPage === 'modules' && (
               <ModulesPage
                 onModuleSelect={handleModuleSelect}
+                onGoToQuiz={() => setCurrentPage('quiz')}
                 progress={progress}
               />
             )}
             {currentPage === 'module' && selectedModule && (
               <ModuleView
                 moduleId={selectedModule}
+                initialSlideIndex={initialSlideIndex}
+                onClearInitialSlideIndex={() => setInitialSlideIndex(null)}
                 onBack={() => {
                   setCurrentPage('modules');
                   setSelectedModule(null);
+                  setInitialSlideIndex(null);
+                  setRemediationFrom(null);
                 }}
                 onComplete={handleModuleComplete}
                 onTaskComplete={handleTaskComplete}
                 onContinueToNext={handleContinueToNextModule}
+                onGoToModule={handleGoToModule}
+                onGoToGlossary={(slideIndex) => {
+                  setInitialSlideIndex(slideIndex);
+                  setCurrentPage('glossary');
+                }}
+                remediationFrom={selectedModule === 1 && remediationFrom?.sourceModuleId === 2 ? remediationFrom : null}
+                onReturnToRemediation={remediationFrom && selectedModule === 1 ? handleReturnToRemediation : undefined}
                 progress={progress}
                 totalModules={totalModules}
+              />
+            )}
+            {currentPage === 'glossary' && (
+              <GlossaryPage
+                onBackToModule={
+                  selectedModule
+                    ? () => {
+                        setCurrentPage('module');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    : undefined
+                }
               />
             )}
             {currentPage === 'quiz' && (
@@ -391,7 +354,8 @@ function App() {
                 }}
               />
             )}
-          </Suspense>
+            </Suspense>
+          )}
         </ErrorBoundary>
       </main>
 
@@ -417,6 +381,7 @@ function App() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                aria-label="GitHub (atidaryti naujame lange)"
               >
                 GitHub
               </a>

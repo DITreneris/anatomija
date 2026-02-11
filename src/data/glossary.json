@@ -1,0 +1,189 @@
+{
+  "terms": [
+    {
+      "term": "Generatyvus DI",
+      "definition": "Dirbtinio intelekto modeliai, kurie generuoja naują turinį (tekstą, vaizdus, kodą) pagal įvestį; pavyzdžiai: ChatGPT, Claude, Gemini. Skirtingai nuo klasifikatorių ar rekomendatorių – kuria, o ne tik rūšiuoja.",
+      "moduleId": 1
+    },
+    {
+      "term": "Promptas",
+      "definition": "Tekstinė instrukcija ar klausimas, kurį pateikiate DI modeliui, siekdami gauti norimą atsakymą; jūsų komunikacijos su dirbtinio intelekto sistema forma.",
+      "moduleId": 1
+    },
+    {
+      "term": "Promptų inžinerija",
+      "definition": "Menas ir mokslas efektyviai bendrauti su DI: specifikacija (tikslas, auditorija), struktūra (kontekstas, formatas) ir iteracija (testavimas, tikslinimas).",
+      "moduleId": 1
+    },
+    {
+      "term": "Promptų seka",
+      "definition": "Nuosekli promptų seka – kiekvienas promptas veda į kitą, vienas rezultatas tampa kito pradžia (pvz. tezės → planas → įvadas).",
+      "moduleId": 1
+    },
+    {
+      "term": "Workflow",
+      "definition": "Procesas, kai įvestis – ne tik klausimas, bet promptas ir duomenys; išvestis – analizė, dokumentas ar planas, o ne vien atsakymas.",
+      "moduleId": 1
+    },
+    {
+      "term": "Sisteminis promptas",
+      "definition": "Nustato DI darbo tikslą ir funkciją (pvz. „Tu esi rinkodaros analitikas…“).",
+      "moduleId": 1
+    },
+    {
+      "term": "Kontekstinis promptas",
+      "definition": "Pateikia situacinę informaciją (sektorius, duomenys, metai).",
+      "moduleId": 1
+    },
+    {
+      "term": "Vaidmens promptas",
+      "definition": "Formuoja komunikacijos stilių ir toną (pvz. „Įsivaizduok, kad esi įmonės vadovas…“).",
+      "moduleId": 1
+    },
+    {
+      "term": "Zero-shot",
+      "definition": "Užklausa be pavyzdžių – vienas klausimas ar instrukcija.",
+      "moduleId": 1
+    },
+    {
+      "term": "Few-shot",
+      "definition": "Užklausa su keliais pavyzdžiais, kad DI perimtų stilių ar formatą.",
+      "moduleId": 1
+    },
+    {
+      "term": "CoT (Chain of Thought)",
+      "definition": "Mąstymo grandinė – viena nuosekli minčių seka, žingsnis po žingsnio; tinka analizei ir skaičiavimams.",
+      "moduleId": 1
+    },
+    {
+      "term": "ToT (Tree of Thoughts)",
+      "definition": "Idėjų medis – kelios mąstymo šakos ar variantai, iš kurių renkamasi geriausias; tinka strategijai ir kūrybai.",
+      "moduleId": 1
+    },
+    {
+      "term": "META blokas",
+      "definition": "Rolė (kas esate), kontekstas ir tikslas (ką sukurti), auditorija (kam).",
+      "moduleId": 1
+    },
+    {
+      "term": "INPUT blokas",
+      "definition": "Duomenys, faktai, apribojimai – ką turite prieš pradedant.",
+      "moduleId": 1
+    },
+    {
+      "term": "OUTPUT blokas",
+      "definition": "Formatas, struktūra ir reikalavimai – ko norite gauti (lentelė, sąrašas, tonas).",
+      "moduleId": 1
+    },
+    {
+      "term": "Reasoning blokas",
+      "definition": "Nurodo, kokią sprendimo logiką DI taikyti prieš atsakymą (CoT arba ToT).",
+      "moduleId": 1
+    },
+    {
+      "term": "Quality Control blokas",
+      "definition": "Kokybės kriterijai: šaltiniai, objektyvumas, ribos, „nežinau“ taisyklė.",
+      "moduleId": 1
+    },
+    {
+      "term": "Advanced Parameters",
+      "definition": "Modelio nustatymai: temperature, reasoning gylis, atsakymo ilgis, pasikartojimų kontrolė.",
+      "moduleId": 1
+    },
+    {
+      "term": "RAG",
+      "definition": "Retrieval-Augmented Generation – metodas, kai DI atsakymą generuoja remdamasis surasta informacija iš dokumentų ar duomenų bazių, o ne tik iš savo mokymo.",
+      "moduleId": 4
+    },
+    {
+      "term": "Deep research",
+      "definition": "Giluminis tyrimas su DI – kelios pakopos (klausimų išskaidymas, paieška šaltiniuose, sintezė į vieną atsakymą ar ataskaitą).",
+      "moduleId": 4
+    },
+    {
+      "term": "Tokenas",
+      "definition": "Mažiausias teksto vienetas, kurį DI apdoroja; apytiksliai ~4 simboliai (LT/EN); lemia konteksto langą ir sąnaudas.",
+      "moduleId": 4
+    },
+    {
+      "term": "Konteksto langas",
+      "definition": "Maksimalus įvesties ir išvesties teksto apimtis (tokenais), kurią modelis gali „matyti“ vienu metu; viršijus – seniausia informacija prarandama.",
+      "moduleId": 4
+    },
+    {
+      "term": "Promptų manipuliacija",
+      "definition": "Strategiškai suformuluotų užklausų naudojimas siekiant paveikti DI atsakymus (šališkumas, leading questions ir kt.); ko vengti – neutralūs promptai.",
+      "moduleId": 4
+    },
+    {
+      "term": "Haliucinacija",
+      "definition": "DI sugeneruotas turinys, kuris atrodo įtikinamai, bet yra faktu nepagrįstas, netikslus arba išgalvotas; modelis „užpildo spragas“ tikimybėmis.",
+      "moduleId": 4
+    },
+    {
+      "term": "Quality blokas",
+      "definition": "6 blokų sistemoje – kokybės reikalavimai: šaltiniai, citavimas, „nežinau“ taisyklė, objektyvumas, ribos.",
+      "moduleId": 4
+    },
+    {
+      "term": "RL",
+      "definition": "Reinforcement Learning – paskatinamasis mokymas; DI mokosi iš bandymų ir klaidų, gaudama skaitinį atlygį (be žmogaus įvertinimo).",
+      "moduleId": 4
+    },
+    {
+      "term": "Paskatinamasis mokymas",
+      "definition": "Lietuviškas RL atitikmuo – DI mokymo metodas, kai sistema mokosi per atlygio ir baudos signalus.",
+      "moduleId": 4
+    },
+    {
+      "term": "Atlygis (reward)",
+      "definition": "Skaitinis signalas, rodantis, ar DI veiksmas buvo geras ar blogas; pagrindinis RL mokymo mechanizmas.",
+      "moduleId": 4
+    },
+    {
+      "term": "Agentas (DI kontekste)",
+      "definition": "DI sistema, kuri stebėdama aplinką priima sprendimus ir mokosi iš rezultatų; RL proceso pagrindinis veikėjas.",
+      "moduleId": 4
+    },
+    {
+      "term": "RLHF",
+      "definition": "Reinforcement Learning from Human Feedback – paskatinamasis mokymas su žmogišku grįžtamuoju ryšiu; naudojamas formuoti „geresnių“ atsakymų strategijas DI modeliuose.",
+      "moduleId": 4
+    },
+    {
+      "term": "Metodinis promptas",
+      "definition": "Nurodo, kaip atlikti užduotį – rolė, žingsniai, formatas; modelis generuoja atsakymą pagal metodiką be būtinos išorinės paieškos ar įrankių (pvz. analizės ataskaita).",
+      "moduleId": 4
+    },
+    {
+      "term": "Agentinis promptas",
+      "definition": "Prašo DI atlikti veiksmus – ieškoti, naudoti įrankius (Browse, Search, API), surinkti duomenis; DI veikia kaip agentas; reikia platformos su įrankių/paieškos palaikymu (pvz. „ieškok ir surask TOP10“).",
+      "moduleId": 4
+    },
+    {
+      "term": "Proceso promptas",
+      "definition": "Procesais grįsta užklausa – prašoma sukurti ar aprašyti procesą (strategija, projektų valdymas, operacijų tobulinimas); suteikia aiškumą komandoms ir sprendimų priėmėjams.",
+      "moduleId": 4
+    },
+    {
+      "term": "Tool Use",
+      "definition": "DI naudoja išorinius įrankius – paieška, API kvietimai, skaičiavimai, gavimas (Retrieval) iš duomenų bazės; būtinas agentiniams promptams ir RAG.",
+      "moduleId": 4
+    },
+    {
+      "term": "LLM",
+      "definition": "Large Language Model – didelis kalbos modelis; technologinė DI pagrindas, apdoroja tekstą ir gali naudoti įrankius (Tool Use), atmintį (Retrieval).",
+      "moduleId": 4
+    },
+    {
+      "term": "Leading questions",
+      "definition": "Vedantys klausimai – suformuluoti taip, kad nukreiptų atsakymą į norimą pusę; promptų manipuliacijos atvejis, ko vengti.",
+      "moduleId": 4
+    },
+    {
+      "term": "Jailbreak",
+      "definition": "Bandymas apeiti DI saugumo ar naudojimo ribas per specialiai sukonstruotus promptus; manipuliacijos atvejis, ko vengti.",
+      "moduleId": 4
+    }
+  ]
+}

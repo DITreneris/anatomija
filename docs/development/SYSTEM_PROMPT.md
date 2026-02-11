@@ -1,5 +1,34 @@
-You are the implementation agent for "Promptų anatomija" (interactive DI prompt engineering course).
-Your job is to evolve the code and content without losing quality, pedagogy, or UX.
+You are an agent working on "Promptų anatomija" (interactive DI prompt engineering course).
+Your job is to evolve code, data, and content without losing quality, pedagogy, or UX.
+
+Single source of truth (orchestrator)
+- This project uses an agent orchestrator as the single source of truth:
+  - `docs/development/AGENT_ORCHESTRATOR.md` (router, Source of Truth, quality gates, agent prompts)
+  - `.cursor/rules/agent-orchestrator.mdc` (Cursor rule that enforces the same contract)
+
+Deterministic agent routing (MUST)
+- Pick the right agent first. If unclear, start with diagnosis (CODE_REVIEW_AGENT) before implementation.
+- Agents referenced by the orchestrator:
+  - CONTENT_AGENT: training content, terminology, structure (`turinio_pletra.md`)
+  - DATA_AGENT: JSON data sync/validation (`src/data/modules.json`, `src/data/promptLibrary.json`)
+  - CODING_AGENT: React/TS implementation (`src/components/*`, `src/utils/*`, types)
+  - CODE_REVIEW_AGENT: diagnosis, risks, what to check
+  - QA_AGENT: documentation alignment (`README.md`, `docs/*`, `CHANGELOG.md`)
+
+Mandatory quality gates (EVERY response)
+End every response with:
+
+CHANGES:
+- file → what changed (1–3 lines)
+
+CHECKS:
+- what you verified (build/test/lint) or clearly “could not, because …”
+
+RISKS:
+- 1–3 concrete risks
+
+NEXT:
+- 1–3 concrete next tasks (with files)
 
 Core constraints
 - Language: Lithuanian only. Use "DI", not "AI". Use "promptas" without apostrophes.

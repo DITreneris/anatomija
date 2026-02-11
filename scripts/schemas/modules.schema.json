@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://prompt-anatomy.local/schemas/modules.json",
+  "title": "Modules data (modules.json)",
+  "description": "Root structure: modules array and quiz. Per-slide required fields depend on slide type (e.g. content-block requires content.sections).",
+  "type": "object",
+  "required": ["modules", "quiz"],
+  "properties": {
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/module" }
+    },
+    "quiz": { "$ref": "#/$defs/quiz" }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "required": ["id", "title", "subtitle", "description", "icon", "level", "duration", "slides", "businessExamples"],
+      "properties": {
+        "id": { "type": "number" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string", "maxLength": 120 },
+        "icon": { "type": "string" },
+        "level": { "enum": ["learn", "test", "practice"] },
+        "duration": { "type": "string" },
+        "slides": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/slide" }
+        },
+        "businessExamples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "description"],
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "slide": {
+      "type": "object",
+      "required": ["id", "title", "subtitle", "type"],
+      "properties": {
+        "id": { "type": "number" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "action-intro", "intro", "definitions", "prompt-types", "prompt-techniques",
+            "workflow-summary", "prompt-template", "transition-3-to-6", "hierarchy", "meta",
+            "input", "output", "reasoning-models", "reasoning", "quality", "advanced",
+            "advanced-2", "full-example", "comparison", "summary", "test-intro", "test-section",
+            "test-results", "practice-intro", "practice-scenario", "practice-summary",
+            "infographic", "hallucination-dashboard", "ai-detectors", "di-modalities",
+            "pie-chart", "ai-workflow", "module-intro", "content-block", "glossary",
+            "section-break", "warm-up-quiz"
+          ]
+        },
+        "shortTitle": { "type": "string" },
+        "blockNumber": { "type": "number" },
+        "keyQuestion": { "type": "string" },
+        "optional": { "type": "boolean" },
+        "content": { "$ref": "#/$defs/slideContent" },
+        "testQuestions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/testQuestion" }
+        },
+        "scenario": { "$ref": "#/$defs/scenario" },
+        "practicalTask": { "$ref": "#/$defs/practicalTask" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "content-block" } }, "required": ["type"] },
+          "then": {
+            "required": ["content"],
+            "properties": {
+              "content": {
+                "type": "object",
+                "required": ["sections"],
+                "properties": {
+                  "sections": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "required": ["body"],
+                      "properties": {
+                        "heading": { "type": "string" },
+                        "body": { "type": "string" },
+                        "copyable": { "type": "string" },
+                        "collapsible": { "type": "boolean" },
+                        "blockVariant": { "type": "string" },
+                        "image": { "type": "string" },
+                        "imageAlt": { "type": "string" },
+                        "table": { "type": "object" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "slideContent": { "type": "object" },
+    "testQuestion": {
+      "type": "object",
+      "required": ["id", "question", "explanation"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "question": { "type": "string" },
+        "options": { "type": "array", "items": { "type": "string" } },
+        "correct": { "type": "number" },
+        "explanation": { "type": "string" },
+        "hint": { "type": "string" },
+        "bloomLevel": { "type": "number" },
+        "relatedSlideId": { "type": "number" },
+        "category": { "type": "string" }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "context": { "type": "string" },
+        "data": { "type": "string" },
+        "constraints": { "type": "string" },
+        "expectedFormat": { "type": "string" }
+      }
+    },
+    "practicalTask": {
+      "type": "object",
+      "required": ["title", "placeholder"],
+      "properties": {
+        "title": { "type": "string" },
+        "placeholder": { "type": "string" },
+        "motivation": { "type": "string" },
+        "inputHint": { "type": "string" },
+        "templateLabel": { "type": "string" },
+        "template": { "type": "string" },
+        "explanation": { "type": "string" }
+      }
+    },
+    "quiz": {
+      "type": "object",
+      "required": ["title", "description", "passingScore", "questions"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "passingScore": { "type": "number" },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "question", "options", "correct"],
+            "properties": {
+              "id": { "type": "number" },
+              "question": { "type": "string" },
+              "options": { "type": "array", "items": { "type": "string" } },
+              "correct": { "type": "number" },
+              "explanation": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

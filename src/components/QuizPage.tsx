@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
-import { ArrowLeft, CheckCircle, XCircle, Trophy, RefreshCw, ArrowRight } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import { useMemo } from 'react';
+import { ArrowLeft, CheckCircle, XCircle, ArrowRight } from 'lucide-react';
 import { Progress } from '../utils/progress';
 import { getModulesDataSync } from '../data/modulesLoader';
+import { useQuizState } from '../utils/useQuizState';
 import { LoadingSpinner } from './ui';
 import CircularProgress from './CircularProgress';
+import { QuizResultsView } from './QuizResultsView';
 
 interface QuizPageProps {
   onBack: () => void;
@@ -12,55 +13,33 @@ interface QuizPageProps {
   onQuizComplete: (score: number) => void;
 }
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export default function QuizPage({
   onBack,
   progress,
   onQuizComplete,
 }: QuizPageProps) {
-  // Get modules data (synchronously if already loaded)
   const modulesData = getModulesDataSync();
 
-  // progress is available for showing completed modules count or quiz history
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
-  const [showResults, setShowResults] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [score, setScore] = useState(0);
-
-  // Shuffle function using Fisher-Yates algorithm
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  // Shuffle questions and options, preserving correct answer index
   const questions = useMemo(() => {
     if (!modulesData?.quiz.questions) return [];
-    
     const originalQuestions = modulesData.quiz.questions;
-    
-    // Shuffle questions order
     const shuffledQuestions = shuffleArray(originalQuestions);
-    
-    // Shuffle options for each question and update correct index
     return shuffledQuestions.map((q) => {
       const originalOptions = [...q.options];
       const originalCorrect = q.correct;
-      
-      // Create array with indices
       const indices = originalOptions.map((_, idx) => idx);
       const shuffledIndices = shuffleArray(indices);
-      
-      // Map original correct index to new shuffled index
       const newCorrectIndex = shuffledIndices.indexOf(originalCorrect);
-      
-      // Create shuffled options array
       const shuffledOptions = shuffledIndices.map((idx) => originalOptions[idx]);
-      
       return {
         ...q,
         options: shuffledOptions,
@@ -68,6 +47,20 @@ export default function QuizPage({
       };
     });
   }, [modulesData]);
+
+  const {
+    currentIndex: currentQuestion,
+    setCurrentIndex: setCurrentQuestion,
+    answers: selectedAnswers,
+    showResults,
+    score,
+    showExplanation,
+    setShowExplanation,
+    handleAnswer: handleAnswerSelect,
+    handleSubmit,
+    handleRestart,
+    firstWrongIndex,
+  } = useQuizState({ questions, onQuizComplete });
 
   // Show loading if modules not yet loaded
   if (!modulesData) {
@@ -78,171 +71,37 @@ export default function QuizPage({
     );
   }
 
-  const handleAnswerSelect = (questionId: number, answerIndex: number) => {
-    setSelectedAnswers((prev) => ({ ...prev, [questionId]: answerIndex }));
-    setShowExplanation(true);
-  };
-
-  const handleSubmit = () => {
-    let correct = 0;
-    questions.forEach((q) => {
-      if (selectedAnswers[q.id] === q.correct) {
-        correct++;
-      }
-    });
-    const finalScore = Math.round((correct / questions.length) * 100);
-    setScore(finalScore);
-    setShowResults(true);
-    onQuizComplete(finalScore);
-
-    if (finalScore >= 70) {
-      const duration = 3 * 1000;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-      const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
-
-      const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-
-        const particleCount = 50 * (timeLeft / duration);
-        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-      }, 250);
-    }
-  };
-
-  const handleRestart = () => {
-    setCurrentQuestion(0);
-    setSelectedAnswers({});
-    setShowResults(false);
-    setShowExplanation(false);
-    setScore(0);
-  };
-
-  if (showResults) {
-    const correctCount = questions.filter((q) => selectedAnswers[q.id] === q.correct).length;
-    const passed = score >= 70;
-    
+  // No quiz questions (e.g. missing or malformed quiz in JSON)
+  if (questions.length === 0) {
     return (
-      <div className="max-w-3xl mx-auto space-y-8 animate-fade-in">
-        <div className="card p-8 md:p-12 text-center">
-          {/* Result icon */}
-          <div className="mb-6">
-            <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full ${
-              passed 
-                ? 'bg-gradient-to-r from-emerald-400 to-emerald-500 shadow-lg shadow-emerald-500/30' 
-                : 'bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg shadow-orange-500/30'
-            } animate-bounce-in`}>
-              {passed ? (
-                <Trophy className="w-12 h-12 text-white" />
-              ) : (
-                <XCircle className="w-12 h-12 text-white" />
-              )}
-            </div>
-          </div>
-          
-          {/* Title */}
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            {passed ? 'Puikiai! 🎉' : 'Bandykite dar kartą'}
-          </h2>
-          
-          {/* Score */}
-          <div className="my-8">
-            <CircularProgress
-              progress={score}
-              size={120}
-              strokeWidth={12}
-            />
-          </div>
-          
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            Teisingai atsakyta: <span className="font-bold text-gray-900 dark:text-white">{correctCount}</span> iš {questions.length}
+      <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400"
+          aria-label="Grįžti atgal"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Grįžti atgal
+        </button>
+        <div className="card p-8 text-center">
+          <p className="text-gray-700 dark:text-gray-300">
+            Apklausos klausimų šiuo metu nėra. Grįžkite vėliau arba peržiūrėkite modulius.
           </p>
-
-          {/* Answers review */}
-          <div className="space-y-4 mb-8 text-left">
-            {questions.map((q) => {
-              const isCorrect = selectedAnswers[q.id] === q.correct;
-              return (
-                <div
-                  key={q.id}
-                  className={`p-4 rounded-xl border-2 ${
-                    isCorrect 
-                      ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-300 dark:border-emerald-700' 
-                      : 'bg-rose-50 dark:bg-rose-900/20 border-rose-300 dark:border-rose-700'
-                  }`}
-                >
-                  <div className="flex items-start gap-3 mb-3">
-                    {isCorrect ? (
-                      <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
-                    ) : (
-                      <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
-                    )}
-                    <p className="font-semibold text-gray-900 dark:text-white">{q.question}</p>
-                  </div>
-                  <div className="space-y-2 ml-8">
-                    {q.options.map((option, idx) => (
-                      <div
-                        key={idx}
-                        className={`text-sm p-3 rounded-lg ${
-                          idx === q.correct
-                            ? 'bg-emerald-200 dark:bg-emerald-800 font-semibold text-emerald-900 dark:text-emerald-100'
-                            : idx === selectedAnswers[q.id] && idx !== q.correct
-                            ? 'bg-rose-200 dark:bg-rose-800 text-rose-900 dark:text-rose-100'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                        }`}
-                      >
-                        {option}
-                        {idx === q.correct && <span className="ml-2">✓</span>}
-                        {idx === selectedAnswers[q.id] && idx !== q.correct && <span className="ml-2">✗</span>}
-                      </div>
-                    ))}
-                  </div>
-                  {/* Explanation in results */}
-                  {q.explanation && (
-                    <div className={`mt-4 p-3 rounded-lg border-l-4 ${
-                      isCorrect
-                        ? 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-500'
-                        : 'bg-amber-100 dark:bg-amber-900/30 border-amber-500'
-                    }`}>
-                      <p className={`text-sm ${
-                        isCorrect
-                          ? 'text-emerald-800 dark:text-emerald-200'
-                          : 'text-amber-800 dark:text-amber-200'
-                      }`}>
-                        <strong>{isCorrect ? '✓ Paaiškinimas:' : '✗ Paaiškinimas:'}</strong> {q.explanation}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={handleRestart}
-              className="btn-secondary flex items-center justify-center gap-2"
-            >
-              <RefreshCw className="w-5 h-5" />
-              Pradėti iš naujo
-            </button>
-            <button
-              onClick={onBack}
-              className="btn-primary flex items-center justify-center gap-2"
-            >
-              Grįžti į pradžią
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
         </div>
       </div>
+    );
+  }
+
+  if (showResults) {
+    return (
+      <QuizResultsView
+        questions={questions}
+        answers={selectedAnswers}
+        score={score}
+        firstWrongIndex={firstWrongIndex}
+        onRestart={handleRestart}
+        onBack={onBack}
+      />
     );
   }
 
@@ -265,7 +124,7 @@ export default function QuizPage({
           </button>
           {progress.completedModules.length > 0 && (
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              Baigta modulių: {progress.completedModules.length}/3
+              Baigta modulių: {progress.completedModules.length}/{modulesData?.modules?.length ?? 6}
             </span>
           )}
         </div>
@@ -351,8 +210,8 @@ export default function QuizPage({
           })}
         </div>
 
-        {/* Explanation */}
-        {showExplanation && currentQ.explanation && (
+        {/* Explanation – rodomas visada, kai klausimas jau atsakytas (įsk. grįžus atgal), kad neprarastų grįžtamojo ryšio (vartotojo testavimas) */}
+        {selectedAnswers[currentQ.id] !== undefined && currentQ.explanation && (
           <div className={`mt-6 p-4 rounded-xl border-l-4 ${
             selectedAnswers[currentQ.id] === currentQ.correct
               ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500'
@@ -408,7 +267,7 @@ export default function QuizPage({
           ) : (
             <button
               onClick={() => {
-                setCurrentQuestion(currentQuestion + 1);
+                setCurrentQuestion((prev) => prev + 1);
                 setShowExplanation(false);
               }}
               disabled={!hasAnswer}

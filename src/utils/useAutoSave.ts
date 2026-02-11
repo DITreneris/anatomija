@@ -71,3 +71,19 @@ export function clearAutoSave(key: string): void {
     });
   }
 }
+
+/**
+ * Save completed task content – persisten storage (redaguoti vėliau)
+ */
+export function saveCompletedContent(key: string, value: string): void {
+  try {
+    if (value?.trim()) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  } catch (error) {
+    logWarning('Failed to save completed content', {
+      key,
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}

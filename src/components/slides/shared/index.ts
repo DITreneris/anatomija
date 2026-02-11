@@ -1,3 +1,10 @@
 export { default as CopyButton } from './CopyButton';
 export { default as TemplateBlock } from './TemplateBlock';
 export { default as PracticalTask } from './PracticalTask';
+export { default as ProcessStepper } from './ProcessStepper';
+export { default as CustomGptProcessDiagram } from './CustomGptProcessDiagram';
+export { default as DiPrezentacijosWorkflowDiagram } from './DiPrezentacijosWorkflowDiagram';
+export { default as DiPrezentacijosWorkflowBlock } from './DiPrezentacijosWorkflowBlock';
+export { default as EnlargeableImage } from './EnlargeableImage';
+export { default as RlProcessDiagram } from './RlProcessDiagram';
+export { default as RlProcessBlock } from './RlProcessBlock';

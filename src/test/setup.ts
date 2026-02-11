@@ -1,6 +1,17 @@
+// Ensure process.on exists before any imports (avoids "Cannot read properties of undefined (reading 'on')" in jsdom/vitest).
+// Do not read `process` here – it may be undefined in some runners.
+const processStub = { on: function () { return processStub; }, env: {} as NodeJS.ProcessEnv };
+(function () {
+  if (typeof globalThis !== 'undefined') (globalThis as Record<string, unknown>).process = processStub;
+  if (typeof global !== 'undefined') (global as Record<string, unknown>).process = processStub;
+})();
+
 import '@testing-library/jest-dom';
-import { cleanup } from '@testing-library/react';
 import { afterEach, vi } from 'vitest';
+import { cleanup } from '@testing-library/react';
+
+// So Vitest workers use the same process stub
+vi.stubGlobal('process', processStub);
 
 // Ensure localStorage is available (jsdom should provide it, but ensure it exists)
 const localStorageMock = (() => {

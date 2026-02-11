@@ -11,7 +11,15 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules', 'prompt_anatomy_training (1).tsx'],
+  ignorePatterns: [
+    'dist',
+    'coverage',
+    '.cursor',
+    '.vscode',
+    '.eslintrc.cjs',
+    'node_modules',
+    'prompt_anatomy_training (1).tsx',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',

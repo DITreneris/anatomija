@@ -46,3 +46,17 @@ coverage/
 
 # Archive directory (old/unused files)
 archive/
+
+# Root-level refs / local assets (deployed assets in public/)
+*.pdf
+/*.gif
+/*.png
+/*.svg
+!public/
+
+# One-off notes / local analysis (remove from list to track in git)
+*_user_tests.md
+CODE_REVIEW_ANALYSIS.md
+UI_KOMPONENTU_ANALIZE.md
+vartotojo_kelione.md
+docs/di_detektoriai.html

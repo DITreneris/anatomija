@@ -59,6 +59,7 @@ describe('progress.ts', () => {
         completedTasks: {},
         quizCompleted: false,
         quizScore: null,
+        moduleTestScores: {},
       });
     });
 
@@ -103,6 +104,7 @@ describe('progress.ts', () => {
         completedTasks: { 1: [1] },
         quizCompleted: false,
         quizScore: null,
+        moduleTestScores: {},
       });
       
       // Should save migrated version
@@ -132,6 +134,7 @@ describe('progress.ts', () => {
         completedTasks: {},
         quizCompleted: false,
         quizScore: null,
+        moduleTestScores: {},
       });
     });
 
@@ -145,6 +148,7 @@ describe('progress.ts', () => {
         completedTasks: {},
         quizCompleted: false,
         quizScore: null,
+        moduleTestScores: {},
       });
     });
   });
@@ -239,6 +243,7 @@ describe('progress.ts', () => {
       expect(v2.completedTasks).toEqual({ 1: [1] });
       expect(v2.quizCompleted).toBe(true);
       expect(v2.quizScore).toBe(85);
+      expect(v2.moduleTestScores).toEqual({});
       expect(v2.createdAt).toBeDefined();
       expect(v2.updatedAt).toBeDefined();
     });

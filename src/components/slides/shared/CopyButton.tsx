@@ -26,7 +26,7 @@ export default function CopyButton({ text, className = '', size = 'md' }: CopyBu
   return (
     <button
       onClick={handleCopy}
-      className={`${padding} rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${className}`}
+      className={`${padding} min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors touch-manipulation ${className}`}
       aria-label="Kopijuoti"
       title="Kopijuoti"
     >

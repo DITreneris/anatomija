@@ -1,10 +1,38 @@
-import { lazy } from 'react';
-
-// Lazy load all slide type components
-// This enables code splitting - each slide type is loaded only when needed
-
-// Only export components that actually exist
-export const IntroSlide = lazy(() => import('./IntroSlide'));
-
-// Note: Other slide components are imported directly in SlideContent.tsx
-// This file is kept for potential future lazy loading optimization
+export type { ActionIntroSlideProps, IntroSlideProps, HierarchySlideProps, ComparisonSlideProps, SummarySlideProps, PracticeSummarySlideProps } from './AllSlides';
+export {
+  ActionIntroSlide,
+  IntroSlide,
+  ModuleIntroSlide,
+  ContentBlockSlide,
+  SectionBreakSlide,
+  WarmUpQuizSlide,
+  GlossarySlide,
+  DefinitionsSlide,
+  DiModalitiesSlide,
+  PieChartSlide,
+  AiWorkflowSlide,
+  PromptTypesSlide,
+  PromptTechniquesSlide,
+  WorkflowSummarySlide,
+  PromptTemplateSlide,
+  TransitionSlide,
+  HierarchySlide,
+  MetaBlockSlide,
+  InputBlockSlide,
+  OutputBlockSlide,
+  ReasoningModelsSlide,
+  ReasoningBlockSlide,
+  QualityBlockSlide,
+  AdvancedBlockSlide,
+  AdvancedParameters2Slide,
+  FullExampleSlide,
+  ComparisonSlide,
+  SummarySlide,
+  TestIntroSlide,
+  TestSectionSlide,
+  TestResultsSlide,
+  PracticeIntroSlide,
+  PracticeScenarioSlide,
+  ProductivityInfographicSlide,
+  PracticeSummarySlide,
+} from './AllSlides';
