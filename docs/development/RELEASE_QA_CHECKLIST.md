@@ -18,6 +18,7 @@
 
 - [ ] **Viewport:** DevTools → Mobile (375×667 arba iPhone SE) – puslapis nesusilūžęs.
 - [ ] **Modulio skaidrė:** Pirmas modulis → 1 skaidrė – tekstas skaitomas, mygtukai paspaudžiami, navigacija (← / →) veikia.
+- [ ] **Moduliai 2 ir 3 (rekomenduojama):** Modulis 2 – bent test-intro arba test-results (radaras, kategorijų mygtukai); Modulis 3 – practice-intro arba practice-scenario (tab’ai, praktinė užduotis). Žr. `docs/development/MOBILE_UI_AUDIT_MOD2_MOD3.md`.
 
 ---
 
@@ -72,5 +73,6 @@
 | **ModulesPage: CTA po completion** | ✅ Mygtukas „Į apklausą“ pridėtas (2026-02-11). |
 | **HomePage P0 (quizCompleted)** | ✅ Įgyvendinta – CTA „Peržiūrėti modulius“ kai viskas baigta. |
 | **HomePage P1 (progresas virš CTA)** | ✅ Progresas perkeltas virš CTA (2026-02-11). |
+| **Mobile UI Moduliai 2 ir 3** | ✅ 2026-02-11 – touch targets, responsive padding, MatchingQuestion overflow; skyrius 2 papildytas rekomendacija Moduliams 2 ir 3. Žr. MOBILE_UI_AUDIT_MOD2_MOD3.md. |
 
-**Nuorodos:** TODO.md (A-M4), RELEASE_SESSION_PLAN_90_150min.md, RELEASE_PLAN_MVP_MODULIAI_1_3.md.
+**Nuorodos:** TODO.md (A-M4), RELEASE_SESSION_PLAN_90_150min.md, RELEASE_PLAN_MVP_MODULIAI_1_3.md, MOBILE_UI_AUDIT_MOD2_MOD3.md.

@@ -97,7 +97,7 @@ export default function PracticalTask({
   };
 
   return (
-    <div className="mt-8 p-6 bg-accent-50 dark:bg-accent-900/20 rounded-2xl border-l-4 border-accent-400 relative">
+    <div className="mt-8 p-4 sm:p-6 bg-accent-50 dark:bg-accent-900/20 rounded-2xl border-l-4 border-accent-400 relative">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-accent-600 dark:text-accent-400" />
         <p className="font-bold text-accent-800 dark:text-accent-200">

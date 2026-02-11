@@ -601,7 +601,7 @@ export function TestResultsSlide({
 
       {/* F2-2: Radar chart (Module 2 only, if data exists) */}
       {moduleId === 2 && hasRadarData && (
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           <h4 className="font-bold text-gray-900 dark:text-white mb-1">Žinių radaras pagal blokus</h4>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Kiekviena ašis rodo jūsų rezultatą atitinkamoje kategorijoje.</p>
           <RadarChart data={radarData} size={300} />
@@ -740,7 +740,7 @@ function RemediationRetryBlock({
       {showResults && (
         <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
           <span className="font-semibold text-gray-900 dark:text-white">Rezultatas: {score}%</span>
-          <button type="button" onClick={onClose} className="btn-secondary px-3 py-1.5 text-sm">Grįžti į rezultatą</button>
+          <button type="button" onClick={onClose} className="btn-secondary px-3 py-2 min-h-[44px] text-sm" aria-label="Grįžti į rezultatą">Grįžti į rezultatą</button>
         </div>
       )}
     </div>
@@ -762,7 +762,7 @@ function CategoryBreakdownWithLinks({
   );
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
       <h4 className="font-bold text-gray-900 dark:text-white mb-2">Žinių žemėlapis pagal blokus</h4>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
         {hasScores ? 'Peržiūrėkite skaidrę arba pakartokite klausimus iš kategorijos:' : 'Peržiūrėkite atitinkamą Modulio 1 skaidrę:'}
@@ -794,7 +794,7 @@ function CategoryBreakdownWithLinks({
                 <button
                   type="button"
                   onClick={() => onDeepLink(meta.slideId)}
-                  className="text-xs font-medium py-1.5 px-2 rounded bg-white/80 dark:bg-black/20 hover:bg-white dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-1"
+                  className="text-xs font-medium min-h-[44px] py-2 px-2 rounded bg-white/80 dark:bg-black/20 hover:bg-white dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-1"
                   aria-label={`Peržiūrėti ${meta.label} Modulyje 1`}
                 >
                   <ExternalLink className="w-3 h-3" />
@@ -803,7 +803,7 @@ function CategoryBreakdownWithLinks({
                 <button
                   type="button"
                   onClick={() => setActiveRetryCategory({ key, label: meta.label })}
-                  className="text-xs font-medium py-1.5 px-2 rounded bg-brand-100 dark:bg-brand-900/30 hover:bg-brand-200 dark:hover:bg-brand-800/50 transition-colors"
+                  className="text-xs font-medium min-h-[44px] py-2 px-2 rounded bg-brand-100 dark:bg-brand-900/30 hover:bg-brand-200 dark:hover:bg-brand-800/50 transition-colors flex items-center justify-center"
                   aria-label={`Pakartoti 3 klausimus iš ${meta.label}`}
                 >
                   Pakartok 3 kl.
@@ -1056,7 +1056,16 @@ const SCENARIO_TABS = [
   { id: 'result', label: 'Rezultatas', key: 'expectedFormat' as const },
 ] as const;
 
-export function PracticeScenarioSlide({ slide, onRenderTask }: { slide: Slide; onRenderTask: () => JSX.Element | null }) {
+export function PracticeScenarioSlide({
+  slide,
+  onRenderTask,
+  onGoToSummary,
+}: {
+  slide: Slide;
+  onRenderTask: () => JSX.Element | null;
+  /** Modulio 3: pereiti į santrauką (grįžti prie išsaugoto darbo kitą kartą) */
+  onGoToSummary?: () => void;
+}) {
   const [activeTab, setActiveTab] = useState<(typeof SCENARIO_TABS)[number]['id']>('context');
   if (!slide.scenario) return null;
 
@@ -1085,7 +1094,7 @@ export function PracticeScenarioSlide({ slide, onRenderTask }: { slide: Slide; o
               aria-controls={`scenario-panel-${tab.id}`}
               id={`scenario-tab-${tab.id}`}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-2 rounded-t-lg text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+              className={`min-h-[44px] px-3 py-2 rounded-t-lg text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                 activeTab === tab.id
                   ? 'bg-brand-100 text-brand-800 dark:bg-brand-900/40 dark:text-brand-200 border border-brand-300 dark:border-brand-700 border-b-0 -mb-px'
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -1109,6 +1118,19 @@ export function PracticeScenarioSlide({ slide, onRenderTask }: { slide: Slide; o
           </p>
         </div>
       </div>
+
+      {onGoToSummary && (
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={onGoToSummary}
+            className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded px-2 py-1.5"
+            aria-label="Pereiti į praktikos santrauką"
+          >
+            → Į santrauką
+          </button>
+        </div>
+      )}
 
       {onRenderTask()}
     </div>

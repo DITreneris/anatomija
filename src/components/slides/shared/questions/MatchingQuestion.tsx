@@ -163,10 +163,10 @@ export function MatchingQuestion({
                     : 'border-gray-200 dark:border-gray-700 hover:border-brand-300'
                 }`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 min-w-0">
                   {isChecked && isCorrectMatch && <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />}
                   {isChecked && isWrongMatch && <XCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />}
-                  <span className="text-gray-800 dark:text-gray-200">{pair.left}</span>
+                  <span className="text-gray-800 dark:text-gray-200 break-words">{pair.left}</span>
                 </div>
               </button>
             );
@@ -202,7 +202,7 @@ export function MatchingQuestion({
                     : 'border-gray-200 dark:border-gray-700'
                 }`}
               >
-                <span className="text-gray-800 dark:text-gray-200">{rightText}</span>
+                <span className="text-gray-800 dark:text-gray-200 break-words block min-w-0">{rightText}</span>
               </button>
             );
           })}

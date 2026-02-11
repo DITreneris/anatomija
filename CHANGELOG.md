@@ -9,7 +9,11 @@ ir šis projektas laikosi [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
-(Šios versijos pakeitimai bus įrašomi čia.)
+### Added
+
+**2026-02-11 (Mobile UI – Moduliai 2 ir 3)**
+
+- **Mobile UI auditas ir pataisymai:** Dokumentas `docs/development/MOBILE_UI_AUDIT_MOD2_MOD3.md` – CODE_REVIEW diagnozė, UI_UX checklist, įgyvendintos rekomendacijos. TestResultsSlide: radar wrapper su `overflow-hidden`, `p-4 sm:p-6`. CategoryBreakdownWithLinks: mygtukai „Peržiūrėti skaidrę“ / „Pakartok 3 kl.“ – `min-h-[44px] py-2` (touch targets); konteineris `p-4 sm:p-6`. PracticeScenarioSlide: tab mygtukai `min-h-[44px]`. RemediationRetryBlock: mygtukas „Grįžti į rezultatą“ – `min-h-[44px] py-2`, `aria-label`. MatchingQuestion: porų tekstas su `min-w-0 break-words` (overflow mobile). PracticalTask: root `p-4 sm:p-6`. RELEASE_QA_CHECKLIST.md skyrius 2 – rekomendacija tikrinti Modulius 2 ir 3 mobile (test-results, practice-scenario), nuoroda į audito doc.
 
 ---
 
