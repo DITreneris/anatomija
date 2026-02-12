@@ -3,7 +3,23 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // Dev: nekešinti modules.json, kad po serverio perkrovimo matytum naują turinį
+    {
+      name: 'no-cache-modules-json',
+      configureServer(server) {
+        const noCache = (_req: any, res: any, next: () => void) => {
+          if (_req.url?.includes('modules.json')) {
+            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate')
+            res.setHeader('Pragma', 'no-cache')
+          }
+          next()
+        }
+        server.middlewares.stack.unshift({ route: '', handle: noCache })
+      },
+    },
+  ],
   base: process.env.NODE_ENV === 'production' ? '/anatomija/' : '/',
   server: {
     port: 3000,

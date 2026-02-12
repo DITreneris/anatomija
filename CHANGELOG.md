@@ -9,7 +9,43 @@ ir šis projektas laikosi [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+### Fixed
+
+**2026-02-12 (Modulio 2 – skaidrė neatsidaro, gyvas testas)**
+
+- **Modulis 2 (Žinių patikrinimas):** Skaidrė daugiau nebekraunama be galo. Priežastis: `SlideContent` buvo įkeliamas per `lazy()` – chunk kartais neįsikraudavo, Suspense fallback „Kraunama skaidrė…“ likdavo. Pataisa: tiesioginis `import SlideContent` vietoj `lazy(() => import('./SlideContent'))` (`ModuleView.tsx`). Papildomai: `useSlideNavigation` – išsaugota skaidrės pozicija ribojama pagal skaidrių skaičių (`clampedSlide`), kad senesnė išsaugota pozicija niekada nebeliktų už diapazono. Šaltinis: vartotojo atsiliepimas (gyvas testas), `docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md`.
+
 ### Added
+
+**2026-02-12 (Skaidrė 40.8 – InstructGPT kokybės vizualizacija)**
+
+- **InstructGPT Quality viz blokas:** Pridėta stats strip (4 modeliai), linijinė diagrama (kokybė vs modelio dydis), delta lentelė (1.5B → 175B pokytis), Key Finding callout. `src/components/slides/shared/InstructGptQualityBlock.tsx` – naujas komponentas; `ContentBlockContent.instructGptQuality` – tipai `modules.ts`; `modules.json` skaidrė 40.8 – pilni duomenys (stats, chartData, deltaRows, insight, scaleNote). CONTENT_AGENT: lietuviški tekstai; DATA_AGENT: JSON struktūra; SCHEME_AGENT: chart geometrija (viewBox, Y_PX_PER_UNIT); CODING_AGENT: InstructGptQualityBlock + ContentBlockSlide integracija. QA: build, lint sėkmingi.
+
+**2026-02-12 (Skaidrė 40.8 – LLM schemos tobulinimas)**
+
+- **LLM autoregresinė schema (RBC palyginimas):** Žingsnis N įvestis be „m.“ („Vilniaus Rytas tapo čempionais 2024“), Žingsnis N+1 – pilnas praplėstas sakinys („Vilniaus Rytas tapo čempionais 2024 m.“). Išvesties bloke antraštė „Tokenas · Tikimybė“ (lentelės įspūdis). Atnaujinti: `public/llm_autoregressive_rytas_zalgiris.svg` (tekstai, `<desc>`), `modules.json` 40.8 (body, imageAlt). Doc: `docs/development/LLM_SCHEMA_VS_ORIGINAL_RBC.md` – santraukoje pažymėta įgyvendinta.
+
+**2026-02-12 (Skaidrė 40.8 InstructGPT – golden standard)**
+
+- **Skaidrė 40.8 (InstructGPT: instrukcijų laikymasis):** Turinys ir šaltiniai suderinti su SOT; pridėta LLM autoregresinė schema (Rytas, Žalgiris, LKL) – `public/llm_autoregressive_rytas_zalgiris.svg`. Šaltiniai sekcija rodoma kaip collapsible (suskleista pagal nutylėjimą). CONTENT_AGENT: Šaltiniai collapsible + lietuviškos; SCHEME_AGENT: naujas SVG pagal DATA_AGENT_PLAN ir SCHEME_AGENT.md; DATA_AGENT: `modules.json` 40.8 – pirmajai sekcijai pridėti `image`, `imageAlt`. CODING_AGENT: `renderBodyWithBold` apsauga nuo `undefined` (content-block sekcijos). QA: build, lint – sėkmingi.
+
+**2026-02-12 (Plano įgyvendinimas: CE, Design Must, A-S1, A-S4, testai, a11y)**
+
+- **Context Engineering (CE-2, CE-3, CE-4):** MEMORY.md – long-term sprendimų failas pagal memory_schema; RELEASE_QA_CHECKLIST §7 – skyrius „Turinio/UX kokybė“ su nuoroda į eval_rubric ir „vienas modulis per release pagal rubric“; `scripts/validate-sot-index.mjs` – sot_index.json validacija (6 moduliai, keliai); context-engineering/README ir AGENT_ORCHESTRATOR – taisyklė „prieš redaguojant modulį atidaryk sot_index; pilną SOT krauk tik ten, kur task scope“.
+- **Design Must (M-DS2, M-DS3, M-DS4):** Mokymo trukmė blokas (action-intro) – violet → slate (M-DS2); Summary hero emoji 🏆 → Lucide Trophy (M-DS4); ModuleView – spacing/radius iš design-tokens (M-DS3).
+- **A-S1 (6 blokų struktūra):** `src/utils/sixBlockStructure.ts` – detectBlocks() pagal sekcijas (META:, INPUT:, …), BLOCK_EXAMPLES; PracticalTask – checklist pagal struktūrą, „Trūksta blokų“ su pavyzdžiu; unit testai sixBlockStructure.test.ts.
+- **A-S4 (Fast track):** useSlideNavigation – skipOptional, getNextNonOptionalIndex(); ModuleView – Fast track checkbox (localStorage), praleidžia optional skaidrės Pirmyn/Atgal; unit testai useSlideNavigation.fastTrack.test.ts.
+- **A-S2 (a11y smoke):** axe-core dev dependency; `src/components/__tests__/a11y.smoke.test.tsx` – HomePage axe smoke (0 serious/critical). TEST_REPORT – Vitest eilutė atnaujinta (išspręsta, 64 testai).
+
+**2026-02-12 (Modulio 4 pirmoji skaidrė – action-intro)**
+
+- **Modulio 4 itraukianti skaidrė:** Pridėta nauja pirmoji skaidrė (id 38) tipo `action-intro`, panaši į Modulio 1 pirmąją – hero („Jau moki kurti promptus. Dabar – kontekstas ir patikimumas.“), CTA („Pamatyk, kas laukia – per 1 minutę!“), palyginimas be konteksto vs su šaltiniais (RAG pavyzdys), aboutText, outcomes (6 punktai), tools, duration (~30–35 min). SOT: `docs/turinio_pletra_moduliai_4_5_6.md` §1.4; duomenys: `src/data/modules.json` – skaidrė įterpta pirmoje Modulio 4 `slides` pozicijoje. `docs/MODULIO_4_SKAIDRIU_EILES.md` – eilė 0 (id 38), taisyklė „38 visada pirmas“. Komponentas: esamas `ActionIntroSlide`; navigacija pagal masyvo eilę.
+
+**2026-02-12 (Gold standard Modulio 4 – opcional užbaigtas)**
+
+- **QA_AGENT:** Lietuviškų raidžių peržiūra Moduliui 4 – skaidrės 70 (4.7) ir 67.5 (Saugumas) patikrintos pagal RELEASE_QA_CHECKLIST §5; pataisymų nereikėjo. M4 identitetas (brand, kaip M1) oficialiai dokumentuotas: DESIGN_GUIDE_MODULIAI_1_2_3.md §5 – pridėta Modulio 4 eilutė; MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md §2.5 jau turėjo. GOLD_STANDARD_MODULIAI_4_5_6_GAP_ANALIZE.md §2 – prioritetas Moduliui 4 atnaujintas: opcional užbaigtas. RELEASE_QA_CHECKLIST – statusas M4 lietuviškos (4.7, 67.5) peržiūrėtos.
+- **UI_UX_AGENT:** Fazių etiketės auditas Moduliui 4 – SlideGroupProgressBar (Įvadas, Skyrius, Teorija, Savitikra, Santrauka) pakanka aiškios. ModuleView.tsx typeToPhase – pridėtas `ai-detectors` → „Teorija“ (anksčiau „Kita“). MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md §4 – opcional punktai pažymėti atliktais.
+- **CODE_REVIEW_AGENT:** `npm run build`, `npm run lint` – sėkmingi; regresijos neaptiktos.
 
 **2026-02-12 (QA: Design System Should/Nice + Gold Standard)**
 

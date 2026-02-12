@@ -54,6 +54,14 @@
 
 ---
 
+## 7. Turinio / UX kokybė (~3 min, rekomenduojama)
+
+> **Šaltinis:** [docs/development/context-engineering/eval_rubric.md](context-engineering/eval_rubric.md) – dimensijos (CTA, tonas, lietuviškos, nuorodos, modulių/skaidrių nuoseklumas).
+
+- [ ] **Vienas modulis per release pagal rubric:** Prieš release atlikti vieną rankinį perbėgimą pagal eval_rubric (bent vienas modulis + HomePage arba vienas CTA kelias). Rezultatą įrašyti į TEST_REPORT arba changelog (pvz. „Modulis X – visos dimensijos ≥2, 4/5 = 3“).
+
+---
+
 ## Papildomai (jei laiko)
 
 - `npm run build` – sėkmingas.
@@ -64,15 +72,26 @@
 
 ---
 
-## Statusas (2026-02-11)
+## Statusas (2026-02-12)
 
 | Kas | Statusas |
 |-----|----------|
 | **A-M4** | ✅ Įgyvendinta – 6 skyriai (links, mobile, dark, a11y, lietuvių raidės, MVP). |
+| **M4 lietuviškos (4.7, 67.5)** | ✅ 2026-02-12 – skaidrės 70 (Modulio 4 santrauka) ir 67.5 (Saugumas) peržiūrėtos §5; klaidų nerasta. |
+| **M4 action-intro (id 38)** | ✅ 2026-02-12 – nauja pirmoji skaidrė (hero, CTA, outcomes, aboutText, promptai) peržiūrėta §5; lietuviškos raidės teisingos. |
 | **HomePage Hero CTA** | ✅ Baigus modulius – „Į apklausą“; kai apklausa baigta – „Peržiūrėti modulius“. |
 | **ModulesPage: CTA po completion** | ✅ Mygtukas „Į apklausą“ pridėtas (2026-02-11). |
 | **HomePage P0 (quizCompleted)** | ✅ Įgyvendinta – CTA „Peržiūrėti modulius“ kai viskas baigta. |
 | **HomePage P1 (progresas virš CTA)** | ✅ Progresas perkeltas virš CTA (2026-02-11). |
 | **Mobile UI Moduliai 2 ir 3** | ✅ 2026-02-11 – touch targets, responsive padding, MatchingQuestion overflow; skyrius 2 papildytas rekomendacija Moduliams 2 ir 3. Žr. MOBILE_UI_AUDIT_MOD2_MOD3.md. |
+
+---
+
+## 6. Cache: kai pakeitimai `modules.json` nesimato
+
+Duomenys įkeliami per `import('./modules.json')` ir gali būti cache'inti (Vite + naršyklė). Dev režime Vite naudoja pluginą `no-cache-modules-json`, kad naršyklė nekešintų šio failo.
+
+- [ ] **Dev režimas:** Sustabdyk `npm run dev` (Ctrl+C), vėl paleisk `npm run dev`. Atidaryk puslapį **naujame tabe** arba **hard refresh** (Ctrl+Shift+R arba Ctrl+F5). Jei vis dar sena versija – Chrome: DevTools → Application → Storage → „Clear site data“ (localhost:3000).
+- [ ] **Production build:** Vykdyk `npm run build` ir atidaryk `dist/` arba peržiūrėk su `npm run preview` – tada refresh.
 
 **Nuorodos:** TODO.md (A-M4), RELEASE_SESSION_PLAN_90_150min.md, RELEASE_PLAN_MVP_MODULIAI_1_3.md, MOBILE_UI_AUDIT_MOD2_MOD3.md, **bendri atsiliepimai** – docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md.

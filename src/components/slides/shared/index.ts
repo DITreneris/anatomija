@@ -6,5 +6,6 @@ export { default as CustomGptProcessDiagram } from './CustomGptProcessDiagram';
 export { default as DiPrezentacijosWorkflowDiagram } from './DiPrezentacijosWorkflowDiagram';
 export { default as DiPrezentacijosWorkflowBlock } from './DiPrezentacijosWorkflowBlock';
 export { default as EnlargeableImage } from './EnlargeableImage';
+export { InstructGptQualityBlock } from './InstructGptQualityBlock';
 export { default as RlProcessDiagram } from './RlProcessDiagram';
 export { default as RlProcessBlock } from './RlProcessBlock';

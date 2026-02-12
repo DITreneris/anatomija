@@ -1,7 +1,7 @@
 # Vartotojų atsiliepimai – bendra analizė
 
 > **Paskirtis:** Vienas šaltinis (bendri atsiliepimai) – gyvo testavimo ir vartotojų feedback analizė. Naudoti planuojant V2, B2B, formatų adaptaciją ir agentų darbus (CONTENT_AGENT, UI_UX_AGENT, QA_AGENT).
-> **Versija:** Įtraukta V1 Testavimo feedback analizė prieš release 1.2 (2026-02-11).
+> **Versija:** Modulio 2 užkrovimo atsiliepimas ir diagnostika (2026-02-12); Donato atsiliepimas; V1 Testavimo feedback prieš 1.2 (2026-02-11).
 
 ---
 
@@ -9,9 +9,40 @@
 
 | Šaltinis | Data | Apimtis |
 |----------|------|--------|
+| **Modulio 2 – skaidrė neatsidaro (gyvas testas)** | 2026-02-12 | Vartotojas: 1 modulis išbandytas; Modulis 2 (Žinių patikrinimas) – matomas vazdas „Kraunama skaidrė“, bet skaidrė neatidaro, vis sukasi; bandyta perkrauti – tas pats. Apklausos nepildo dėl nepilno vaizdo. **Diagnostika:** įtrauktas debug instrumentavimas (ModuleView, useSlideNavigation); tikrinama hipotezė: išsaugota skaidrės pozicija (localStorage) viršija Modulio 2 skaidrių skaičių → currentSlideData undefined → begalinis „Kraunama skaidrė…“. Žr. TEST_REPORT.md po patvirtinimo. |
 | **Gyvas testavimas** | 2025-05-02 | Demonstracija, stabilumas, bendri geri atsiliepimai; terminologijos pataisymai. Žr. `docs/GYVAS_TESTAVIMAS_2025-05-02.md`. |
 | **Testų ataskaita (klaidos)** | 2026-02-07 – 2026-02-11 | Konkrečios klaidos, Moduliai 1–4 UX, Eglės ir Tomo patirtis, sprendimai. Žr. `docs/development/TEST_REPORT.md`. |
 | **V1 Testavimo feedback analizė** | Prieš 1.2 (2026-02-11) | 4 testuotojai (54 m. teisininkė, 25 m. media planuotoja, 48 m. konsultantas, 56 m. vadovas); segmentai, horizontalios įžvalgos, strateginė išvada, V2 rekomendacijos. Žr. skyrius žemiau. |
+| **Donato atsiliepimas (V1.2)** | 2026-02-12 (apytiksliai) | Kritinis UX/UI feedback: per daug spalvų, per daug info, neintuityvu, sunku suprasti svetainės logiką/struktūrą, prastas usability, nesinorėjo gilintis. Siūlymai: normali architektūra, simplifikacija, „vienos eilutės“ principas. Žr. skyrius žemiau. |
+
+---
+
+## Donato atsiliepimas (V1.2) – analizė
+
+**Kontekstas:** Atsiliepimas po V1.2 (atnaujintas UI, UX, nauji testai, mobile friendly). Šaltinis: apklausos / bendras įspūdis.
+
+### Kas pasakyta (sutrumpinta)
+
+| Kategorija | Atsiliepimas |
+|------------|--------------|
+| **Pozityvus** | „Šaunuolis, gerai padirbėta!“ |
+| **Vizualė** | Per daug spalvų; per daug informacijos. |
+| **Suprantamumas** | Neintuityvu; sunku suprasti logiką ir struktūrą svetainės; „visiška mėsmalė“. |
+| **Elgsena** | Nesinorėjo naudoti ir gilintis; usability prastas. |
+| **Siūlymai** | Normalus apsą architektūra; daryti simplifikuotai; „vienos eilutės“ principas (spaudi → rezultatas). |
+
+### Atitikmuo su esamu dokumentavimu
+
+- **Dizaino gidas** (`docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md`) jau adresuoja: per daug spalvų, per daug vizualinių akcentų, per daug kortelių, silpna hierarchija – Must/Should/Nice prioritetais.
+- Donato feedback **sutampa** su tais pačiais skausmais: vizualinis triukšmas ir neaiški struktūra.
+- **Naujas akcentas:** „vienos eilutės“ principas – mažiau žingsnių, aiški viena pagrindinė veikla (pvz. vienas CTA, vienas kelias).
+
+### Rekomenduojami veiksmai (susieti su Donato feedback)
+
+1. **UI/UX (prioritetas):** Vykdyti DESIGN_GUIDE Must punktus – riboti spalvas (2–3 per skaidrę), vienas dominuojantis akcentas, aiški H1→H2 hierarchija. UI_UX_AGENT + CODING_AGENT.
+2. **Informacijos architektūra:** Peržiūrėti navigaciją ir informacijos struktūrą – ar vartotojas iš karto „mato“, kur eiti (vienas aiškus kelias). Galimas informacijos sumažinimas viršutiniuose lygiuose.
+3. **„Vienos eilutės“ principas:** Kiekviename ekrane – viena pagrindinė veikla (pvz. vienas stiprus CTA); sumažinti paralelinių pasirinkimų skaičių ten, kur galima.
+4. **Segmentas:** Donatas reprezentuoja vartotoją, kuriam svarbu greitas, paprastas patogumas – naudinga laikyti kartu su 25 m. segmentu („tingi skaityti“, noras greito rezultato).
 
 ---
 

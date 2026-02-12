@@ -44,6 +44,41 @@
   - Tokenų ekonomika – sutaupyti laiko ir išlaidas; manipuliacijų atpažinimas – etiška ir patikima nauda.
   - Tai paruošia vienam integruotam projektui (Modulis 6).
 
+### 1.4 Modulio 4 pirmoji skaidrė (action-intro)
+
+**Tikslas:** Emocinis hook ir itraukimas į mokymus – panašiai kaip Modulio 1 pirmoji skaidrė. Dalyvis per 5–7 sek supranta „kas laukia“, per ~1 min – micro-veiksmas (palyginimas be konteksto vs su šaltiniais).
+
+**Tipas:** `action-intro`. Komponentas: `ActionIntroSlide`. Id skaidrei: **38** (prieš 4.0, kuris lieka id 39).
+
+**Turinys (kopijuojami į UI/JSON):**
+
+- **Hero (3 eilutės):**
+  - heroStat: „Jau moki kurti promptus.“
+  - heroText: „Dabar – kontekstas ir patikimumas.“
+  - heroSubText: „Šiame modulyje išmoksite įtraukti šaltinius į promptus ir tikrinti atsakymus. RAG, haliucinacijos – kaip dirbti protingiau.“
+
+- **CTA:** ctaText: „Pamatyk, kas laukia – per 1 minutę!“
+
+- **Palyginimas (nestruktūruotas vs struktūruotas promptas – Modulio 4 tema):**
+  - unstructuredPrompt: „Parašyk man ataskaitą apie Lietuvos BVP tendencijas.“
+  - structuredPrompt: „META: Tu esi ekonomistas analitikas. Tikslas: trumpa BVP tendencijų ataskaita.\n\nINPUT: Naudok tik šiuos šaltinius: Eurostat, Lietuvos statistikos departamentas. Jei duomenų nėra – parašyk „Nežinau“, ne spėliok.\n\nOUTPUT: 1 puslapis, 3–5 punktai, su nuorodomis į šaltinius. Kalba: lietuvių.“
+
+- **aboutText:** „Kai 6 blokai jau įprasti, RAG ir žinių patikrinimas leidžia dirbti su realiais duomenimis ir mažinti klaidas. Tokenų ekonomika – sutaupyti laiko ir išlaidas; manipuliacijų atpažinimas – etiška ir patikima nauda. Šis modulis paruoš vienam integruotam projektui (Modulis 6).“
+
+- **outcomes (5–6 punktai):**
+  1. Suprasti, kas yra RAG ir kada jį naudoti; nurodyti šaltinius prompte.
+  2. Žinoti, kas yra Deep research ir kaip struktūruoti multi-step užklausas.
+  3. Suprasti tokenų naudojimą (konteksto langas, max_tokens) ir optimizuoti promptus ilgumai ir kainai.
+  4. Atpažinti promptų manipuliacijas ir formuoti neutralius promptus.
+  5. Atpažinti haliucinacijas ir tikrinti DI atsakymų tikrumą (šaltiniai, cross-check, „nežinau“); susieti su Quality bloku.
+  6. Pritaikyti tai viską viename projekte (Modulis 6).
+
+- **toolsIntro:** „Konteksto inžinerijos principai veikia bet kuriame iš šių įrankių. Žemiau – trumpas įvadas ir naudojimo atvejai.“
+
+- **duration:** „~30–35 min“
+
+**Techninė implementacija:** Tipas `action-intro`; duomenys – `src/data/modules.json` Modulio 4 `slides` masyvo **pirmas** elementas (index 0). Tools – galima perpanaudoti Modulio 1 sąrašą (ChatGPT, Claude, Gemini, Copilot, Grok, DeepSeek) su toolsIntro pritaikytu Moduliui 4.
+
 ---
 
 ## 2. Teorinė dalis (Modulis 4) – Turinio struktūra
@@ -114,15 +149,17 @@ Viena vieta – 8–10 terminų su vieno sakinio apibrėžimu. UI: viena skaidr�
 
 **Skaidrė „DI Visata: kaip viskas susiję“ (4.0) – turinys (kopijuojamas į UI/JSON):**  
   - **Pavadinimas:** DI VISATA: KAIP VISKAS SUSIJĘ  
+  - **Subtitle:** DI – tai ne tik ChatGPT. Žemiau – kaip viskas susiję. (Trumpas, kad pirmą kartą atsidūrusiam nebūtų per daug terminų.)  
   - **Iliustracijos (comparisonImages):** kairė – Dantės visata (metafora), dešinė – DI visata (hierarchija). Šaltiniai: `public/paradise_dante.gif` arba `Dante_visata.png`, `public/ai_universe.gif` arba `DI_visata.png`. **UI:** vaizdai turi būti **išdidinami** (paspaudus – lightbox/overlay), kad būtų lengviau skaityti detales.  
-  - **Struktūra – veiksmo skaidrės modelis (Trumpai, Daryk dabar, Kopijuojamas promptas, Patikra, Optional):**  
+  - **Struktūra – pirmiausia orientacinis blokas, po to veiksmo modelis:**  
+    0. **Kodėl pradedame nuo šios skaidrės?** (brand) – Šioje skaidrėje pamatysite, kaip DI sritis susideda iš lygmenų – tai padės vėliau suprasti, kur „telpa“ šaltiniai ir kontekstas.  
     1. **1️⃣ Trumpai (30 s)** (accent) – DI ne tik ChatGPT; suprasi hierarchiją; nauda: vienas promptas paaiškins viską.
     2. **2️⃣ Daryk dabar (2–7 min)** (brand) – nukopijuok promptą, įklijuok į DI, paleisk; CTA „Kopijuoti promptą (žemiau)"; ką gausi: schema + pavyzdžiai.
     3. **3️⃣ Kopijuojamas promptas** – trumpas paaiškinimas + `copyable` blokas (META/INPUT/OUTPUT – „Paaiškink DI visatą").
     4. **4️⃣ Patikra (1 min)** (accent) – 4 klausimai (schema aiški? lygiai turi pavyzdžius? ChatGPT ≠ visa DI? galėtum paaiškinti kolegai?). Formuluotė: **„Jei bent 2 „ne" → grįžk prie prompto ir papildyk INPUT dalį, ne perrašyk visą promptą."**
     5. **🔽 Nori suprasti detaliau?** (`collapsible: true`, terms) – Esminė žinutė (kuo giliau – tuo daugiau galios ir atsakomybės) + Terminai (žodynėlis): DI, ML, neuroniniai tinklai, gilusis mokymasis, generatyvinis DI.
   - **practicalTask pašalintas** iš top-level; promptas perkeltas į section 3 kaip `copyable`.  
-  - **Pastaba UI:** Tipas content-block; comparisonImages viršuje, po jų 5 sections (veiksmo modelis), collapsible suskleista pagal nutylėjimą.
+  - **Pastaba UI:** Tipas content-block; comparisonImages viršuje, po jų 6 sections (orientacinis + 5 veiksmo modelio), collapsible suskleista pagal nutylėjimą.
 
 **Skaidrė „Praktika: DI visata“ (4.0-praktika) – turinys (kopijuojamas į UI/JSON):**  
   - **Pavadinimas:** PRAKTIKA: DI VISATA  
@@ -136,20 +173,20 @@ Viena vieta – 8–10 terminų su vieno sakinio apibrėžimu. UI: viena skaidr�
 
 **Skaidrė „Konteksto inžinerija: kaip valdyti DI“ (4.1a) – turinys (kopijuojamas į UI/JSON):**  
   - **Pavadinimas:** 🧩 KONTEKSTO INŽINERIJA: KAIP „VALDYTI“ DI  
-  - **Subtitle:** Kas yra konteksto inžinerija?  
+  - **Subtitle:** Kas tai ir kodėl svarbu – pagrindinė modulio sąvoka.  
   - **Be iliustracijų** (nenaudoti comparisonImages).  
-  - **Blokai:**  
-    1. **Kas yra konteksto inžinerija?** – Tai būdas sąmoningai pateikti DI reikalingą informaciją, kad jis suprastų: kas jis yra, ką turi padaryti, kokio rezultato tikimasi.  
-    2. **Paprastai tariant** – Konteksto inžinerija – tai ne klausimas DI, o situacijos paaiškinimas DI.  
-    3. **Ką sudaro kontekstas?** – Tikslas (ko norime gauti), Vaidmuo (kaip DI turi mąstyti), Ribos (ko nedaryti), Papildoma informacija (duomenys, pavyzdžiai).  
-    4. **Kuo tai padeda DI „visatoje“?** – Mažiau klaidų ir „haliucinacijų“; tikslesni, labiau prognozuojami atsakymai; DI tampa įrankiu darbui, o ne žaislu; galima naudoti automatizacijai ir procesams, ne tik vienkartiniams atsakymams.  
-    5. **Esmė vienu sakiniu** – Geras kontekstas → geresni DI sprendimai.  
-    6. **Svarbu prisiminti (optional,** mažu šriftu) – DI yra stiprus, bet be konteksto jis spėlioja.  
-  - **Pastaba UI:** Skaidrėje – antraštė, 6 blokai (content-block sections); paskutinis blokas su „(optional)“ – mažesniu šriftu (ContentBlockSlide jau palaiko).
+  - **Blokai (pedagogika, aiškumas, CTA):**  
+    0. **Kodėl čia?** (brand) – Orientacija: po DI visatos įtvirtiname pagrindinę sąvoką; kontekstas = valdymo svirtis; paruoš RAG, šaltiniams, patikrinimui.  
+    1. **Kas yra konteksto inžinerija?** – Apibrėžimas (kas jis yra, ką padaryti, kokio rezultato) + „Paprastai tariant“ (ne klausimas, o situacijos paaiškinimas) viename bloke.  
+    2. **Ką sudaro kontekstas?** – Tikslas, Vaidmuo, Ribos, Papildoma informacija (bullet).  
+    3. **Kuo tai padeda?** – Mažiau klaidų/haliucinacijų; tikslesni atsakymai; įrankis darbui; automatizacija.  
+    4. **Esmė vienu sakiniu** (accent) – Geras kontekstas → geresni sprendimai; DI be konteksto spėlioja.  
+    5. **Pabandyk dabar (1 min)** (brand, copyable) – Minimalus konteksto šablonas; CTA: nukopijuok į ChatGPT/Claude, užpildyk, paleisk.  
+  - **Pastaba UI:** content-block; 6 sections; blockVariant brand (Kodėl čia, Pabandyk), accent (Esmė); paskutinis section su copyable (TemplateBlock).
 
 **Skaidrė „4 dedamosios“ (4.1a2) – turinys (kopijuojamas į UI/JSON):**  
-  - **Pavadinimas:** 4 DEDAMOSIOS.  
-  - **Tikslas:** Parodyti promptų inžineriją kaip keturių sričių sankirtą – mokymui ir konceptualumui (savokos).  
+  - **Pavadinimas:** 4 DEDAMOSIOS. **Subtitle:** Keturi požiūriai į gerus promptus – ir ką tai reiškia praktiškai.  
+  - **Tikslas:** Konceptualus rėmas (savokos). **Gairė: esmė pirmiausia** – trumpi blokai (viena mintis + Praktiškai), ne akademinis žargonas; pirmas section „Kodėl čia?“; workflow tooltip – viena eilutė.  
   - **Keturi punktai (numeruoti, antraštė geltona/paryškinta, aprašymas balta):**  
     1. **Inžinerija. Sistemos projektavimas ir optimizavimas. GPT kūrimas ir mokymas.**  
        Kurti naujus promptus, siekiant maksimizuoti DI našumą, vykdant nuolatines iteracijas ir teikiant grįžtamąjį ryšį.  

@@ -22,6 +22,8 @@
 | **UI tiesa** | React komponentai, kurie renderina JSON (`SlideContent.tsx`, `ModuleView.tsx`, `QuizPage.tsx`) |
 | **Bendri atsiliepimai** (gyvas testavimas, V1 analizė, segmentai, V2 veiksmai) | `docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md`; klaidos ir sprendimai – `docs/development/TEST_REPORT.md` |
 
+**Modulių / skaidrių registras ir kontekstas:** Žr. `docs/development/context-engineering/sot_index.json` (kur kokia tiesa, publicModules, unlocksAfter, nextStep). Pilnas planas: `docs/development/CONTEXT_ENGINEERING_AGENT_SKILLS_IMPLEMENTATION.md`. Konteksto biudžetas agentams: `docs/development/context-engineering/context_budget.md`. **Prieš redaguojant modulio turinį:** atidaryk sot_index.json; pilną SOT (turinio_pletra*.md) krauk tik tada, kai užduotis liečia tą modulį (validacija: `node scripts/validate-sot-index.mjs`).
+
 **Konfliktų tvarka:**
 1. Sutvarkyk turinio SOT (semantika, terminai, struktūra) – pagal modulį: `turinio_pletra.md` arba `docs/turinio_pletra_moduliai_4_5_6.md`.
 2. Sinchronizuok JSON su turiniu.

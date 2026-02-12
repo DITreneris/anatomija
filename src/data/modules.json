@@ -401,28 +401,28 @@
                 "name": "Meta blokas",
                 "desc": "Rolė, patirtis, tikslas, auditorija",
                 "priority": "Kritinis",
-                "color": "rose"
+                "color": "brand"
               },
               {
                 "num": "2",
                 "name": "Input blokas",
                 "desc": "Duomenys, skaičiai, faktai, apribojimai",
                 "priority": "Labai svarbus",
-                "color": "orange"
+                "color": "brand"
               },
               {
                 "num": "3",
                 "name": "Output blokas",
                 "desc": "Formatas, struktūra, ilgis, kalba",
                 "priority": "Labai svarbus",
-                "color": "orange"
+                "color": "brand"
               },
               {
                 "num": "4",
                 "name": "Reasoning blokas",
                 "desc": "Mąstymo seka, logika, žingsniai",
                 "priority": "Svarbus",
-                "color": "amber"
+                "color": "brand"
               },
               {
                 "num": "5",
@@ -436,7 +436,7 @@
                 "name": "Advanced Parameters",
                 "desc": "Temperature, reasoning gylis",
                 "priority": "Pasirenkama",
-                "color": "brand"
+                "color": "emerald"
               }
             ],
             "tip": "Pabandykite sukurti promptą be struktūros (kaip paprastai darote). Išsaugokite - palyginsime su struktūruota versija pabaigoje."
@@ -1458,9 +1458,72 @@
       "duration": "30–35 min",
       "slides": [
         {
+          "id": 38,
+          "title": "Jau moki kurti promptus. Dabar – kontekstas ir patikimumas.",
+          "subtitle": "Šiame modulyje – šaltiniai, duomenys ir atsakymų tikrinimas",
+          "type": "action-intro",
+          "content": {
+            "heroStat": "Jau moki kurti promptus.",
+            "heroText": "Dabar – kontekstas ir patikimumas.",
+            "heroSubText": "Šiame modulyje išmoksite įtraukti šaltinius į promptus ir tikrinti atsakymus. RAG, haliucinacijos – kaip dirbti protingiau.",
+            "ctaText": "Pamatyk, kas laukia – per 1 minutę!",
+            "unstructuredPrompt": "Parašyk man ataskaitą apie Lietuvos BVP tendencijas.",
+            "structuredPrompt": "META: Tu esi ekonomistas analitikas. Tikslas: trumpa BVP tendencijų ataskaita.\n\nINPUT: Naudok tik šiuos šaltinius: Eurostat, Lietuvos statistikos departamentas. Jei duomenų nėra – parašyk „Nežinau“, ne spėliok.\n\nOUTPUT: 1 puslapis, 3–5 punktai, su nuorodomis į šaltinius. Kalba: lietuvių.",
+            "aboutText": "Kai 6 blokai jau įprasti, RAG ir žinių patikrinimas leidžia dirbti su realiais duomenimis ir mažinti klaidas. Tokenų ekonomika – sutaupyti laiko ir išlaidas; manipuliacijų atpažinimas – etiška ir patikima nauda. Šis modulis paruoš vienam integruotam projektui (Modulis 6).",
+            "outcomes": [
+              "Suprasti, kas yra RAG ir kada jį naudoti; nurodyti šaltinius prompte",
+              "Žinoti, kas yra Deep research ir kaip struktūruoti multi-step užklausas",
+              "Suprasti tokenų naudojimą (konteksto langas, max_tokens) ir optimizuoti promptus ilgumai ir kainai",
+              "Atpažinti promptų manipuliacijas ir formuoti neutralius promptus",
+              "Atpažinti haliucinacijas ir tikrinti DI atsakymų tikrumą (šaltiniai, cross-check, „nežinau“); susieti su Quality bloku",
+              "Pritaikyti tai viską viename projekte (Modulis 6)"
+            ],
+            "toolsIntro": "Konteksto inžinerijos principai veikia bet kuriame iš šių įrankių. Žemiau – trumpas įvadas ir naudojimo atvejai.",
+            "tools": [
+              {
+                "name": "ChatGPT (OpenAI)",
+                "url": "https://chat.openai.com",
+                "description": "Universalus pokalbių DI – geriausiai tinka bendram rašymui, santraukoms ir idėjų generavimui.",
+                "useCases": ["Laiškai ir el. paštas", "Santraukos ir analizės", "Brainstorming", "Kodo pagalba"]
+              },
+              {
+                "name": "Claude (Anthropic)",
+                "url": "https://claude.ai",
+                "description": "Stiprus ilgų tekstų ir dokumentų analizei, atsakingas atsakymų stilius.",
+                "useCases": ["Ilgi dokumentai", "Etikos ir saugumo klausimai", "Rašymas ir redagavimas", "Struktūruoti atsakymai"]
+              },
+              {
+                "name": "Gemini (Google)",
+                "url": "https://gemini.google.com",
+                "description": "Integruotas su Google paslaugomis – paštas, dokumentai, paieška vienoje vietoje.",
+                "useCases": ["Gmail ir Docs integracija", "Paieška ir faktų tikrinimas", "Darbas su vaizdais", "Kasdienės užduotys"]
+              },
+              {
+                "name": "Copilot (Microsoft)",
+                "url": "https://copilot.microsoft.com",
+                "description": "Microsoft ekosistemoje – Outlook, Word, Teams; puikiai tinka biuro darbui.",
+                "useCases": ["Outlook laiškai", "Word ir PowerPoint", "Excel analizė", "Susitikimų santraukos"]
+              },
+              {
+                "name": "Grok (xAI)",
+                "url": "https://grok.x.ai",
+                "description": "Realaus laiko duomenys iš X (Twitter) – naujienos, tendencijos, viešos diskusijos.",
+                "useCases": ["Naujienų apžvalgos", "Tendencijų analizė", "Socialinių diskusijų kontekstas"]
+              },
+              {
+                "name": "DeepSeek",
+                "url": "https://chat.deepseek.com",
+                "description": "Stiprus kodavimui, matematikai ir logikai – puikus kainos ir kokybės santykis.",
+                "useCases": ["Kodo generavimas", "Matematika ir analizė", "Ilgas kontekstas", "Techninis rašymas"]
+              }
+            ],
+            "duration": "~30–35 min"
+          }
+        },
+        {
           "id": 39,
           "title": "DI Visata: kaip viskas susiję",
-          "subtitle": "Hierarchija: DI → Mašininis mokymasis → Neuroniniai tinklai → Gilusis mokymasis → Generatyvinis DI",
+          "subtitle": "DI – tai ne tik ChatGPT. Žemiau – kaip viskas susiję.",
           "type": "content-block",
           "content": {
             "comparisonImages": {
@@ -1478,6 +1541,11 @@
               }
             },
             "sections": [
+              {
+                "heading": "Kodėl pradedame nuo šios skaidrės?",
+                "body": "Šioje skaidrėje pamatysite, kaip DI sritis susideda iš lygmenų – tai padės vėliau suprasti, kur „telpa“ šaltiniai ir kontekstas.",
+                "blockVariant": "brand"
+              },
               {
                 "heading": "1️⃣ Trumpai (30 s)",
                 "body": "DI – tai ne tik ChatGPT. Suprasi, kur DI visatoje yra generatyvinis DI, ir kodėl tai svarbu prieš gilinantis į konteksto inžineriją.\n\n**Nauda:** Vienas promptas – ir DI paaiškins visą hierarchiją su pavyzdžiais.",
@@ -1510,46 +1578,112 @@
         {
           "id": 44,
           "title": "🧩 Konteksto inžinerija: kaip „valdyti“ DI",
-          "subtitle": "Apibrėžimas ir esmė",
+          "subtitle": "Kas tai ir kodėl svarbu – pagrindinė modulio sąvoka",
           "type": "content-block",
           "content": {
             "sections": [
               {
-                "heading": "Kas yra konteksto inžinerija?",
-                "body": "Tai būdas sąmoningai pateikti DI reikalingą informaciją, kad jis suprastų:\n\n• kas jis yra,\n• ką turi padaryti,\n• kokio rezultato tikimasi."
+                "heading": "Kodėl čia?",
+                "body": "Po DI visatos įtvirtiname pagrindinę modulio sąvoką: **kontekstas = valdymo svirtis**. Tai paruoš visoms tolesnėms temoms – RAG, šaltiniams ir atsakymų patikrinimui.",
+                "blockVariant": "brand"
               },
               {
-                "heading": "Paprastai tariant",
-                "body": "Konteksto inžinerija – tai ne klausimas DI, o situacijos paaiškinimas DI."
+                "heading": "Kas yra konteksto inžinerija?",
+                "body": "Tai būdas **sąmoningai pateikti DI reikalingą informaciją**, kad jis suprastų:\n\n• kas jis yra,\n• ką turi padaryti,\n• kokio rezultato tikimasi.\n\n**Paprastai tariant:** ne klausimas DI, o **situacijos paaiškinimas** DI."
               },
               {
                 "heading": "Ką sudaro kontekstas?",
-                "body": "• Tikslas (ko norime gauti)\n• Vaidmuo (kaip DI turi mąstyti)\n• Ribos (ko nedaryti)\n• Papildoma informacija (duomenys, pavyzdžiai)"
+                "body": "• **Tikslas** – ko norime gauti\n• **Vaidmuo** – kaip DI turi mąstyti\n• **Ribos** – ko nedaryti\n• **Papildoma informacija** – duomenys, pavyzdžiai"
               },
               {
-                "heading": "Kuo tai padeda DI „visatoje“?",
+                "heading": "Kuo tai padeda?",
                 "body": "• Mažiau klaidų ir „haliucinacijų“\n• Tikslesni, labiau prognozuojami atsakymai\n• DI tampa įrankiu darbui, o ne žaislu\n• Galima naudoti automatizacijai ir procesams, ne tik vienkartiniams atsakymams"
               },
               {
                 "heading": "Esmė vienu sakiniu",
-                "body": "Geras kontekstas → geresni DI sprendimai."
+                "body": "**Geras kontekstas → geresni DI sprendimai.** DI yra stiprus, bet be konteksto jis spėlioja.",
+                "blockVariant": "accent"
               },
               {
-                "heading": "Svarbu prisiminti",
-                "body": "DI yra stiprus, bet be konteksto jis spėlioja."
+                "heading": "Pabandyk dabar (1 min)",
+                "body": "Nukopijuok žemiau esantį šabloną į ChatGPT arba Claude, užpildyk laukus laužtiniuose skliaustuose ir paleisk – tai jau minimalus kontekstas.",
+                "copyable": "Tu esi [tavo rolė, pvz. verslo analitikas]. Mano užduotis šiandien: [vienas sakinys]. Kokio formato rezultato noriu: [pvz. 5 bullet punktai, lietuvių kalba].",
+                "blockVariant": "brand"
               }
             ]
           }
         },
         {
+          "id": 40.8,
+          "title": "InstructGPT: instrukcijų laikymasis",
+          "subtitle": "Kodėl konteksto inžinerijoje svarbu aiškiai nurodyti vaidmenį, formatą ir ribas – OpenAI tyrimo įrodymai",
+          "type": "content-block",
+          "content": {
+            "sections": [
+              {
+                "heading": "Kaip veikia LLM?",
+                "body": "Dideli kalbos modeliai (LLM) generuoja tekstą **autoregresiškai**: vienas žodis (tokenas) po kito. **Žingsnis N:** įvestis (pvz. „Rytas tapo“) → LLM → **tikimybių pasiskirstymas** kitam žodžiui (čempionais 25%, 2024 20%, m. 18%…) → pasirinktas tokenas „čempionais“. **Žingsnis N+1:** įvestis praplečiama („Rytas tapo čempionais“) → vėl LLM → naujos tikimybės (2024, m., LKL…) → ir taip toliau. Kiekvienas žodis priklauso nuo **viso ankstesnio konteksto** – todėl konteksto inžinerijoje svarbu: gerai suformuotas promptas (vaidmuo, šaltiniai, formatas) sumažina klaidas ir haliucinacijų riziką.",
+                "blockVariant": "brand",
+                "image": "/llm_autoregressive_rytas_zalgiris.svg",
+                "imageAlt": "Autoregresinio kalbos modelio schema: žingsnis N (įvestis „Rytas tapo“, išvestis su procentais: čempionais, 2024, m. ir t.t., pasirinkta „čempionais“) ir N+1 (įvestis „Rytas tapo čempionais“, pasirinkta „2024“); pavyzdys Rytas, LKL"
+              },
+              {
+                "heading": "Kodėl ši skaidrė Modulio 4 tema?",
+                "body": "Modulyje 4 dirbame su **kontekstu ir patikimumu**: RAG, šaltiniai prompte, žinių patikrinimas, haliucinacijų mažinimas. OpenAI tyrimas parodė: modeliai, kurie **geriau laikosi instrukcijų** (vaidmuo, formatas, ribos), duoda aukštesnės kokybės išvestį – tai tiesiogiai susiję su tuo, ką toliau mokysimės: kaip nurodyti šaltinius ir tikrinti atsakymus.",
+                "blockVariant": "brand"
+              },
+              {
+                "heading": "Kas matuota?",
+                "body": "OpenAI vertino modelių išvesties **kokybę** (Likert skalė 1–7) priklausomai nuo modelio dydžio (1,5B – 175B parametrų). Lyginti: InstructGPT (įsakymų režimas), GPT su „few-shot“ promptu, GPT be struktūros, ir modelis fine-tunintas tik supervizuotu mokymu (SFT). Geresnis instrukcijų laikymasis reiškia **nuspėjamesnį ir tiksliau valdomą** rezultatą – pagrindas darbui su šaltiniais ir Quality bloku.",
+                "blockVariant": "brand"
+              },
+              {
+                "heading": "Rezultatas",
+                "body": "**InstructGPT** žymiai lenkia kitus: žmonių vertintojų įvertinimai aukščiausi visuose modelių dydžiuose. SFT – antroje vietoje, GPT su promptu – trečias, „paprastas“ GPT – žemiausias. **Modulio 4 išvada:** kai aiškiai nurodai **vaidmenį, formatą ir ribas** (tai konteksto inžinerijos esmė), DI geriau seka nurodymams – ir tai padeda vėliau naudoti RAG, šaltinius ir tikrinti atsakymus.",
+                "blockVariant": "accent"
+              },
+              {
+                "heading": "Šaltiniai",
+                "body": "1) OpenAI (2022). Instruction following – kokybės įvertinimai pagal modelio dydį. [openai.com/index/instruction-following](https://openai.com/index/instruction-following/).\n2) Autoregresinio LLM schema: [RBC Borealis – A high-level overview of LLMs](https://rbcborealis.com/research-blogs/a-high-level-overview-of-large-language-models/).",
+                "blockVariant": "default",
+                "collapsible": true,
+                "collapsedByDefault": true
+              }
+            ],
+            "instructGptQuality": {
+              "stats": [
+                { "label": "InstructGPT viršūnė", "value": "5.0", "detail": "Likert 175B", "colorKey": "accent" },
+                { "label": "SFT pagrindas", "value": "4.0", "detail": "Supervizuotas fine-tuning 175B", "colorKey": "emerald" },
+                { "label": "GPT su promptu", "value": "3.2", "detail": "Su few-shot priešdėliu", "colorKey": "violet" },
+                { "label": "Paprastas GPT", "value": "2.5", "detail": "Be lygiavimo, 175B", "colorKey": "slate" }
+              ],
+              "chartData": [
+                { "model": "InstructGPT", "points": [{"x": "1.5B", "y": 4.9}, {"x": "6B", "y": 4.92}, {"x": "175B", "y": 5.0}], "colorKey": "accent" },
+                { "model": "SFT", "points": [{"x": "1.5B", "y": 3.7}, {"x": "6B", "y": 3.8}, {"x": "175B", "y": 4.0}], "colorKey": "emerald" },
+                { "model": "GPT (prompted)", "points": [{"x": "1.5B", "y": 3.0}, {"x": "6B", "y": 3.05}, {"x": "175B", "y": 3.2}], "colorKey": "violet" },
+                { "model": "GPT (base)", "points": [{"x": "1.5B", "y": 2.65}, {"x": "6B", "y": 2.7}, {"x": "175B", "y": 2.5}], "colorKey": "slate" }
+              ],
+              "deltaRows": [
+                { "model": "InstructGPT", "start": "4.9", "end": "5.0", "change": "+0.1 · Stabili pozicija", "colorKey": "accent" },
+                { "model": "SFT", "start": "3.7", "end": "4.0", "change": "+0.3 · Gerai masteliuojasi", "colorKey": "emerald" },
+                { "model": "GPT (prompted)", "start": "3.0", "end": "3.2", "change": "+0.2 · Nedidelis pagerėjimas", "colorKey": "violet" },
+                { "model": "GPT (base)", "start": "2.65", "end": "2.5", "change": "−0.15 · Silpnėja", "colorKey": "rose" }
+              ],
+              "insight": "1,3B InstructGPT modelis vertintojų vertinamas geriau nei 175B GPT-3 – tai rodo, kad lygiavimo strategija, ne parametrų skaičius, yra pagrindinis žmogaus suvokiamos kokybės veiksnys.",
+              "scaleNote": "Vertintojų įvertinimai lyginant modelių išvestis. Aukščiau = geresnis instrukcijų laikymasis."
+            }
+          }
+        },
+        {
           "id": 41,
-          "title": "GPT –> TAI TRANSFORMERIAI",
-          "subtitle": "DI taikymai pagal įvesties ir išvesties formas",
+          "title": "Ką galiu naudoti? DI įrankiai pagal formą",
+          "subtitle": "Pasirink kategoriją pagal tai, ką nori gauti – tekstas, vaizdas, video",
           "type": "di-modalities",
           "content": {
-            "title": "GPT –> TAI TRANSFORMERIAI",
-            "intro": "Transformeriai – DI modeliai, kurie gali dirbti su įvairiomis įvesties ir išvesties formomis. Žemiau – 6 pagrindinės kategorijos, kurios aktualiausios kasdieniam darbui, ir 2 papildomos (garsas, muzika).",
-            "takeaway": "6 pagrindinės kategorijos: (1) Tekstas→Tekstas – ChatGPT, Claude, Gemini; (2) Tekstas→Vaizdas – DALL-E, Midjourney; (3) Tekstas→Video – Veo 3, Sora, Runway; (4) Vaizdas→Video – Runway, Luma; (5) Vaizdas→Tekstas – GPT-4o, Claude; (6) Vaizdas→Vaizdas – Runway, Photoshop AI. Papildomai: garsas (ElevenLabs, Whisper) ir muzika (Suno). Daugelis įrankių jungia kelias kategorijas.",
+            "title": "Ką galiu naudoti? DI įrankiai pagal formą",
+            "intro": "DI gali dirbti su skirtingomis formomis: tekstas, vaizdas, video, garsas. Žemiau – kategorijos ir įrankiai. Pradėk nuo vienos: daugumai kasdienio darbo pakanka pirmosios (Tekstas→Tekstas).",
+            "takeaway": "Pradėk nuo Tekstas→Tekstas (ChatGPT, Claude, Gemini), jei dar nebandei. Kitas kategorijas atidaryk, kai reikės vaizdų, vaizdo ar garso. Rek. = vienas rekomenduojamas įrankis kategorijai.",
+            "showFirst": 3,
             "groups": [
               {
                 "modality": "Tekstas → Tekstas",
@@ -1767,7 +1901,7 @@
         {
           "id": 45,
           "title": "4 dedamosios",
-          "subtitle": "Keturi kampai, iš kurių susideda geri promptai – inžinerija, kalba, psichologija, komunikacija",
+          "subtitle": "Keturi požiūriai į gerus promptus – ir ką tai reiškia praktiškai",
           "type": "content-block",
           "content": {
             "workflowImages": [
@@ -1775,35 +1909,40 @@
                 "src": "/workflow_inzinerija_1.png",
                 "alt": "LLM kaip asistentas – workflow schema",
                 "label": "LLM kaip asistentas",
-                "tooltip": "Asistentas geras ne todėl, kad „protingas“, o todėl, kad gauna teisingą kontekstą. Konteksto inžinerija: atranka (kas svarbiausia), struktūra (tvarka, šablonas), tikrinimas (ar faktai pagrįsti)."
+                "tooltip": "Asistentas geras tada, kai gauna teisingą kontekstą – ne todėl, kad „protingas“."
               },
               {
                 "src": "/workflow_inzinerija_2.png",
-                "alt": "LLM kaip įrankių dėžė – workflow schema",
-                "label": "LLM kaip įrankių dėžė",
-                "tooltip": "Ne tik promptas – svarbiausia, koks kontekstas paduodamas ir ką LLM pasitikrina. LLM supranta užduotį, sudėlioja planą, nusprendžia ar reikia įrankių (paieška, DB, API). Įrankis grąžina duomenis → LLM formuoja atsakymą su nuorodomis."
+                "alt": "LLM su įrankiais – workflow schema",
+                "label": "LLM su įrankiais",
+                "tooltip": "Svarbu ne tik promptas – o koks kontekstas paduodamas ir ar DI gali pasitikrinti (paieška, duomenys)."
               }
             ],
             "sections": [
               {
+                "heading": "Kodėl čia?",
+                "body": "Konceptualus rėmas: keturi kampai padeda suprasti, **iš ko susideda geri promptai**. Detales – toliau modulyje (RAG, šaltiniai, workflow).",
+                "blockVariant": "brand"
+              },
+              {
                 "heading": "1. Inžinerija",
-                "body": "Sistemos projektavimas ir optimizavimas. GPT kūrimas ir mokymas. Kurti naujus promptus, siekiant maksimizuoti DI našumą, vykdant nuolatines iteracijos ir teikiant grįžtamąjį ryšį.\n\n**Praktiškai:** geriau mažiau promptų, bet juos nuolat tobulinti, nei daug vienkartinių. Žemiau – du workflow pavyzdžiai."
+                "body": "Projektuoti ir tobulinti promptus – iteracijos, grįžtamasis ryšys.\n\n**Praktiškai:** geriau mažiau promptų, bet juos tobulinti, nei daug vienkartinių. Žemiau – du workflow pavyzdžiai."
               },
               {
                 "heading": "2. Kalbos filosofija",
-                "body": "Reikšmė ir interpretacija. Analizuoti, kaip promptai formuoja kontekstą ir nukreipia DI į nuoseklius atsakymus.\n\n**Praktiškai:** žodžių pasirinkimas ir kontekstas nulemia, kaip DI interpretuoja užklausą – tas pats klausimas skirtingais žodžiais gali duoti skirtingą rezultatą."
+                "body": "Žodžių ir konteksto reikšmė – kaip DI interpretuoja užklausą.\n\n**Praktiškai:** tas pats klausimas skirtingais žodžiais gali duoti skirtingą rezultatą."
               },
               {
                 "heading": "3. Psichologija",
-                "body": "Kognityvinis įrėminimas. Tyrinėti, kaip DI (ir promptų formavimas) riboja arba formuoja žmogaus problemų sprendimą ir atspindi skirtingus pažinimo modelius.\n\n**Praktiškai:** kaip suformuluoti užduotį – tai ir kaip žmogus (arba komanda) ją suvoks; geri promptai sumažina neaiškumus."
+                "body": "Kaip formuluojame užduotį – taip žmogus (ar komanda) ją ir suvoks.\n\n**Praktiškai:** geri promptai sumažina neaiškumus ir nukreipia dėmesį."
               },
               {
                 "heading": "4. Komunikacija",
-                "body": "Sąveika ir informacijos perdavimas. Kurti aiškias ir glaustas užklausas, siekiant parodyti žmogaus ir DI sąveikos efektyvumą.\n\n**Praktiškai:** aiškios, glaustos užklausos duoda geriau nuspėjamus atsakymus. Sutampa su Anthropic, Google, OpenAI gairėmis."
+                "body": "Aiškios ir glaustos užklausos – efektyvesnė žmogaus ir DI sąveika.\n\n**Praktiškai:** aiškus užrašas → geriau nuspėjami atsakymai."
               },
               {
                 "heading": "Esmė",
-                "body": "Visi keturi kampai veikia kartu. Geras promptas liečia visus keturis – ne tik „ką parašiau“, bet ir kaip projektavome, kaip suprasime kalbą, ką įrėminsime ir kaip aiškiai perduosime.",
+                "body": "Visi keturi veikia kartu. Geras promptas – ne tik „ką parašiau“, bet ir kaip projektavome, kaip suprasime ir kaip perduosime.",
                 "blockVariant": "accent"
               }
             ]

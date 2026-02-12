@@ -1,7 +1,7 @@
 # Modulio 4 skaidrių eilė (oficiali)
 
 > **Paskirtis:** Viena vieta – rekomenduojama Modulio 4 skaidrių/temų seka su trumpu pateisinimu kiekvienam žingsniui. SOT: `docs/turinio_pletra_moduliai_4_5_6.md`. Atpažinimas: 4.1–4.7 = tik Modulio 4 (`docs/CONTENT_MODULIU_ATPAZINIMAS.md`).  
-> **Paskutinė atnaujinta:** 2026-02-11 (4.1-workflow-ex → M5; **Praktika: DI visata** (id 39.5) perkelta prieš Skyriaus ribą (40.5); `modules.json` sinchronizuotas).
+> **Paskutinė atnaujinta:** 2026-02-12 (Modulio 4 pirmoji skaidrė – action-intro id 38; 4.0 perkelta į eilę 2).
 
 ---
 
@@ -9,7 +9,8 @@
 
 | Eilė | ID | Skaidrė / tema | Kodėl čia? |
 |------|-----|----------------|------------|
-| 1 | 4.0 | DI Visata: kaip viskas susiję | Pirmoji skaidrė – kontekstas (AI→DI hierarchija) ir atsakomybė; primena Modulio 1 „kas yra DI“. |
+| 0 | 38 | Modulio 4 įvadas / itraukimas (action-intro) | Pirmoji skaidrė – itraukimas į mokymus, hook, CTA; panaši į Modulio 1 pirmąją. |
+| 1 | 4.0 | DI Visata: kaip viskas susiję | Kontekstas (AI→DI hierarchija) ir atsakomybė; primena Modulio 1 „kas yra DI“. |
 | 2 | 4.1a | Konteksto inžinerija: kaip „valdyti“ DI | Apibrėžiama pagrindinė modulio sąvoka; paruošia visas tolesnes temas (kontekstas = valdymo svirtis). |
 | 3 | 4.1a2 | 4 dedamosios | Konceptualus rėmas (inžinerija, kalba, psichologija, komunikacija) – suderinama su oficialiais šaltiniais; padeda suprasti, „kur“ dirba promptų inžinierius. |
 | 3a | 4.1-system-master | System prompt vs Master prompt | Tiesiog po 4 dedamųjų – rolė ir kontekstas; kaip DI „žino“, kas tu esi. |
@@ -48,7 +49,7 @@
 
 ## Trumpos taisyklės
 
-- **4.0 visada pirmas** – DI kontekstas.
+- **38 (action-intro) visada pirmas** – itraukimas, hook, CTA; po jo **4.0** – DI kontekstas.
 - **4.1a2 (4 dedamosios) → System vs Master → Proceso prompt** – sąvokos tiesiog po 4 dedamųjų; po jų Skyriaus riba, tada Metodinis vs Agentinis, Custom GPT.
 - **4.1a → 4.1a5 → 4.1** – konceptualus pagrindas ir parametrų laukas, tada įvadas „kas bus modulyje“.
 - **4.1b po 4.1** – struktūruotas procesas prieš schemas (4.1c, 4.1d).

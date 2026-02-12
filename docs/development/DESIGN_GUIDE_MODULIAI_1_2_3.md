@@ -245,6 +245,7 @@ Moduliai 1–3 turi **skirtis**, bet būti **iš tos pačios gamos**: vienodas n
 | **1** | Mokymas | brand | Badge „Modulis 1“, progress bar aktyvi dalis, hero border/CTA atspalvis, žinių blokai | Nenaudoti brand kaip vienintelės spalvos visoms kortelėms – kombinuoti su neutral |
 | **2** | Testas | slate | Badge „Testas“, progress, klausimų blokas | Nenaudoti ryškių gradientų hero; išlaikyti ramų, koncentracijai tinkamą toną |
 | **3** | Praktika | accent | Badge „Praktika“, CTA „Pradėti scenarijų“, praktikos kortelės border | Nenaudoti accent ant kiekvieno mažo elemento – tik 1–2 CTA arba header |
+| **4** | Mokymas (teorija) | brand | Badge „Modulis 4“, progress, žinių blokai – kaip M1 (learn) | Žr. MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md §2.5 |
 
 **Bendros taisyklės:**
 
@@ -338,10 +339,10 @@ Kiekviena: **(a) problema, (b) kodėl kenkia, (c) sprendimas, (d) kaip įgyvendi
 
 **Must (1 sprintas – greiti laimėjimai):**
 
-- [ ] **M-DS1** Spalvų taisyklė: vienoje skaidrėje max 2 semantinės + 1 brand/accent (4.1, 5). Įgyvendinimas: Summary – sumažinti sekcijų spalvų į 1–2; Hierarchy – palikti skirtingas prioritetams, bet vienodas kortelės fonas (white).
-- [ ] **M-DS2** Vienas gradientas per skaidrę: hero ARBA CTA, ne abu ryškūs (3.2, 6.2). Įgyvendinimas: TransitionSlide takeaway – ne gradient, o `bg-brand-100` arba vienas accent mygtukas; Infographic – hero gradient be violet (tik brand).
-- [ ] **M-DS3** Spacing ir radius sistema: dokumentuoti ir taikyti naujuose komponentuose; pataisyti 3–5 aktyviausius (ModuleView wrapper, Summary kortelės, Action intro blokai) pagal 4.3, 4.4.
-- [ ] **M-DS4** Confetti / emoji: confetti – 2 spalvos (brand, accent); emoji infographic – pakeisti į Lucide kur įmanoma (3.6, 3.7).
+- [x] **M-DS1** Spalvų taisyklė: vienoje skaidrėje max 2 semantinės + 1 brand/accent (4.1, 5). Įgyvendinimas: Summary – žinių kortelės naudoja vienodą brand (defaultColor); HomePage – violet → brand (Praktinės Užduotys). 2026-02-12.
+- [x] **M-DS2** Vienas gradientas per skaidrę: hero ARBA CTA, ne abu ryškūs (3.2, 6.2). Įgyvendinimas: TransitionSlide takeaway – jau `bg-brand-100`; Infographic hero – tik brand; SlideGroupProgressBar active – `bg-brand-500` (be gradiento). 2026-02-12.
+- [x] **M-DS3** Spacing ir radius sistema: dokumentuoti ir taikyti naujuose komponentuose; ModuleView wrapper – `card p-6 md:p-10`, `.card` = `rounded-2xl shadow-md` (index.css). 2026-02-12.
+- [x] **M-DS4** Confetti / emoji: confetti – 2 spalvos (brand, accent) Summary + Celebration.tsx; ContentSlides ConfettiParticles jau 2 spalvos. 2026-02-12.
 
 **Should (2 sprintas):**
 

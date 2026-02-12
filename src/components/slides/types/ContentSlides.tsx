@@ -1,11 +1,12 @@
 import { useState, useEffect, Fragment } from 'react';
-import { CheckCircle, Sparkles, MessageCircle, Languages, Lightbulb, Target, Layers, Repeat, ChevronRight, ChevronDown, Info, ExternalLink, ArrowRight, Zap, Copy, Wrench, BookMarked, Rocket } from 'lucide-react';
-import { CopyButton, TemplateBlock, ProcessStepper, DiPrezentacijosWorkflowBlock, EnlargeableImage, RlProcessBlock } from '../shared';
+import { CheckCircle, Sparkles, MessageCircle, Languages, Lightbulb, Target, Layers, Repeat, ChevronRight, ChevronDown, ChevronUp, Info, ExternalLink, ArrowRight, Zap, Copy, Wrench, BookMarked, Rocket, Trophy } from 'lucide-react';
+import { CopyButton, TemplateBlock, ProcessStepper, DiPrezentacijosWorkflowBlock, EnlargeableImage, InstructGptQualityBlock, RlProcessBlock } from '../shared';
 import { getColorClasses } from '../utils/colorStyles';
 import type {
   ActionIntroContent,
   DefinitionsContent,
   DiModalitiesContent,
+  DiModalityGroup,
   PieChartContent,
   AiWorkflowContent,
   IntroContent,
@@ -485,18 +486,18 @@ export function ContentBlockSlide({ content }: { content: ContentBlockContent })
             <figure className="my-4">
               <div className={`overflow-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 max-h-80`}>
                 <img
-                  src={section.image}
+                  src={`${import.meta.env.BASE_URL || '/'}${section.image.replace(/^\//, '')}`}
                   alt={section.imageAlt ?? section.heading ?? ''}
                   className="w-full h-auto min-h-0 object-contain"
                 />
               </div>
               {section.body && (
                 <figcaption className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {section.body}
+                  {renderBodyWithBold(section.body)}
                 </figcaption>
               )}
               <a
-                href={section.image}
+                href={`${import.meta.env.BASE_URL || '/'}${section.image.replace(/^\//, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-1.5 inline-block text-xs font-medium text-brand-600 dark:text-brand-400 hover:underline"
@@ -551,6 +552,9 @@ export function ContentBlockSlide({ content }: { content: ContentBlockContent })
           )}
           </div>
         </div>
+        {i === 1 && content.instructGptQuality && (
+          <InstructGptQualityBlock data={content.instructGptQuality} />
+        )}
         {i === 0 && content.workflowImages && content.workflowImages.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" role="region" aria-label="Inžinerijos workflow pavyzdžiai">
             {content.workflowImages.slice(0, 2).map((img, j) => (
@@ -884,8 +888,9 @@ export function IntroSlide({ content: contentProp }: IntroSlideProps) {
             ))}
           </ul>
         </div>
-        <div className="bg-violet-50 dark:bg-violet-900/20 p-5 rounded-xl">
-          <h4 className="font-bold text-violet-900 dark:text-violet-100 mb-3">Mokymo trukmė:</h4>
+        {/* M-DS2: neutral (slate) vietoj violet – vienas gradientas/akcentas per skaidrę */}
+        <div className="bg-slate-50 dark:bg-slate-900/20 p-5 rounded-xl">
+          <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-3">Mokymo trukmė:</h4>
           <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
             <li>• 3 moduliai</li>
             <li>• Praktinės užduotys</li>
@@ -1144,17 +1149,73 @@ export function DefinitionsSlide({ content }: { content?: DefinitionsContent }) 
   );
 }
 
+function DiModalityCard({ group, idx }: { group: DiModalityGroup; idx: number }) {
+  return (
+    <article
+      key={idx}
+      className="relative bg-white dark:bg-slate-800/80 pl-5 pr-5 py-5 rounded-2xl border border-slate-200 dark:border-slate-700 border-l-4 border-l-brand-500 dark:border-l-brand-400 shadow-sm hover:shadow-lg hover:border-brand-200 dark:hover:border-brand-700 transition-all duration-200 focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-2"
+    >
+      <div className="mb-3">
+        <span className="inline-block px-3 py-1 rounded-lg text-sm font-semibold bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
+          {group.modality}
+        </span>
+      </div>
+      <p className="text-slate-700 dark:text-slate-200 text-sm mb-1.5 font-semibold leading-snug">
+        {group.tasks}
+      </p>
+      <p className="text-slate-500 dark:text-slate-400 text-xs mb-4 leading-snug">
+        {group.description}
+      </p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">Įrankiai:</p>
+      <ul className="flex flex-wrap gap-2" aria-label="Įrankiai šiai kategorijai">
+        {group.examples.map((ex, i) => (
+          <li key={i} className="inline-flex items-center gap-1.5">
+            {ex.url ? (
+              <a
+                href={ex.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                title={ex.tooltip}
+                className="inline-flex items-center gap-1.5 min-h-[32px] px-2.5 py-1.5 rounded-lg text-sm font-medium text-brand-700 dark:text-brand-300 bg-slate-100 dark:bg-slate-700/60 hover:bg-brand-100 dark:hover:bg-brand-900/40 hover:text-brand-800 dark:hover:text-brand-200 border border-transparent hover:border-brand-200 dark:hover:border-brand-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1"
+              >
+                {ex.name}
+              </a>
+            ) : (
+              <span className="inline-flex items-center min-h-[32px] px-2.5 py-1.5 rounded-lg text-sm font-medium text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-700/60" title={ex.tooltip}>
+                {ex.name}
+              </span>
+            )}
+            {ex.recommended && (
+              <span
+                className="inline-flex items-center gap-0.5 px-2 py-1 rounded-md text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 whitespace-nowrap"
+                title="Rekomenduojamas įrankis šiai kategorijai"
+              >
+                <CheckCircle className="w-3 h-3 shrink-0" aria-hidden />
+                Rek.
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
 export function DiModalitiesSlide({ content }: { content?: DiModalitiesContent }) {
   const groups = content?.groups ?? [];
+  const showFirst = content?.showFirst ?? 0;
+  const useProgressive = showFirst > 0 && groups.length > showFirst;
+  const [showAll, setShowAll] = useState(false);
+  const visibleGroups = useProgressive && !showAll ? groups.slice(0, showFirst) : groups;
+  const remainingCount = groups.length - showFirst;
+
   const intro = content?.intro ?? 'DI modeliai, pagrįsti transformeriais, gali dirbti su įvairiomis įvesties ir išvesties formomis. Žemiau – pagrindinės kategorijos su pavyzdžiais ir nuorodomis. Pažymėta rekomenduojami įrankiai kiekvienai kategorijai.';
   return (
     <div className="space-y-8">
-      {/* Intro – aiški tipografija, projekto spalvos */}
       <div className="max-w-3xl mx-auto space-y-2">
         <p className="text-center text-slate-600 dark:text-slate-300 text-base leading-relaxed">
           {intro}
         </p>
-        {/* 1. Legenda – iš karto aišku, ką reiškia Rek. (lengvesnis skaitymas) */}
         <p className="text-center text-slate-500 dark:text-slate-400 text-xs">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 px-2.5 py-0.5 text-emerald-700 dark:text-emerald-300 font-medium">
             <CheckCircle className="w-3 h-3 shrink-0" aria-hidden />
@@ -1163,66 +1224,39 @@ export function DiModalitiesSlide({ content }: { content?: DiModalitiesContent }
         </p>
       </div>
 
-      {/* Kategorijos – kortelės su brand kairiuoju rėmeliu (lengviau skenuoti) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-        {groups.map((group, idx) => (
-          <article
-            key={idx}
-            className="relative bg-white dark:bg-slate-800/80 pl-5 pr-5 py-5 rounded-2xl border border-slate-200 dark:border-slate-700 border-l-4 border-l-brand-500 dark:border-l-brand-400 shadow-sm hover:shadow-lg hover:border-brand-200 dark:hover:border-brand-700 transition-all duration-200 focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-2"
-          >
-            {/* Modality – badge projekto spalva */}
-            <div className="mb-3">
-              <span className="inline-block px-3 py-1 rounded-lg text-sm font-semibold bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
-                {group.modality}
-              </span>
-            </div>
-            <p className="text-slate-700 dark:text-slate-200 text-sm mb-1.5 font-semibold leading-snug">
-              {group.tasks}
-            </p>
-            <p className="text-slate-500 dark:text-slate-400 text-xs mb-4 leading-snug">
-              {group.description}
-            </p>
-            {/* 2. „Įrankiai:“ etiketė + chip stilius – aiškūs paspaudžiami blokai, geresni touch targets */}
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">Įrankiai:</p>
-            <ul className="flex flex-wrap gap-2" aria-label="Įrankiai šiai kategorijai">
-              {group.examples.map((ex, i) => (
-                <li key={i} className="inline-flex items-center gap-1.5">
-                  {ex.url ? (
-                    <a
-                      href={ex.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      title={ex.tooltip}
-                      className="inline-flex items-center gap-1.5 min-h-[32px] px-2.5 py-1.5 rounded-lg text-sm font-medium text-brand-700 dark:text-brand-300 bg-slate-100 dark:bg-slate-700/60 hover:bg-brand-100 dark:hover:bg-brand-900/40 hover:text-brand-800 dark:hover:text-brand-200 border border-transparent hover:border-brand-200 dark:hover:border-brand-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1"
-                    >
-                      {ex.name}
-                    </a>
-                  ) : (
-                    <span className="inline-flex items-center min-h-[32px] px-2.5 py-1.5 rounded-lg text-sm font-medium text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-700/60" title={ex.tooltip}>
-                      {ex.name}
-                    </span>
-                  )}
-                  {ex.recommended && (
-                    <span
-                      className="inline-flex items-center gap-0.5 px-2 py-1 rounded-md text-[10px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 whitespace-nowrap"
-                      title="Rekomenduojamas įrankis šiai kategorijai"
-                    >
-                      <CheckCircle className="w-3 h-3 shrink-0" aria-hidden />
-                      Rek.
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </article>
+        {visibleGroups.map((group, idx) => (
+          <DiModalityCard key={idx} group={group} idx={idx} />
         ))}
       </div>
 
-      {/* Takeaway – accent akcentas, projekto kortelė */}
+      {useProgressive && (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            className="inline-flex items-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl text-sm font-medium text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-900/30 hover:bg-brand-100 dark:hover:bg-brand-900/50 border border-brand-200 dark:border-brand-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            aria-expanded={showAll}
+          >
+            {showAll ? (
+              <>
+                <ChevronUp className="w-4 h-4 shrink-0" aria-hidden />
+                Slėpti kitas kategorijas
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4 shrink-0" aria-hidden />
+                Rodyti kitas {remainingCount} kategorijas
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
       {content?.takeaway && (
         <div className="rounded-2xl border-l-4 border-accent-500 bg-accent-50 dark:bg-accent-900/20 dark:border-accent-600 p-5 shadow-sm">
           <p className="text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
-            <span className="font-bold text-accent-700 dark:text-accent-300">Takeaway: </span>
+            <span className="font-bold text-accent-700 dark:text-accent-300">Trumpai: </span>
             {content.takeaway}
           </p>
         </div>
@@ -1755,16 +1789,17 @@ export function TransitionSlide({ content }: { content?: TransitionContent }) {
   );
 }
 
+/** M-DS1: max 2 semantinės + brand per skaidrę – brand (1–4), emerald (5–6 Rekomenduojama/Pasirenkama) */
 const DEFAULT_HIERARCHY: HierarchyContent = {
   introHeading: 'Kodėl hierarchija svarbi?',
   introBody: 'DI modeliai skaito ir apdoroja informaciją nuosekliai. Svarbiausia informacija turi būti pateikta pirmiausia, kad rezultatas atitiktų jūsų lūkesčius.',
   blocks: [
-    { num: '1', name: 'Meta blokas', desc: 'Rolė, patirtis, tikslas, auditorija', priority: 'Kritinis', color: 'rose' },
-    { num: '2', name: 'Input blokas', desc: 'Duomenys, skaičiai, faktai, apribojimai', priority: 'Labai svarbus', color: 'orange' },
-    { num: '3', name: 'Output blokas', desc: 'Formatas, struktūra, ilgis, kalba', priority: 'Labai svarbus', color: 'orange' },
-    { num: '4', name: 'Reasoning blokas', desc: 'Mąstymo seka, logika, žingsniai', priority: 'Svarbus', color: 'amber' },
+    { num: '1', name: 'Meta blokas', desc: 'Rolė, patirtis, tikslas, auditorija', priority: 'Kritinis', color: 'brand' },
+    { num: '2', name: 'Input blokas', desc: 'Duomenys, skaičiai, faktai, apribojimai', priority: 'Labai svarbus', color: 'brand' },
+    { num: '3', name: 'Output blokas', desc: 'Formatas, struktūra, ilgis, kalba', priority: 'Labai svarbus', color: 'brand' },
+    { num: '4', name: 'Reasoning blokas', desc: 'Mąstymo seka, logika, žingsniai', priority: 'Svarbus', color: 'brand' },
     { num: '5', name: 'Quality Control', desc: 'Tikrinimo kriterijai, validacija', priority: 'Rekomenduojama', color: 'emerald' },
-    { num: '6', name: 'Advanced Parameters', desc: 'Temperature, reasoning gylis', priority: 'Pasirenkama', color: 'brand' },
+    { num: '6', name: 'Advanced Parameters', desc: 'Temperature, reasoning gylis', priority: 'Pasirenkama', color: 'emerald' },
   ],
   tip: 'Pabandykite sukurti promptą be struktūros (kaip paprastai darote). Išsaugokite - palyginsime su struktūruota versija pabaigoje.',
 };
@@ -2053,7 +2088,7 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
         {/* Trophy icon */}
         <div className="relative z-10 flex flex-col items-center text-center">
           <div className="mb-5 inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/15 backdrop-blur-sm shadow-lg shadow-black/10 animate-celebrate">
-            <span className="text-4xl" role="img" aria-label="Trophy">🏆</span>
+            <Trophy className="w-10 h-10 text-white" strokeWidth={1.5} aria-hidden />
           </div>
           <h2 className="text-lg md:text-xl font-bold mb-2 drop-shadow-sm">
             {content.introHeading ?? 'Ką išmokote'}

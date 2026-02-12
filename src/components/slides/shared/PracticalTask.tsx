@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { CheckCircle, Sparkles, ChevronDown, ChevronUp, Lightbulb, Save, HelpCircle, Pencil, Copy } from 'lucide-react';
 import { useAutoSave, loadAutoSave, clearAutoSave, saveCompletedContent } from '../../../utils/useAutoSave';
 import { Progress } from '../../../utils/progress';
+import { detectBlocks, BLOCK_EXAMPLES, type BlockName } from '../../../utils/sixBlockStructure';
 import { PracticalTask as PracticalTaskType } from '../../../types/modules';
 import CopyButton from './CopyButton';
 
@@ -224,31 +225,41 @@ export default function PracticalTask({
         </div>
       )}
 
-      {/* 6 blokų užpildymo vizualizacija (#6) – tik kai yra instructions.steps (6 blokų užduotys) */}
-      {task.instructions?.steps?.length === 6 && (
-        <div className="mb-3 flex flex-wrap gap-2" role="status" aria-label="Blokų užpildymo progresas">
-          {['META', 'INPUT', 'OUTPUT', 'REASONING', 'QUALITY', 'ADVANCED'].map((block) => {
-            const filled = Boolean(answer && answer.toUpperCase().includes(block));
-            return (
-              <span
-                key={block}
-                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
-                  filled
-                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
-                }`}
-              >
-                {filled ? (
-                  <CheckCircle className="w-3.5 h-3.5" aria-hidden />
-                ) : (
-                  <span className="w-3.5 h-3.5 rounded-full border-2 border-current" aria-hidden />
-                )}
-                {block}
-              </span>
-            );
-          })}
-        </div>
-      )}
+      {/* 6 blokų užpildymo vizualizacija (#6) – A-S1: struktūros tikrinimas (sekcijos META:, INPUT:, …) */}
+      {task.instructions?.steps?.length === 6 && (() => {
+        const { present, missing } = detectBlocks(answer);
+        return (
+          <div className="mb-3" role="status" aria-label="Blokų užpildymo progresas">
+            <div className="flex flex-wrap gap-2">
+              {(['META', 'INPUT', 'OUTPUT', 'REASONING', 'QUALITY', 'ADVANCED'] as BlockName[]).map((block) => {
+                const filled = present.includes(block);
+                return (
+                  <span
+                    key={block}
+                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
+                      filled
+                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
+                        : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                    }`}
+                  >
+                    {filled ? (
+                      <CheckCircle className="w-3.5 h-3.5" aria-hidden />
+                    ) : (
+                      <span className="w-3.5 h-3.5 rounded-full border-2 border-current" aria-hidden />
+                    )}
+                    {block}
+                  </span>
+                );
+              })}
+            </div>
+            {missing.length > 0 && answer?.trim() && (
+              <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
+                Trūksta blokų: {missing.join(', ')}. Pvz.: {BLOCK_EXAMPLES[missing[0]]}
+              </p>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Aiški instrukcija, ką vesti – sumažina painiavą „tik skliausteliai“ vs „visas promptas“ (TEST_REPORT #2) */}
       {(task.inputHint || task.template) && (

@@ -94,6 +94,8 @@ export interface DiModalitiesContent {
   intro?: string;
   /** Santrauka apačioje: kaip rinktis įrankius (jei nėra – nerodoma) */
   takeaway?: string;
+  /** Kiek kategorijų rodyti iš karto; likusios po „Rodyti daugiau“ (0 = rodyti visas) */
+  showFirst?: number;
   groups: DiModalityGroup[];
 }
 
@@ -274,6 +276,32 @@ export interface ContentBlockPresentationTool {
   forWhom: string;
 }
 
+/** InstructGPT kokybės analizės statistikos elementas (skaidrė 40.8) */
+export interface InstructGptQualityStat {
+  label: string;
+  value: string;
+  detail: string;
+  colorKey: 'accent' | 'emerald' | 'violet' | 'slate';
+}
+
+/** InstructGPT delta eilutė (1.5B → 175B pokytis) */
+export interface InstructGptQualityDelta {
+  model: string;
+  start: string;
+  end: string;
+  change: string;
+  colorKey: 'accent' | 'emerald' | 'violet' | 'slate' | 'rose';
+}
+
+/** InstructGPT kokybės vizualizacijos blokas (stats, chart, delta, insight) */
+export interface InstructGptQualityBlock {
+  stats: InstructGptQualityStat[];
+  chartData: { model: string; points: { x: string; y: number }[]; colorKey: string }[];
+  deltaRows: InstructGptQualityDelta[];
+  insight: string;
+  scaleNote?: string;
+}
+
 export interface ContentBlockContent {
   sections: ContentBlockSection[];
   /** Pasirenkama: du vaizdai palyginimui (Modulio 4 ir kt.) */
@@ -286,6 +314,8 @@ export interface ContentBlockContent {
   practicalTask?: { template: string; templateLabel?: string };
   /** Atpažinimo pratimas – pavyzdžiai + pasirinkimai (pvz. DI visatos sluoksniai) */
   recognitionExercise?: RecognitionExercise;
+  /** InstructGPT kokybės analizė (skaidrė 40.8) – stats, chart, delta, insight */
+  instructGptQuality?: InstructGptQualityBlock;
 }
 
 /** Skyriaus riba / milestone (Modulio 4 ir kt.) – paprasta skaidrė su antrašte */

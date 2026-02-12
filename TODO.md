@@ -41,6 +41,8 @@
 - **Gold standard Moduliai 1–3 (2026-02-11):** Dokumentas `docs/development/GOLD_STANDARD_MODULIAI_1_2_3.md` – etalonas: pedagogika, taksonomija, vartotojo kelionė, UI/UX, testas, praktika, progresas, testavimas. Pritaikyti prie modulių 4–6 ir 7–15 (checklist).
 - **Dizaino gidas Moduliai 1–3 (2026-02-12):** Dokumentas `docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md` – vizualinio suvienodinimo gidas (vartotojų „per daug spalvinga / chaoso“): inventorius, chaoso diagnozė, Design System v0.1, modulių identitetas, prieš/po rekomendacijos, įgyvendinimo planas (Must/Should/Nice), greiti laimėjimai, QA checklist.
 - **Design System įgyvendinimas (2026-02-12):** Should S-DS1–S-DS4 (tipografija, M2/M3 identitetas, Summary max 3 kortelės, šešėliai), Nice N-DS1 (float išjungtas badge „~45 min“), N-DS2 (`src/design-tokens.ts`). Gold Standard atnaujintas į 1.1.0 – §3.2, §3.5, §9, §10, Changelog. Žr. CHANGELOG [Unreleased] 2026-02-12.
+- **Gold standard Modulio 4 – opcional užbaigtas (2026-02-12):** QA – lietuviškos raidos peržiūra skaidrėms 70 (4.7) ir 67.5 (RELEASE_QA_CHECKLIST §5); M4 = brand dokumentuotas DESIGN_GUIDE §5 ir MODULIO_4_ANALIZE; GAP_ANALIZE §2 prioritetas atnaujintas. UI_UX – fazių etiketės auditas, `ai-detectors` priderintas į Teorija (ModuleView typeToPhase). CODE_REVIEW – build ir lint OK. Žr. GOLD_STANDARD_MODULIAI_4_5_6_GAP_ANALIZE.md, CHANGELOG [Unreleased].
+- **TODO planas (2026-02-12):** M-DS1 – HierarchySlide spalvų taisyklė (brand 1–4, emerald 5–6; ContentSlides.tsx + modules.json). P3 – HomePage badge „DI Promptų Inžinerijos Mokymas“ sumažintas vizualinis svoris (slate, text-xs). F2-1/F2-2 – patvirtinta įgyvendinta. A-S3 – Design System: Card, CTAButton, Banner, Table (`src/components/ui/`).
 
 ---
 
@@ -108,7 +110,7 @@
 | **P1** | ModulesPage: „Visi moduliai baigti!“ – nėra CTA mygtuko į apklausą | Pridėti mygtuką „Į apklausą“ po completion message | ✅ 2026-02-11 |
 | **P2** | Zap ikona hero ikonos kampe – mažuose ekranuose gali atrodyti kaip „4“ | Pašalinti arba pakeisti į aiškesnį badge (pvz. „~45 min“) | ✅ 2026-02-11 |
 | **P2** | Features sekcija: CTA visada „Pradėti mokymus dabar“ – neadaptyvus | Kai 100% – „Peržiūrėti modulius“ arba „Pakartoti mokymą“ | ✅ 2026-02-11 |
-| **P3** | Badge „DI Promptų Inžinerijos Mokymas“ – galimas redundantiškumas | Sumažinti vizualinį svorį arba perkelti į subtitle | Liko |
+| **P3** | Badge „DI Promptų Inžinerijos Mokymas“ – galimas redundantiškumas | Sumažinti vizualinį svorį arba perkelti į subtitle | ✅ 2026-02-12 |
 
 **Techninis planas:** `HomePage.tsx` – sąlyginis CTA pagal `modulesCompleted`, `progress.quizCompleted`; `onStart` gali nukreipti į quiz vietoj modules. `ModulesPage.tsx` – mygtukas „Į apklausą“ kai completedCount === totalModules. **Įgyvendinta 2026-02-11.**
 
@@ -129,10 +131,10 @@
 
 | # | Užduotis | Pastaba |
 |---|----------|---------|
-| A-S1 | **6 blokų checklist: iš keyword → structure check** – aptikti sekcijas (META:/INPUT: heading’ai arba atskiri paragrafai). Rodyti „missing blocks“ su 1 sakinio pavyzdžiu. Dabar: `PracticalTask.tsx` – tik `answer.toUpperCase().includes(block)`. | Heuristika silpna; galima „apgauti“. |
-| A-S2 | **A11y automatika** – axe-core bent smoke kelioms skaidrėms; rankomis nepagausi regresijų. | |
-| A-S3 | **Vienas Design system** – Card, Banner, Table, CTAButton su variantais; jau pradėta (blockVariant, CTA gradient). Įtvirtinti vieną rinkinį. | |
-| A-S4 | **Optional → „Fast track“ toggle** – rodyti/tęsti praleidžiant optional skaidrės automatiškai. Labai pakels completion rate. | Optional jau yra badge + flag. |
+| A-S1 | **6 blokų checklist: iš keyword → structure check** – aptikti sekcijas (META:/INPUT: heading’ai arba atskiri paragrafai). Rodyti „missing blocks“ su 1 sakinio pavyzdžiu. Dabar: `PracticalTask.tsx` – tik `answer.toUpperCase().includes(block)`. | ✅ **2026-02-12:** `src/utils/sixBlockStructure.ts` (detectBlocks, BLOCK_EXAMPLES); PracticalTask – checklist pagal struktūrą + „Trūksta blokų“ su pavyzdžiu; unit testai. |
+| A-S2 | **A11y automatika** – axe-core bent smoke kelioms skaidrėms; rankomis nepagausi regresijų. | ✅ **2026-02-12:** axe-core; `src/components/__tests__/a11y.smoke.test.tsx` – HomePage smoke (0 serious/critical). |
+| A-S3 | **Vienas Design system** – Card, Banner, Table, CTAButton su variantais; jau pradėta (blockVariant, CTA gradient). Įtvirtinti vieną rinkinį. | ✅ 2026-02-12: src/components/ui/ Card, CTAButton, Banner, Table (variantai); design-tokens.ts; nauji komponentai naudoti progresyviai |
+| A-S4 | **Optional → „Fast track“ toggle** – rodyti/tęsti praleidžiant optional skaidrės automatiškai. Labai pakels completion rate. | ✅ **2026-02-12:** useSlideNavigation skipOptional, getNextNonOptionalIndex; ModuleView Fast track checkbox (localStorage); unit testai. |
 
 **Rekomenduojama seka:** A-M1 (schema) → A-M2 (KPI) → A-M3 (remediation return) → A-M4 (QA gate) → A-S1 (6 blokų structure) → A-S4 (Fast track) → A-S2 (a11y) → A-S3 (design system).
 
@@ -144,10 +146,10 @@
 
 | Prioritetas | # | Užduotis | Statusas |
 |-------------|---|----------|----------|
-| **Must (1 sprintas)** | M-DS1 | Spalvų taisyklė: max 2 semantinės + 1 brand/accent per skaidrę; Summary/Hierarchy pataisymai | Liko |
-| Must | M-DS2 | Vienas gradientas per skaidrę (hero ARBA CTA); Infographic be violet, Transition takeaway – neutral | Liko |
-| Must | M-DS3 | Spacing/radius sistema – taikyti ModuleView, Summary, Action intro (4.3, 4.4) | Liko |
-| Must | M-DS4 | Confetti 2 spalvos (brand, accent); emoji → Lucide infographic kur įmanoma | Liko |
+| **Must (1 sprintas)** | M-DS1 | Spalvų taisyklė: max 2 semantinės + 1 brand/accent per skaidrę; Summary/Hierarchy pataisymai | ✅ 2026-02-12 |
+| Must | M-DS2 | Vienas gradientas per skaidrę (hero ARBA CTA); Infographic be violet, Transition takeaway – neutral | ✅ 2026-02-12 |
+| Must | M-DS3 | Spacing/radius sistema – taikyti ModuleView, Summary, Action intro (4.3, 4.4) | ✅ 2026-02-12 |
+| Must | M-DS4 | Confetti 2 spalvos (brand, accent); emoji → Lucide infographic kur įmanoma | ✅ 2026-02-12 |
 | **Should (2 sprintas)** | S-DS1 | Tipografijos skalė: vienas H1 per skaidrę, auditas (4.2) | ✅ 2026-02-12 |
 | Should | S-DS2 | Modulių identitetas: M2 slate, M3 accent tik CTA (5) | ✅ 2026-02-12 |
 | Should | S-DS3 | Kortelių skaičius: Summary max 3–4 blokai; palyginimas 2 kortelės + takeaway | ✅ 2026-02-12 |
@@ -157,6 +159,25 @@
 | Nice | N-DS3 | Gidas eksportuoti į Gamma / Figma | Liko |
 
 **Greiti laimėjimai (low effort):** Infographic hero `to-violet-600`→`to-brand-700`; Summary confetti tik brand+accent; Transition takeaway → neutral blokas; HomePage orbs – vienas orb; Action intro CTA palikti. **QA:** Vizualinis + UX checklist doc §7.4; naudoti prieš release kartu su RELEASE_QA_CHECKLIST.
+
+### Context Engineering (Agent-Skills → Promptų anatomija)
+
+> **Šaltinis:** `docs/development/CONTEXT_ENGINEERING_AGENT_SKILLS_IMPLEMENTATION.md` – bottom line, 12 best practices, mapping, target arch, 2 sav. planas. Artefaktai: `docs/development/context-engineering/` (context_budget.md, sot_index.json, memory_schema.md, eval_rubric.md).
+
+**Prioritetas:** P2 (low-risk, high-ROI; stabilizacija konteksto ir SOT). **Leidžiama:** Q_A (QA_AGENT) – dokumentacijai, checklist atnaujinimui, eval_rubric susiejimui, galutiniam suvedimui.
+
+| Fazė | # | Užduotis | Done criteria | Statusas |
+|------|---|----------|---------------|----------|
+| **Day 1–2** | CE-1 | Naudoti **context_budget.md** – agentams konteksto dydis, load-only-when, placement | Failas naudojamas; orchestrator arba doc nuoroda | ✅ Failai sukurti |
+| Day 1–2 | CE-2 | Naudoti **memory_schema.md** – session notes vs long-term konvencijos | Viena release/MEMORY pastaba pagal schemą | ✅ 2026-02-12 (MEMORY.md) |
+| Day 1–2 | CE-3 | Susieti **eval_rubric.md** su release – RELEASE_QA_CHECKLIST nuoroda; vienas rankinis perbėgimas pagal rubric vienam moduliui | Nuoroda į rubric; rezultatas TEST_REPORT arba changelog | ✅ 2026-02-12 (RELEASE_QA_CHECKLIST §7) |
+| **Week 1** | CE-4 | **sot_index.json** – validuoti, kad visi 6 moduliai ir keliai teisingi; agentų užduotims „kur SOT“ naudoti index | JSON validus; agentas naudoja index prieš pilną SOT | ✅ 2026-02-12 (validate-sot-index.mjs, README, orchestrator) |
+| Week 1 | CE-5 | Orchestrator: „Modulių/skaidrių scope – žr. sot_index; pilną SOT krauk tik kai redaguoji tą modulį“ | AGENT_ORCHESTRATOR arba .cursor rule atnaujinta | ✅ Nuoroda į sot_index ir context-engineering įdėta |
+| Week 1 | CE-6 | **context-engineering/README.md** – kada skaityti kurį artefaktą | Naujas narys randa „kur SOT registras“ &lt;1 min | ✅ Sukurta |
+| **Week 2 (optional)** | CE-7 | Optional: gating iš sot_index (publicModules, unlocksAfter) – tik jei ROI&gt;rizika | Build OK; production gating nesulūžta | Backlog |
+| Week 2 (optional) | CE-8 | Optional: vienas heuristikas iš eval_rubric (pvz. lietuviškos arba CTA pattern) – CI arba pre-commit | Script veikia; 0 false positive esamame turinyje | Backlog |
+
+**Pitfalls:** (1) sot_index ir modules.json drift – apibrėžti savininką arba sync taisyklę. (2) Eval rubric neįgyvendinamas – pririšti prie release (pvz. vienas žmogus pildo prieš deploy).
 
 ### P2 – Vidutinis
 
@@ -236,8 +257,8 @@
 
 | # | Užduotis | Sritis | Pastaba |
 |---|----------|--------|---------|
-| F2-1 | **Klausimų pool (question bank)** – kiekvienai kategorijai 3–5 klausimų (vietoj 1–2), atsitiktinis parinkimas kiekvieną kartą. Pakartojant testą – matysi kitus klausimus. | DATA + CODING | 30–40 klausimų JSON pool; atsitiktinis 15 parinkimas pagal kategorijas |
-| F2-2 | **Radar/spider chart** rezultatuose – vizualus per-bloko žinių žemėlapis (8 ašys: Meta, Input, Output, Reasoning, Quality, Advanced, Workflow, Technikos). SVG arba lightweight chart lib. | CODING + UI_UX | Dabar tik spalvoti blokai; tikslas – interaktyvi diagrama su skorais |
+| F2-1 | **Klausimų pool (question bank)** – kiekvienai kategorijai 3–5 klausimų (vietoj 1–2), atsitiktinis parinkimas kiekvieną kartą. Pakartojant testą – matysi kitus klausimus. | DATA + CODING | ✅ 38 klausimų pool; questionPoolSelector atsitiktinis 15 parinkimas pagal kategorijas |
+| F2-2 | **Radar/spider chart** rezultatuose – vizualus per-bloko žinių žemėlapis (8 ašys: Meta, Input, Output, Reasoning, Quality, Advanced, Workflow, Technikos). SVG arba lightweight chart lib. | CODING + UI_UX | ✅ RadarChart.tsx; TestResultsSlide – „Žinių radaras pagal blokus“ |
 | F2-3 | **Remediation deep links** – „Peržiūrėti skaidrę X" mygtukai rezultatuose, kurie atidaro konkrečią Modulio 1 skaidrę | CODING | ✅ Įgyvendinta: onGoToModule(moduleId, slideIndex?), ModuleView initialSlideIndex, tiesioginis atidarymas be resume prompt. |
 | F2-4 | **Score animation** – rezultatų procento „count up" animacija (0 → X% per 1.5s) | CODING + UI_UX | ✅ useCountUp (Moduliai 2, 5 TestResultsSlide + QuizResultsView CircularProgress) |
 
@@ -280,6 +301,7 @@
 | SCHEME_AGENT – interaktyvumo UX (3.6), horizontalus layout (3.7) | `docs/development/SCHEME_AGENT.md` |
 | **Skaidrė 5 principai (4.1a4) – user journey įvertinimas** | `docs/development/USER_JOURNEY_4_1a4_5_PRINCIPAI.md` |
 | **Modulio 2 – agentų seka, turinio kokybė (lietuviškos raidės)** | `docs/development/AGENT_SEQUENCE_MODULIO_2_TURINYS_KOKYBE.md` |
+| **Context Engineering (Agent-Skills → įgyvendinimas, SOT, biudžetas, eval)** | `docs/development/CONTEXT_ENGINEERING_AGENT_SKILLS_IMPLEMENTATION.md`, `docs/development/context-engineering/README.md` |
 | **Modulio 3 UI/UX – geriausios praktikos (Top 10)** | `docs/MODULIO_3_UI_UX_GERIAUSIOS_PRAKTIKOS.md` |
 | **Modulio 3 UI/UX – įgyvendinimo planas ir agentų seka** | `docs/development/PLAN_MODULIO_3_UI_UX.md` |
 | **Dizaino gidas Moduliai 1–3 (vizualinis suvienodinimas, Design System v0.1)** | `docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md` |

@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback, useMemo, useRef, memo, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef, memo, Suspense } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, ArrowLeft, AlertTriangle, RefreshCw, Play, RotateCcw } from 'lucide-react';
+import { spacingClasses, radiusClasses } from '../design-tokens';
 import { Progress } from '../utils/progress';
 import { getModulesSync, preloadModules } from '../data/modulesLoader';
 import { useSlideNavigation } from '../utils/useSlideNavigation';
@@ -8,8 +9,17 @@ import { ModuleCompleteScreen } from './ModuleCompleteScreen';
 import ErrorBoundary from './ui/ErrorBoundary';
 import { selectQuestions } from '../utils/questionPoolSelector';
 import type { Slide, TestQuestion } from '../types/modules';
+import SlideContent from './SlideContent';
 
-const SlideContent = lazy(() => import('./SlideContent'));
+const FAST_TRACK_KEY = 'prompt-anatomy-fast-track';
+
+function getFastTrack(): boolean {
+  try {
+    return localStorage.getItem(FAST_TRACK_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
 
 /* ─── Slide Group Progress Bar ─── */
 
@@ -61,6 +71,7 @@ function buildSlideGroups(slides: { type: string }[]): SlideGroup[] {
     'di-modalities': 'Teorija',
     'pie-chart': 'Teorija',
     'ai-workflow': 'Teorija',
+    'ai-detectors': 'Teorija',
     'warm-up-quiz': 'Savitikra',
     // Test/practice
     'test-intro': 'Testas',
@@ -123,7 +134,7 @@ function SlideGroupProgressBar({
               <div
                 className={`h-full rounded-full transition-all duration-500 ease-out ${
                   isActive
-                    ? 'bg-gradient-to-r from-brand-500 to-accent-500'
+                    ? 'bg-brand-500 dark:bg-brand-400'
                     : isPast
                     ? 'bg-emerald-400 dark:bg-emerald-600'
                     : 'bg-transparent'
@@ -246,6 +257,7 @@ function ModuleView({
 
   const [resumeDecided, setResumeDecided] = useState(false);
   const [resumeImmediate, setResumeImmediate] = useState(false);
+  const [fastTrack, setFastTrack] = useState(() => getFastTrack());
 
   const {
     currentSlide,
@@ -268,7 +280,20 @@ function ModuleView({
     onComplete,
     resumeImmediately: resumeImmediate,
     initialSlideIndex,
+    skipOptional: fastTrack,
   });
+
+  const toggleFastTrack = useCallback(() => {
+    setFastTrack((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem(FAST_TRACK_KEY, next ? '1' : '0');
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, []);
 
   // Show resume prompt if user has saved position > 0 (skip when opening via F2-3 deep link)
   const showResumePrompt = !resumeDecided && savedSlidePosition > 0 && initialSlideIndex == null;
@@ -519,12 +544,26 @@ function ModuleView({
             <span className="sm:hidden">Atgal</span>
           </button>
 
-          {/* Desktop slide counter in header */}
-          <div className="hidden md:flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <span>Skaidrė</span>
-            <span className="font-bold text-brand-600 dark:text-brand-400">
-              {currentSlide + 1}/{module.slides.length}
+          {/* Desktop: slide counter + A-S4 Fast track toggle */}
+          <div className="hidden md:flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <span className="flex items-center gap-2">
+              <span>Skaidrė</span>
+              <span className="font-bold text-brand-600 dark:text-brand-400">
+                {currentSlide + 1}/{module.slides.length}
+              </span>
             </span>
+            {module.slides.some((s) => s.optional) && (
+              <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={fastTrack}
+                  onChange={toggleFastTrack}
+                  className="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
+                  aria-label="Praleisti papildomas skaidrės (Fast track)"
+                />
+                <span>Fast track</span>
+              </label>
+            )}
           </div>
         </div>
       </div>
@@ -545,7 +584,7 @@ function ModuleView({
         </div>
 
         <div
-          className="card p-6 md:p-10 min-h-[500px] animate-fade-in touch-pan-y"
+          className={`card ${spacingClasses.slideWrapper} min-h-[500px] animate-fade-in touch-pan-y ${radiusClasses.card}`}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           role="region"

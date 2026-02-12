@@ -21,11 +21,12 @@ export default function Celebration({
     if (show) {
       setVisible(true);
       
-      // Generate particles - Navy, Gold, Emerald palette (business colors)
+      // M-DS4: 2 spalvos (brand, accent) – DESIGN_GUIDE confetti/particles
+      const palette = ['#627d98', '#d4a520']; // brand-500, accent-500
       const newParticles = Array.from({ length: type === 'module' ? 20 : 12 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
-        color: ['#334e68', '#d4a520', '#10b981', '#486581', '#b8860b'][Math.floor(Math.random() * 5)],
+        color: palette[i % palette.length],
       }));
       setParticles(newParticles);
       

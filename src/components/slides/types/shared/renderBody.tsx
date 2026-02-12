@@ -38,7 +38,8 @@ export function renderBodyWithBoldAndLinks(text: string) {
   });
 }
 
-/** Alias atgaliniam suderinamumui – naudoja renderBodyWithBoldAndLinks. */
-export function renderBodyWithBold(text: string) {
+/** Alias atgaliniam suderinamumui – naudoja renderBodyWithBoldAndLinks. Apsauga nuo undefined (content-block sekcijos). */
+export function renderBodyWithBold(text: string | undefined) {
+  if (text == null || text === '') return null;
   return renderBodyWithBoldAndLinks(text);
 }

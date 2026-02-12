@@ -1,8 +1,8 @@
 # Gold standard: Moduliai 4–6 – spragų analizė
 
 > **Paskirtis:** Lyginame modulius 4, 5, 6 su gold standardu (GOLD_STANDARD_MODULIAI_1_2_3.md) ir turinio SOT (docs/turinio_pletra_moduliai_4_5_6.md). Trūkumų sąrašas – pagrindas CONTENT_AGENT → DATA_AGENT → CODING_AGENT darbui.
-> **Versija:** 1.0.0  
-> **Data:** 2026-02-11  
+> **Versija:** 1.1.0  
+> **Data:** 2026-02-12 – Modulio 4 spragos 1–2 pažymėtos kaip užpildytos (4.7 jau summary). Žr. MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md.  
 
 ---
 
@@ -23,11 +23,11 @@
 
 | # | Kriterijus (gold) | Dabartinė būklė | Spraga / veiksmas |
 |---|-------------------|-----------------|-------------------|
-| 1 | **Santraukos skaidrė (4.7)** – 5 blokų modelis, `type: "summary"` | Skaidrė id 70: `type: "content-block"`, turinys – „Modulio 4 santrauka“, 3 klausimai sau, apžvalga | **SPRAGA:** Nėra Celebration Hero, Žinių kortelių grid, Refleksijos prompto (Meta+Input+Output), Kitas žingsnis CTA („Pereikite prie Modulio 5“), Motyvacinis footer. CONTENT_AGENT + DATA_AGENT: pervesti į `summary` su `introHeading`, `introBody`, `stats`, `sections`, `reflectionPrompt`, `reflectionTitle`, `tagline`, CTA į Modulį 5. |
-| 2 | CTA po santraukos | SOT: „Kitas žingsnis – Modulis 5: 15 min prezentacijos sprintas + mini suvokimo testas“ | Įtraukti į summary „Kitas žingsnis“ bloką (emerald, ArrowRight). |
-| 3 | Skaidrių grupavimas (fazės) | ModuleView `typeToPhase` – ar Modulio 4 fazės apibrėžtos? | Maža rizika; jei reikia – UI_UX_AGENT. |
+| 1 | **Santraukos skaidrė (4.7)** – 5 blokų modelis, `type: "summary"` | Skaidrė id 70: **jau `type: "summary"`** su introHeading, introBody, stats, sections (3 žinios + Kitas žingsnis), reflectionPrompt, tagline. | **UŽPILDYTA (2026-02-12):** SummarySlide renderina 5 blokus; žinių kortelės max 3 (S-DS3); spalvos – defaultColor (brand) per M-DS1. Žr. `MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md`. |
+| 2 | CTA po santraukos | SOT: „Kitas žingsnis – Modulis 5: 15 min prezentacijos sprintas + mini suvokimo testas“ | **UŽPILDYTA:** Įtraukta į summary kaip nextStepSection (emerald, ArrowRight); mygtukas „Pereikite prie kito modulio“. |
+| 3 | Skaidrių grupavimas (fazės) | ModuleView `typeToPhase` – Modulio 4 tipai (module-intro, content-block, summary ir kt.) priskirti fazėms (Įvadas, Teorija, Santrauka). | Atitinka; jei reikia – UI_UX_AGENT gali priderinti etiketes. |
 
-**Prioritetas Moduliui 4:** 1–2 (santrauka į gold summary tipą ir CTA).
+**Prioritetas Moduliui 4:** Spragos 1–2 uždarytos. **Opcional užbaigtas (2026-02-12):** lietuviškos raidos peržiūra skaidrėms 70 (4.7) ir 67.5 atlikta (RELEASE_QA_CHECKLIST §5); M4 identitetas (brand) dokumentuotas DESIGN_GUIDE §5 ir MODULIO_4_ANALIZE_DIZAINO_GIDAS_GOLD_STANDARD.md §2.5.
 
 ---
 
@@ -89,4 +89,4 @@
 
 ---
 
-**Santrauka:** Pagrindinės spragos – (1) Modulio 4 santrauka 4.7 kaip **summary** su 5 blokais; (2) Modulio 5 rezultatų/CTA tikrinimas; (3) Modulio 6 **practice-summary** arba aiškus uždarymo CTA. Darbą pradėti nuo CONTENT_AGENT (reikalavimai, tekstai), tada DATA_AGENT (JSON), CODING_AGENT (render).
+**Santrauka:** ~~(1) Modulio 4 santrauka 4.7 kaip summary~~ **UŽDARYTA** – skaidrė id 70 jau `type: "summary"` su 5 blokais (žr. §2). Likusios spragos: (2) Modulio 5 rezultatų/CTA tikrinimas; (3) Modulio 6 **practice-summary** arba aiškus uždarymo CTA. Darbą pradėti nuo CONTENT_AGENT (reikalavimai, tekstai), tada DATA_AGENT (JSON), CODING_AGENT (render).

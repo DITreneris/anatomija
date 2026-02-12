@@ -59,9 +59,9 @@ export default function HomePage({ onStart, onGoToQuiz, progress }: HomePageProp
         </div>
         
         <div className="relative text-center py-16 md:py-24 animate-fade-in">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 dark:bg-brand-900/30 rounded-full text-brand-700 dark:text-brand-300 text-sm font-medium mb-6 animate-bounce-in">
-            <Sparkles className="w-4 h-4" />
+          {/* Badge – P3: sumažintas vizualinis svoris (slate, mažesnis) */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800/60 rounded-full text-slate-600 dark:text-slate-400 text-xs font-medium mb-6">
+            <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
             <span>DI Promptų Inžinerijos Mokymas</span>
           </div>
           
@@ -259,9 +259,9 @@ export default function HomePage({ onStart, onGoToQuiz, progress }: HomePageProp
             </div>
           </div>
 
-          <div className="flex gap-4 p-5 rounded-2xl hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-all duration-300 group">
-            <div className="bg-violet-100 dark:bg-violet-900/30 p-4 rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
-              <ClipboardCheck className="w-7 h-7 text-violet-600 dark:text-violet-400" />
+          <div className="flex gap-4 p-5 rounded-2xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all duration-300 group">
+            <div className="bg-brand-100 dark:bg-brand-900/30 p-4 rounded-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+              <ClipboardCheck className="w-7 h-7 text-brand-600 dark:text-brand-400" />
             </div>
             <div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-lg">Praktinės Užduotys</h3>
@@ -271,7 +271,7 @@ export default function HomePage({ onStart, onGoToQuiz, progress }: HomePageProp
               <button
                 type="button"
                 onClick={onStart}
-                className="text-violet-600 dark:text-violet-400 font-semibold text-sm hover:underline inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 rounded"
+                className="text-brand-600 dark:text-brand-400 font-semibold text-sm hover:underline inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
               >
                 → Pradėk kurti
               </button>
