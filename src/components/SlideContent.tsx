@@ -78,6 +78,8 @@ interface SlideContentProps {
   /** Modulio 3: scenarijų skaidrės – progresas ir navigacija (#8) */
   practiceScenarioSlides?: PracticeScenarioSlideInfo[];
   onNavigateToSlide?: (slideIndex: number) => void;
+  /** Modulio 3: iš scenarijaus skaidrės pereiti į santrauką (grįžti prie darbo vėliau) */
+  onGoToSummary?: () => void;
 }
 
 export default function SlideContent({
@@ -90,6 +92,7 @@ export default function SlideContent({
   onNextSlide,
   practiceScenarioSlides,
   onNavigateToSlide,
+  onGoToSummary,
 }: SlideContentProps) {
   const isTaskCompleted = progress.completedTasks[moduleId]?.includes(slide.id) || false;
 
@@ -263,7 +266,13 @@ export default function SlideContent({
       );
 
     case 'practice-scenario':
-      return <PracticeScenarioSlide slide={slide} onRenderTask={PracticalTaskSection} />;
+      return (
+        <PracticeScenarioSlide
+          slide={slide}
+          onRenderTask={PracticalTaskSection}
+          onGoToSummary={onGoToSummary}
+        />
+      );
 
     case 'practice-summary':
       return <PracticeSummarySlide {...(slide.content != null ? { content: slide.content as PracticeSummaryContent } : {})} />;

@@ -75,4 +75,4 @@
 | **HomePage P1 (progresas virš CTA)** | ✅ Progresas perkeltas virš CTA (2026-02-11). |
 | **Mobile UI Moduliai 2 ir 3** | ✅ 2026-02-11 – touch targets, responsive padding, MatchingQuestion overflow; skyrius 2 papildytas rekomendacija Moduliams 2 ir 3. Žr. MOBILE_UI_AUDIT_MOD2_MOD3.md. |
 
-**Nuorodos:** TODO.md (A-M4), RELEASE_SESSION_PLAN_90_150min.md, RELEASE_PLAN_MVP_MODULIAI_1_3.md, MOBILE_UI_AUDIT_MOD2_MOD3.md.
+**Nuorodos:** TODO.md (A-M4), RELEASE_SESSION_PLAN_90_150min.md, RELEASE_PLAN_MVP_MODULIAI_1_3.md, MOBILE_UI_AUDIT_MOD2_MOD3.md, **bendri atsiliepimai** – docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md.

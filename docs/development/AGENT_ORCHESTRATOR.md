@@ -20,6 +20,7 @@
 | **Turinio atpažinimas** (kur kalbama apie Modulį 1…6, skaidrės) | `docs/CONTENT_MODULIU_ATPAZINIMAS.md` |
 | **Duomenų tiesa** | `src/data/modules.json`, `src/data/promptLibrary.json`, `src/data/glossary.json`, `src/data/hallucinationRates.ts` |
 | **UI tiesa** | React komponentai, kurie renderina JSON (`SlideContent.tsx`, `ModuleView.tsx`, `QuizPage.tsx`) |
+| **Bendri atsiliepimai** (gyvas testavimas, V1 analizė, segmentai, V2 veiksmai) | `docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md`; klaidos ir sprendimai – `docs/development/TEST_REPORT.md` |
 
 **Konfliktų tvarka:**
 1. Sutvarkyk turinio SOT (semantika, terminai, struktūra) – pagal modulį: `turinio_pletra.md` arba `docs/turinio_pletra_moduliai_4_5_6.md`.

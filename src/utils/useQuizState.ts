@@ -60,6 +60,7 @@ export function useQuizState({
           spread: 360,
           ticks: 60,
           zIndex: 0,
+          colors: ['#627d98', '#d4a520'], // brand + accent per DESIGN_GUIDE M-DS4
         };
         const randomInRange = (min: number, max: number) =>
           Math.random() * (max - min) + min;

@@ -1,6 +1,6 @@
 # User journey: kritinis įvertinimas – skaidrė „5 principai“ (4.1a4)
 
-> **Skaidrė:** id 49, Modulis 4. **Kontekstas (aktuali eilė):** po Optional 8 skaidrių prezentacija (47), **prieš** RL/RLHF (48). Toliau – Parametrų laukas (50).  
+> **Skaidrė:** id 49, Modulis 4. **Kontekstas (aktuali eilė):** po Optional Custom GPT (46.5); skaidrė 47 (8 skaidrių prezentacija) dabar Modulyje 5. **Prieš** RL/RLHF (48). Toliau – Parametrų laukas (50).  
 > **Data:** 2026-02-08. **Atnaujinta:** 2026-02-08 (skaidrės 49 ir 48 sukeistos vietomis – 5 principai dabar prieš RL/RLHF). **Aspektas:** user journey, 2026 best practices.
 
 ---
@@ -9,7 +9,7 @@
 
 | Faze | Kas vyksta |
 |------|------------|
-| **Įėjimas** | Dalyvis atėjo iš skaidrės **„Optional: Per 15 min – 8 skaidrių prezentacija su DI“** (47) arba tiesiogiai po 4 dedamųjų / Custom GPT – praktinis kontekstas (prezentacijos, workflow). |
+| **Įėjimas** | Dalyvis atėjo tiesiogiai po 4 dedamųjų / Custom GPT (46.5) – praktinis kontekstas. (Skaidrė 47 dabar Modulyje 5.) |
 | **Ši skaidrė** | 5 principai (veiksmo forma) + „Kodėl tai svarbu?“ + „Pabandykite“ + vertinimo promptas. **Praktika prieš teoriją** – pirmiausia įrankis, paskui RL/RLHF paaiškinimas. |
 | **Išėjimas** | „Pirmyn“ → **„Kas yra RL/RLHF?“** (48) – teorinis blokas (kaip DI mokosi, žmonių grįžtamasis ryšys). Po to – Parametrų laukas (50). |
 

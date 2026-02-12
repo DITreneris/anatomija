@@ -615,7 +615,10 @@ Po mokymo galėsite kurti struktūruotus DI promptus verslo ataskaitoms, marketi
 - Faktai, duomenys ir apribojimai – ką turite?
 
 **Skaidrė 11: 3️⃣ Output Blokas**
-- Formatas ir struktūra – ko tikitės?
+- **Formatas ir struktūra – ko tikitės?**
+- **Klausimas:** Kokio formato ir struktūros noriu?
+- **Esmė:** Output blokas nurodo TIKSLŲ rezultato formatą. Tai pašalina nereikalingus taisymo iteracijos ciklus.
+- **Pavyzdys:** Q4 Pardavimų Analizės Ataskaita (Executive Summary, struktūra: KPI, tendencijos, kategorijos, rekomendacijos; kalba, tonas, priedai).
 
 ### Skaidrė 12: Mąstymo Modeliai
 **ID:** 8 (kode)

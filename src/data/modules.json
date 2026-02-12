@@ -4,7 +4,7 @@
       "id": 1,
       "title": "6 Blokų Sistema",
       "subtitle": "Meta, Input, Output, Reasoning, Quality, Advanced",
-      "description": "6 prompt struktūros blokai viename nuosekliame mokyme – visa sistema nuo A iki Z.",
+      "description": "6 promptų struktūros blokai, vienas nuoseklus mokymas – sistema nuo A iki Z.",
       "icon": "Target",
       "level": "learn",
       "duration": "25 min",
@@ -464,7 +464,7 @@
           "subtitle": "Formatas ir struktūra – ko tikitės?",
           "type": "output",
           "blockNumber": 3,
-          "keyQuestion": "Kokį formatą ir struktūrą norite?"
+          "keyQuestion": "Kokio formato ir struktūros noriu?"
         },
         {
           "id": 8,
@@ -1508,54 +1508,6 @@
           }
         },
         {
-          "id": 39.5,
-          "title": "Praktika: DI visata",
-          "subtitle": "Neprivaloma: atpažink sluoksnius ir išmėgink promptą",
-          "type": "content-block",
-          "content": {
-            "sections": [
-              {
-                "heading": "Ši praktika neprivaloma",
-                "body": "Nori – atpažink DI visatos sluoksnius ir išmėgink promptą. Nenori – pereik prie kitos skaidrės.\n\nJei atliksi – geriau suprasit, kur DI visatoje yra kiekviena technologija.",
-                "blockVariant": "accent"
-              }
-            ],
-            "recognitionExercise": {
-              "title": "Praktika: atpažink DI visatos sluoksnį",
-              "task": "Perskaityk 5 pavyzdžius ir kiekvienam pasirink **vieną teisingą sluoksnį** iš 5 terminų. Kiekvienam pavyzdžiui – vienas tinkamiausias atsakymas. (2–3 min)",
-              "examples": [
-                "El. pašto programa automatiškai skirsto laiškus į aplankus pagal iš anksto nustatytas taisykles.",
-                "Banko sistema automatiškai aptinka įtartinas transakcijas.",
-                "Programa mokosi atpažinti objektus nuotraukose iš tūkstančių pavyzdžių.",
-                "Balsu valdoma sistema supranta vartotojo pasakytą sakinį.",
-                "ChatGPT sugeneruoja el. laiško tekstą klientui."
-              ],
-              "choices": [
-                "Dirbtinis intelektas",
-                "Mašininis mokymasis",
-                "Neuroniniai tinklai",
-                "Gilusis mokymasis",
-                "Generatyvinis DI"
-              ],
-              "correctAnswers": [
-                0,
-                1,
-                3,
-                2,
-                4
-              ],
-              "explanations": [
-                "Veikia pagal iš anksto parašytas taisykles, ne mokosi iš duomenų – tai bendresnė DI (AI) sritis.",
-                "Sistema mokosi iš duomenų (istorinių transakcijų) ir atpažįsta anomalijas – tipinis mašininio mokymo uždavinys.",
-                "Mokymasis iš tūkstančių pavyzdžių ir sudėtingų vaizdų – būdinga giliajam mokymuisi (daugiasluoksniai tinklai).",
-                "Kalbos ir garsų atpažinimas – neuroninių tinklų sritis (dažnai multimodalu).",
-                "Kuria naują tekstą – tai generatyvinio DI funkcija (ne tik atpažinimas)."
-              ],
-              "goal": "Suprasti, kad **ne visi DI sprendimai yra generatyviniai** ir kad ChatGPT yra tik **vienas konkretus sluoksnis** visoje DI visatoje."
-            }
-          }
-        },
-        {
           "id": 44,
           "title": "🧩 Konteksto inžinerija: kaip „valdyti“ DI",
           "subtitle": "Apibrėžimas ir esmė",
@@ -2122,6 +2074,54 @@
           }
         },
         {
+          "id": 39.5,
+          "title": "Praktika: DI visata",
+          "subtitle": "Neprivaloma: atpažink sluoksnius ir išmėgink promptą",
+          "type": "content-block",
+          "content": {
+            "sections": [
+              {
+                "heading": "Ši praktika neprivaloma",
+                "body": "Nori – atpažink DI visatos sluoksnius ir išmėgink promptą. Nenori – pereik prie kitos skaidrės.\n\nJei atliksi – geriau suprasit, kur DI visatoje yra kiekviena technologija.",
+                "blockVariant": "accent"
+              }
+            ],
+            "recognitionExercise": {
+              "title": "Praktika: atpažink DI visatos sluoksnį",
+              "task": "Perskaityk 5 pavyzdžius ir kiekvienam pasirink **vieną teisingą sluoksnį** iš 5 terminų. Kiekvienam pavyzdžiui – vienas tinkamiausias atsakymas. (2–3 min)",
+              "examples": [
+                "El. pašto programa automatiškai skirsto laiškus į aplankus pagal iš anksto nustatytas taisykles.",
+                "Banko sistema automatiškai aptinka įtartinas transakcijas.",
+                "Programa mokosi atpažinti objektus nuotraukose iš tūkstančių pavyzdžių.",
+                "Balsu valdoma sistema supranta vartotojo pasakytą sakinį.",
+                "ChatGPT sugeneruoja el. laiško tekstą klientui."
+              ],
+              "choices": [
+                "Dirbtinis intelektas",
+                "Mašininis mokymasis",
+                "Neuroniniai tinklai",
+                "Gilusis mokymasis",
+                "Generatyvinis DI"
+              ],
+              "correctAnswers": [
+                0,
+                1,
+                3,
+                2,
+                4
+              ],
+              "explanations": [
+                "Veikia pagal iš anksto parašytas taisykles, ne mokosi iš duomenų – tai bendresnė DI (AI) sritis.",
+                "Sistema mokosi iš duomenų (istorinių transakcijų) ir atpažįsta anomalijas – tipinis mašininio mokymo uždavinys.",
+                "Mokymasis iš tūkstančių pavyzdžių ir sudėtingų vaizdų – būdinga giliajam mokymuisi (daugiasluoksniai tinklai).",
+                "Kalbos ir garsų atpažinimas – neuroninių tinklų sritis (dažnai multimodalu).",
+                "Kuria naują tekstą – tai generatyvinio DI funkcija (ne tik atpažinimas)."
+              ],
+              "goal": "Suprasti, kad **ne visi DI sprendimai yra generatyviniai** ir kad ChatGPT yra tik **vienas konkretus sluoksnis** visoje DI visatoje."
+            }
+          }
+        },
+        {
           "id": 40.5,
           "title": "Skyriaus riba",
           "subtitle": "DI visata ir konteksto pamatai – baigta. Toliau: promptų tipai ir principai.",
@@ -2244,86 +2244,6 @@
                 "heading": "Kopijuojamas promptas",
                 "body": "Naudokite šį šabloną ChatGPT arba Custom GPT „Instructions“ laukui. Užpildykite laukus [ ] pagal savo tikslus.",
                 "copyable": "Sukurk man instrukciją ChatGPT asistentui (Custom GPT), kurią galėčiau įklijuoti į „Instructions“ lauką.\n\nMETA (rolė ir elgesys):\n- Tu esi [ĮRAŠYKITE ROLĘ, pvz.: verslo rašymo asistentas, klientų aptarnavimo ekspertas, mokymų planuotojas].\n- Tonas: [profesionalus / draugiškas / glaustas – pasirinkite arba aprašykite].\n- Kompetencija: [KĄ ASISTENTAS MOKA – temos, sritis, ribos].\n\nTikslas:\n- [KAM ASISTENTAS SKIRTAS: pvz. sudaryti susitikimų santraukas, atsakyti į klientų užklausas, kurti mokomojo turinio planus].\n\nKontekstas (jei reikia):\n- Auditorija: [KAM SKIRTA – pvz. komandos nariai, klientai].\n- Organizacija / produktas: [TRUMPAS APRAŠYMAS, jei svarbu].\n\nApribojimai:\n- Kalba: [LT / EN / abi].\n- Ilgis atsakymų: [pvz. iki 200 žodžių; arba „kiek reikia“].\n- Ko vengti: [pvz. žargonas, reklama, asmeniniai įvertinimai].\n\nIšvesties formatas:\n- [pvz. punktai, pastraipos, lentelė; aiškūs veiksmai „kas / kada“]."
-              }
-            ]
-          },
-          "optional": true
-        },
-        {
-          "id": 47,
-          "title": "Optional: Per 15 min – 8 skaidrių prezentacija su DI",
-          "subtitle": "Workflow, įrankiai ir promptai – viskas vienoje skaidrėje",
-          "type": "content-block",
-          "content": {
-            "sections": [
-              {
-                "heading": "Rezultatas ir tavo kelionė",
-                "body": "**Per 15 min** gausite paruoštą karkasą ir promptus, kuriuos galite naudoti iš karto.\n\n**⚡ Greitas patarimas:** Ne įrankiai kuria gerą prezentaciją – **promptas kuria**. Pradėk nuo struktūros (8 skaidrės žemiau), tada pasirink įrankį.\n\n**Artefaktas:** Ruošiate struktūrą ar turinį pagal šią skaidrę. Atsisiuntimo funkcija bus įgyvendinta ateityje.",
-                "blockVariant": "brand"
-              },
-              {
-                "heading": "DI prezentacijos workflow",
-                "image": "di_prezentacijos_workflow",
-                "body": "Paspausk žingsnį diagramoje – paaiškinimas apačioje. Tas pats workflow veikia su bet kuriuo įrankiu žemiau.",
-                "blockVariant": "terms"
-              },
-              {
-                "heading": "Įrankiai: kam ir kada naudoti",
-                "body": "",
-                "blockVariant": "terms",
-                "presentationToolsBlock": true
-              },
-              {
-                "heading": "8 skaidrių struktūra (mini-šablonas)",
-                "body": "Nukopijuokite šią struktūrą į DI arba įrankį – kiekviena eilutė = viena skaidrė.",
-                "copyable": "1. Problema / kontekstas\n2. Kodėl tai svarbu dabar\n3. Sprendimo idėja\n4. Kaip tai veikia (paprastai)\n5. Pavyzdys / use case\n6. Nauda / rezultatai\n7. Rizikos / ribos\n8. Ką daryti toliau (CTA)"
-              },
-              {
-                "heading": "Master prompt: prezentacijos struktūra",
-                "body": "Šis promptas prašo tik **struktūros** (karkaso) – ne pilno turinio. Užpildykite [Įrašyti], nukopijuokite į DI ar įrankį.",
-                "copyable": "Sukurk 8 skaidrių prezentacijos struktūrą (ne pilną turinį). Tema: [Įrašyti]. Auditorija: [Įrašyti]. Kiekvienai skaidrei pateik: pavadinimą ir 2–3 pagrindines mintis. Formatas: numeruotas sąrašas. Tonas: aiškus, non-tech."
-              },
-              {
-                "heading": "Promptas prezentacijos turinio (6 blokų principai, Modulis 1)",
-                "body": "Pilnas turinio generavimo promptas pagal Modulio 1 sistemą: META, INPUT, OUTPUT, REASONING, QUALITY, ADVANCED. Užpildykite [Įrašyti], nukopijuokite – tada įklijuokite į [Gamma](https://gamma.app), [SlidesAI](https://www.slidesai.io), [Canva](https://www.canva.com) arba [Prezent.ai](https://prezent.ai).",
-                "copyable": "META: Tu esi ekspertas prezentacijų turiniui kurti. Tikslas – sukurti 8 skaidrių prezentacijos turinį. Auditorija: [Įrašyti].\n\nINPUT: Tema – [Įrašyti]. Apribojimai – 8 skaidrės; struktūra: problema → kodėl svarbu → sprendimas → kaip veikia → pavyzdys → nauda → rizikos → CTA.\n\nOUTPUT: Kiekvienai skaidrei – pavadinimas, 2–3 bullet pointai, vizualo pasiūlymas. Formatas – aiškus, glaustas. Tonas – profesionalus, non-tech.\n\nREASONING: Pirmiausia apibrėžk kiekvienos skaidrės tikslą, tada suformuluok turinį.\n\nQUALITY: Kiekvienoje skaidrėje ne daugiau 3 punktų; kalba lietuvių; be žargono.\n\nADVANCED: (pasirenkama) Žemas temperature – aiškiam, nuosekliam turiniui."
-              },
-              {
-                "heading": "Takeaway",
-                "body": "**Geras promptas + aiški struktūra = 80% prezentacijos.** Įrankis – tik eksportas.",
-                "blockVariant": "accent"
-              }
-            ],
-            "presentationTools": [
-              {
-                "name": "Gamma",
-                "url": "https://gamma.app",
-                "forWhom": "Kaip web puslapis – interaktyvus, scroll. Lietuvių kalba."
-              },
-              {
-                "name": "SlidesAI",
-                "url": "https://www.slidesai.io",
-                "forWhom": "Tekstas → skaidrės keliais paspaudimais. Google Slides."
-              },
-              {
-                "name": "Canva",
-                "url": "https://www.canva.com",
-                "forWhom": "Viskas viename – Magic Write, šablonai, vizualai."
-              },
-              {
-                "name": "Prezent.ai",
-                "url": "https://prezent.ai",
-                "forWhom": "Verslui – brand, Story Builder, naratyvas."
-              },
-              {
-                "name": "Visme",
-                "url": "https://www.visme.co",
-                "forWhom": "Ataskaitoms, duomenims – infografikai, interaktyvumas."
-              },
-              {
-                "name": "Beautiful.ai",
-                "url": "https://www.beautiful.ai",
-                "forWhom": "Be dizaino įgūdžių – smart templates, auto-layout."
               }
             ]
           },
@@ -3745,31 +3665,59 @@
         {
           "id": 70,
           "title": "Modulio 4 santrauka",
-          "subtitle": "RAG, Deep research, tokenai, manipuliacijos, haliucinacijos – prieš testą: 3 klausimai sau",
-          "type": "content-block",
+          "subtitle": "Ką išmokote – RAG, Deep research, tokenai, manipuliacijos, žinių patikrinimas",
+          "type": "summary",
           "content": {
+            "introHeading": "Ką išmokote",
+            "introBody": "Sveikiname! Dabar žinote, kaip dirbti su šaltiniais (RAG), giliuoju tyrimu, tokenų ekonomika, kaip atpažinti manipuliacijas ir tikrinti DI atsakymų tikrumą – tai paruošė jus Modulio 5 testui ir Modulio 6 projektui.",
+            "stats": [
+              { "label": "Temos", "value": "5" },
+              { "label": "Ryšiai su blokais", "value": "6" },
+              { "label": "Kitas žingsnis", "value": "Modulis 5" }
+            ],
             "sections": [
               {
-                "heading": "Apžvalga",
-                "body": "Modulyje išmokote: RAG (šaltiniai + DI, kada naudoti, „atsakyk tik iš konteksto“); Deep research (multi-step, sub-klausimai, sintezė); tokenų ekonomiką (konteksto langas, max_tokens, patarimai); promptų manipuliacijas (ko vengti, neutralūs promptai); žinių patikrinimą ir haliucinacijų mažinimą (šaltiniai, cross-check, „nežinau“)."
+                "heading": "RAG ir Deep research",
+                "icon": "Target",
+                "color": "brand",
+                "items": [
+                  "RAG – nurodyti šaltinius prompte, „atsakyk tik iš šios informacijos“",
+                  "Deep research – multi-step, sub-klausimai, paieška, sintezė",
+                  "Ryšys su 6 blokais: Input (šaltiniai), Quality (patikrinimas)"
+                ]
               },
               {
-                "heading": "Pagrindiniai takeaway (6 punktai)",
-                "body": "1) **RAG** – nurodyti šaltinius prompte ir reikalauti „atsakyk tik iš šios informacijos“. 2) **Deep research** – kelios pakopos (sub-klausimai, paieška, sintezė); naudoja RAG ir CoT/ToT. 3) **Tokenų ekonomika** – konteksto langas ir max_tokens lemia, kiek informacijos „telpa“; trumpinti kontekstą išlaikant kokybę. 4) **Manipuliacijos** – vengti šališkų ir leading questions; formuoti neutralius promptus. 5) **Žinių patikrinimas** – šaltiniai, cross-check, „nežinau“ taisyklė; anti-haliucinacinis šablonas. 6) **Ryšys su 6 blokais** – RAG/šaltiniai → Input ir Quality; patikrinimas → Quality blokas; tokenai → Advanced."
+                "heading": "Tokenų ekonomika ir manipuliacijos",
+                "icon": "Zap",
+                "color": "amber",
+                "items": [
+                  "Konteksto langas ir max_tokens – kiek informacijos „telpa“",
+                  "7 patarimai tokenų taupymui; sisteminis svertas (šablonai)",
+                  "Manipuliacijos – vengti šališkų ir leading questions; neutralūs promptai"
+                ]
               },
               {
-                "heading": "Ryšiai tarp temų",
-                "body": "RAG ir žinių patikrinimas kartu mažina haliucinacijas – šaltiniai pateikia pagrindą, patikrinimas užtikrina tikrumą. Tokenų ekonomika leidžia į kontekstą įtraukti daugiau šaltinių (RAG) ir ilgesnes Deep research grandines. Manipuliacijų atpažinimas ir neutralūs promptai padeda gauti objektyvesnius rezultatus, kuriuos lengviau tikrinti (Quality blokas)."
+                "heading": "Žinių patikrinimas ir haliucinacijos",
+                "icon": "Lightbulb",
+                "color": "emerald",
+                "items": [
+                  "Šaltiniai, cross-check, „nežinau“ taisyklė",
+                  "5 praktinės taisyklės; anti-haliucinacinis šablonas",
+                  "Quality blokas – kokybės kriterijai ir patikrinimas"
+                ]
               },
               {
-                "heading": "Prieš testą – 3 klausimai sau",
-                "body": "Ar galiu paaiškinti, kas yra RAG ir kaip nurodyti šaltinius prompte? Ar žinau, kuo skiriasi Deep research nuo paprastos paieškos? Ar moku atpažinti manipuliacijas ir tikrinti DI atsakymų tikrumą?"
-              },
-              {
-                "heading": "Toliau",
-                "body": "Modulis 5 – žinių patikrinimo testas (RAG, Deep research, tokenai, manipuliacijos, žinių patikrinimas). Rekomenduojama ≥70% įskaitai – tada galėsite pradėti Modulio 6 projektą."
+                "heading": "Kitas žingsnis",
+                "icon": "ArrowRight",
+                "color": "emerald",
+                "items": [
+                  "Modulis 5: 15 min prezentacijos sprintas + mini suvokimo testas. Rekomenduojama ≥70% – tada pradėkite Modulio 6 projektą."
+                ]
               }
-            ]
+            ],
+            "reflectionTitle": "Refleksijos promptas",
+            "reflectionPrompt": "Esi mokymų refleksijos asistentas.\n\nKą tik baigiau mokymą apie konteksto inžineriją – RAG, Deep research, tokenų ekonomiką, manipuliacijas ir žinių patikrinimą.\n\nUžduok man 3 klausimus:\n1. Kurį šių konceptų (RAG, šaltiniai, patikrinimas) galėčiau pritaikyti savo darbe jau šiandien?\n2. Kas buvo naujausia ar netikėčiausia?\n3. Ką noriu išbandyti pirmiausia – sprintą ar projektą?\n\nPo mano atsakymų duok vieną konkretų patarimą, kaip pradėti.",
+            "tagline": "Šaltiniai + patikrinimas = mažiau haliucinacijų. Konteksto inžinerija = valdomi rezultatai."
           }
         }
       ],
@@ -3793,6 +3741,85 @@
       "level": "test",
       "duration": "15–18 min",
       "slides": [
+        {
+          "id": 47,
+          "title": "Per 15 min – 8 skaidrių prezentacija su DI",
+          "subtitle": "Workflow, įrankiai ir promptai – viskas vienoje skaidrėje",
+          "type": "content-block",
+          "content": {
+            "sections": [
+              {
+                "heading": "Rezultatas ir tavo kelionė",
+                "body": "**Per 15 min** gausite paruoštą karkasą ir promptus, kuriuos galite naudoti iš karto.\n\n**⚡ Greitas patarimas:** Ne įrankiai kuria gerą prezentaciją – **promptas kuria**. Pradėk nuo struktūros (8 skaidrės žemiau), tada pasirink įrankį.\n\n**Artefaktas:** Ruošiate struktūrą ar turinį pagal šią skaidrę. Atsisiuntimo funkcija bus įgyvendinta ateityje.",
+                "blockVariant": "brand"
+              },
+              {
+                "heading": "DI prezentacijos workflow",
+                "image": "di_prezentacijos_workflow",
+                "body": "Paspausk žingsnį diagramoje – paaiškinimas apačioje. Tas pats workflow veikia su bet kuriuo įrankiu žemiau.",
+                "blockVariant": "terms"
+              },
+              {
+                "heading": "Įrankiai: kam ir kada naudoti",
+                "body": "",
+                "blockVariant": "terms",
+                "presentationToolsBlock": true
+              },
+              {
+                "heading": "8 skaidrių struktūra (mini-šablonas)",
+                "body": "Nukopijuokite šią struktūrą į DI arba įrankį – kiekviena eilutė = viena skaidrė.",
+                "copyable": "1. Problema / kontekstas\n2. Kodėl tai svarbu dabar\n3. Sprendimo idėja\n4. Kaip tai veikia (paprastai)\n5. Pavyzdys / use case\n6. Nauda / rezultatai\n7. Rizikos / ribos\n8. Ką daryti toliau (CTA)"
+              },
+              {
+                "heading": "Master prompt: prezentacijos struktūra",
+                "body": "Šis promptas prašo tik **struktūros** (karkaso) – ne pilno turinio. Užpildykite [Įrašyti], nukopijuokite į DI ar įrankį.",
+                "copyable": "Sukurk 8 skaidrių prezentacijos struktūrą (ne pilną turinį). Tema: [Įrašyti]. Auditorija: [Įrašyti]. Kiekvienai skaidrei pateik: pavadinimą ir 2–3 pagrindines mintis. Formatas: numeruotas sąrašas. Tonas: aiškus, non-tech."
+              },
+              {
+                "heading": "Promptas prezentacijos turinio (6 blokų principai, Modulis 1)",
+                "body": "Pilnas turinio generavimo promptas pagal Modulio 1 sistemą: META, INPUT, OUTPUT, REASONING, QUALITY, ADVANCED. Užpildykite [Įrašyti], nukopijuokite – tada įklijuokite į [Gamma](https://gamma.app), [SlidesAI](https://www.slidesai.io), [Canva](https://www.canva.com) arba [Prezent.ai](https://prezent.ai).",
+                "copyable": "META: Tu esi ekspertas prezentacijų turiniui kurti. Tikslas – sukurti 8 skaidrių prezentacijos turinį. Auditorija: [Įrašyti].\n\nINPUT: Tema – [Įrašyti]. Apribojimai – 8 skaidrės; struktūra: problema → kodėl svarbu → sprendimas → kaip veikia → pavyzdys → nauda → rizikos → CTA.\n\nOUTPUT: Kiekvienai skaidrei – pavadinimas, 2–3 bullet pointai, vizualo pasiūlymas. Formatas – aiškus, glaustas. Tonas – profesionalus, non-tech.\n\nREASONING: Pirmiausia apibrėžk kiekvienos skaidrės tikslą, tada suformuluok turinį.\n\nQUALITY: Kiekvienoje skaidrėje ne daugiau 3 punktų; kalba lietuvių; be žargono.\n\nADVANCED: (pasirenkama) Žemas temperature – aiškiam, nuosekliam turiniui."
+              },
+              {
+                "heading": "Takeaway",
+                "body": "**Geras promptas + aiški struktūra = 80% prezentacijos.** Įrankis – tik eksportas.",
+                "blockVariant": "accent"
+              }
+            ],
+            "presentationTools": [
+              {
+                "name": "Gamma",
+                "url": "https://gamma.app",
+                "forWhom": "Kaip web puslapis – interaktyvus, scroll. Lietuvių kalba."
+              },
+              {
+                "name": "SlidesAI",
+                "url": "https://www.slidesai.io",
+                "forWhom": "Tekstas → skaidrės keliais paspaudimais. Google Slides."
+              },
+              {
+                "name": "Canva",
+                "url": "https://www.canva.com",
+                "forWhom": "Viskas viename – Magic Write, šablonai, vizualai."
+              },
+              {
+                "name": "Prezent.ai",
+                "url": "https://prezent.ai",
+                "forWhom": "Verslui – brand, Story Builder, naratyvas."
+              },
+              {
+                "name": "Visme",
+                "url": "https://www.visme.co",
+                "forWhom": "Ataskaitoms, duomenims – infografikai, interaktyvumas."
+              },
+              {
+                "name": "Beautiful.ai",
+                "url": "https://www.beautiful.ai",
+                "forWhom": "Be dizaino įgūdžių – smart templates, auto-layout."
+              }
+            ]
+          }
+        },
         {
           "id": 510,
           "title": "15 min prezentacijos sprintas",

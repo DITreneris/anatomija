@@ -30,10 +30,10 @@ const levelStyles = {
     badgeLabel: 'Testas',
   },
   practice: {
-    gradient: 'from-accent-600 to-accent-700',
-    bg: 'bg-accent-50 dark:bg-accent-900/20',
-    border: 'border-accent-200 dark:border-accent-800',
-    text: 'text-accent-700 dark:text-accent-300',
+    gradient: 'from-slate-600 to-slate-700',
+    bg: 'bg-slate-50 dark:bg-slate-900/20',
+    border: 'border-slate-200 dark:border-slate-800',
+    text: 'text-slate-700 dark:text-slate-300',
     badgeIcon: Briefcase,
     badgeLabel: 'Praktika',
   },
@@ -201,7 +201,7 @@ function ModulesPage({ onModuleSelect, onGoToQuiz, progress }: ModulesPageProps)
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className={`bg-gradient-to-br ${styles.gradient} p-3 rounded-xl shadow-lg`}>
+                    <div className={`bg-gradient-to-br ${styles.gradient} p-3 rounded-xl shadow-md`}>
                       {module.icon === 'Target' && <Target className="w-6 h-6 text-white" strokeWidth={1.5} />}
                       {module.icon === 'Brain' && <Brain className="w-6 h-6 text-white" strokeWidth={1.5} />}
                       {module.icon === 'Settings' && <Settings className="w-6 h-6 text-white" strokeWidth={1.5} />}
@@ -267,12 +267,12 @@ function ModulesPage({ onModuleSelect, onGoToQuiz, progress }: ModulesPageProps)
                   </div>
                 </div>
 
-                {/* Action button – vienoda CTA visiems moduliams */}
+                {/* Action button – M3 accent tik čia (S-DS2), kiti moduliai – savo gradient */}
                 <button 
                   className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
                     locked
                       ? 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
-                      : `bg-gradient-to-r ${styles.gradient} text-white shadow-lg hover:shadow-xl active:scale-95`
+                      : `bg-gradient-to-r ${level === 'practice' ? 'from-accent-500 to-accent-600' : styles.gradient} text-white shadow-md hover:shadow-lg active:scale-95`
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();

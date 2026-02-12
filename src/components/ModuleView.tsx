@@ -320,6 +320,13 @@ function ModuleView({
       .filter((x) => x.type === 'practice-scenario');
   }, [module, moduleId]);
 
+  /** Modulio 3: santraukos skaidrės indeksas – kad iš bet kurio scenarijaus galėtų išeiti į santrauką */
+  const practiceSummarySlideIndex = useMemo(() => {
+    if (!module || moduleId !== 3) return null;
+    const idx = module.slides.findIndex((s) => s.type === 'practice-summary');
+    return idx >= 0 ? idx : null;
+  }, [module, moduleId]);
+
   const onNavigateToSlide = useCallback(
     (slideIndex: number) => {
       setCurrentSlide(slideIndex);
@@ -327,6 +334,12 @@ function ModuleView({
     },
     [setCurrentSlide]
   );
+
+  const onGoToSummary = useCallback(() => {
+    if (practiceSummarySlideIndex != null) {
+      onNavigateToSlide(practiceSummarySlideIndex);
+    }
+  }, [practiceSummarySlideIndex, onNavigateToSlide]);
 
   /** Modulio 3: konkretus CTA tekstas „Pirmyn“ mygtukui (#10) – „imk ir daryk“ energija */
   const nextSlideLabel = useMemo(() => {
@@ -540,7 +553,7 @@ function ModuleView({
         >
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
-              <span className="badge-brand">
+              <span className={moduleId === 2 || moduleId === 3 ? 'badge-slate' : 'badge-brand'}>
                 Modulis {moduleIndex + 1}
               </span>
               {isModuleCompleted && (
@@ -599,6 +612,7 @@ function ModuleView({
                 onNextSlide={nextSlide}
                 practiceScenarioSlides={practiceScenarioSlides}
                 onNavigateToSlide={onNavigateToSlide}
+                onGoToSummary={moduleId === 3 ? onGoToSummary : undefined}
               />
             </Suspense>
           </ErrorBoundary>
@@ -651,7 +665,7 @@ function ModuleView({
             <button
               onClick={nextSlide}
               disabled={hasIncompletePracticalTask}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all min-h-[52px] bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/25 hover:from-brand-600 hover:to-brand-700 hover:shadow-xl hover:shadow-brand-500/30 active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all min-h-[52px] bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-md hover:shadow-lg shadow-brand-500/20 hover:from-brand-600 hover:to-brand-700 hover:shadow-brand-500/25 active:scale-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label={isLastSlide ? 'Baigti modulį' : nextSlideLabel ?? 'Kita skaidrė'}
             >
               <span className="font-medium">{isLastSlide ? 'Baigti' : (nextSlideLabel ?? 'Pirmyn')}</span>

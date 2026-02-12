@@ -1,6 +1,6 @@
 # Turinio agentas: kur kalbama apie kurį modulį
 
-> **Paskirtis:** Nuosekliai atpažinti, kada tekste kalbama apie **Modulį 1, 2, 3, 4, 5 ar 6**, ir išvengti painiavos tarp skaidrių numerių ir modulių.
+> **Paskirtis:** Nuosekliai atpažinti, kada tekste kalbama apie **Modulį 1 … 6** (ir planuojamus 7–15), ir išvengti painiavos tarp skaidrių numerių ir modulių.
 
 ---
 
@@ -18,6 +18,7 @@
 | **4.1 … 4.7** (skaidrės / temos) | **Modulio 4** skaidrės/temos (įvadas, RAG, Deep research, … santrauka) |
 | **„3 moduliai“** | Moduliai 1 + 2 + 3 (bazinė dalis) |
 | **„Moduliai 4–6“** | Pažangusis blokas (teorija + testas + projektas) |
+| **„Moduliai 7–15“** | Trys vartotojų keliai (Duomenų analizė 7–9, Agentų inžinerija 10–12, Turinio inžinerija 13–15); žr. §6 |
 
 ---
 
@@ -97,3 +98,26 @@ Dėl to **4.1–4.7** faile `turinio_pletra_moduliai_4_5_6.md` visada reiškia *
 - **Modulis 6** = vienas projektas (capstone).  
 - **Skaidrė X** be modulio pavadinimo pagrindiniame faile = **Modulio 1**.  
 - **4.1–4.7** modulių 4–6 faile = **Modulio 4** skaidrės. Skyriaus „4. Praktinė dalis (Modulis 6)“ poskyriai pavadinti be numerių (Projekto koncepcija, Scenarijus, Integracija su Moduliu 3), kad 4.x būtų rezervuota tik Moduliui 4.
+
+---
+
+## 6. Moduliai 7–15 (vartotojų keliai)
+
+> **Būklė:** Planuojama plėtra; turinio SOT dar nėra. Ši lentelė – atpažinimui, kai kalbama apie modulius 7–15. Detalios taisyklės (skaidrės X.Y, failų vietos) bus papildytos, kai bus fiksuoti turinio dokumentai. Žr. ROADMAP.md § „Viso turinio plėtra: vartotojų keliai ir moduliai 7–15“.
+
+| Simbolis / frazė | Reikšmė |
+|------------------|--------|
+| **Modulis 7** | Duomenų analizė (kelias 1) – teorija: DI duomenų analizei, SQL/Python bendram supratimui, promptai. |
+| **Modulis 8** | Duomenų analizė – testas. |
+| **Modulis 9** | Duomenų analizė – praktika; **finalinis integruotas projektas** (kelio capstone). |
+| **Moduliai 7–9** | Vartotojų kelias „Duomenų analizė“ (auditorija: analitikai). Hybrid: privalomas vienas kelias; kiti atrakinami po completion. |
+| **Modulis 10** | Agentų inžinerija (kelias 2) – teorija: įrankiai, promptai, sistemos. Įėjimui: inžinieriams būtini Moduliai 4–6 (Konteksto inžinerija). |
+| **Modulis 11** | Agentų inžinerija – testas. |
+| **Modulis 12** | Agentų inžinerija – praktika; **finalinis integruotas projektas** (kelio capstone). |
+| **Moduliai 10–12** | Vartotojų kelias „Agentų inžinerija“ (auditorija: softo inžinieriai). |
+| **Modulis 13** | Turinio inžinerija (kelias 3) – teorija: įrankiai, principai, promptai. |
+| **Modulis 14** | Turinio inžinerija – testas. |
+| **Modulis 15** | Turinio inžinerija – praktika (projektas: image, video, muzika); **finalinis integruotas projektas** (kelio capstone). |
+| **Moduliai 13–15** | Vartotojų kelias „Turinio inžinerija“ (auditorija: rinkodaros ir komunikacijos specialistai). |
+
+**SOT vieta:** vienas failas per kelią – `docs/turinio_pletra_moduliai_7_8_9.md`, `docs/turinio_pletra_moduliai_10_11_12.md`, `docs/turinio_pletra_moduliai_13_14_15.md`. Skaidrių numeracija (7.1, 10.2 ir pan.) – tik atitinkamam moduliui. Žr. ROADMAP.md § „Viso turinio plėtra“ (nuspręsta: hybrid, įėjimas 1–3, 9/12/15 = finalinis projektas).

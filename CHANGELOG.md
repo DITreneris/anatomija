@@ -11,6 +11,13 @@ ir šis projektas laikosi [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ### Added
 
+**2026-02-12 (QA: Design System Should/Nice + Gold Standard)**
+
+- **Design System – Should (2 sprintas), DESIGN_GUIDE S-DS1–S-DS4:** Tipografijos skalė (S-DS1) – vienas H1 per skaidrę (ModuleView), turinyje H2 `text-lg md:text-xl font-bold` (Action intro, SectionBreak, Summary, practice-summary). Modulių identitetas (S-DS2) – M2 badge/kortelė slate; M3 badge/kortelė slate, accent tik CTA (ModuleView badge-slate; ModulesPage M3 kortelė slate, mygtukas accent). Kortelių skaičius (S-DS3) – Summary max 3 žinių kortelės (`knowledgeSections.slice(0, 3)`). Šešėliai (S-DS4) – default `shadow-md`, hover `shadow-lg` (index.css card/btn; ContentSlides, HomePage, ModuleView, ModulesPage, Celebration). Badge-slate klasė (index.css).
+- **Design System – Nice (N-DS1, N-DS2):** Float išjungtas ant secondary badge „~45 min“ (HomePage – be `animate-float`). Design tokens failas `src/design-tokens.ts` – spacing (px + Tailwind klasės), radius (px + klasės), spacingClasses, radiusClasses; nuoroda DESIGN_GUIDE §4.3, §4.4.
+- **Gold Standard 1.1.0 (2026-02-12):** `docs/development/GOLD_STANDARD_MODULIAI_1_2_3.md` atnaujintas pagal Design System: §3.2 Modulio identitetas (M2 slate, M3 accent tik CTA); naujas §3.5 Design System (tipografija, Summary kortelės, šešėliai, float, tokens); §1.3 Summary – max 3 žinių kortelės; §9 nuorodos į DESIGN_GUIDE ir design-tokens.ts; §10 pritaikymas 4–6 su Design System; Changelog skyrius (1.0.0, 1.1.0). Versija 1.1.0, data 2026-02-12.
+- **DESIGN_GUIDE:** N-DS1, N-DS2 pažymėti įgyvendintais; §8 nuoroda į `src/design-tokens.ts`. TODO.md – S-DS1–S-DS4, N-DS1, N-DS2 pažymėti atliktais (2026-02-12).
+
 **2026-02-11 (Mobile UI – Moduliai 2 ir 3)**
 
 - **Mobile UI auditas ir pataisymai:** Dokumentas `docs/development/MOBILE_UI_AUDIT_MOD2_MOD3.md` – CODE_REVIEW diagnozė, UI_UX checklist, įgyvendintos rekomendacijos. TestResultsSlide: radar wrapper su `overflow-hidden`, `p-4 sm:p-6`. CategoryBreakdownWithLinks: mygtukai „Peržiūrėti skaidrę“ / „Pakartok 3 kl.“ – `min-h-[44px] py-2` (touch targets); konteineris `p-4 sm:p-6`. PracticeScenarioSlide: tab mygtukai `min-h-[44px]`. RemediationRetryBlock: mygtukas „Grįžti į rezultatą“ – `min-h-[44px] py-2`, `aria-label`. MatchingQuestion: porų tekstas su `min-w-0 break-words` (overflow mobile). PracticalTask: root `p-4 sm:p-6`. RELEASE_QA_CHECKLIST.md skyrius 2 – rekomendacija tikrinti Modulius 2 ir 3 mobile (test-results, practice-scenario), nuoroda į audito doc.
@@ -31,6 +38,10 @@ Pakeitimai nuo 2026-02-07; release – 2026-02-11 (V1.2).
 - **Lietuviškos raidės:** `questionPoolSelector.ts` – „prioriteta“ → „prioritetą“, „6 Bloku Sistema“ → „6 Blokų sistema“.
 
 ### Added
+
+**2026-02-11 (Vartotojų atsiliepimai – bendri)**
+
+- **Bendri atsiliepimai:** Naujas dokumentas `docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md` – vienas šaltinis gyvo testavimo ir vartotojų feedback analizei. Įtraukta V1 Testavimo feedback analizė (4 testuotojai: 54 m. teisininkė, 25 m. media planuotoja, 48 m. konsultantas, 56 m. vadovas); segmentų signalai, horizontalios įžvalgos, segmentų žemėlapis, strateginė išvada, rekomenduojami veiksmai V2, statusas. Šaltiniai: GYVAS_TESTAVIMAS_2025-05-02, TEST_REPORT, V1 analizė. Agentų SOT: `.cursor/rules/agent-orchestrator.mdc` ir `docs/development/AGENT_ORCHESTRATOR.md` – pridėta eilutė „Bendri atsiliepimai“; RELEASE_QA_CHECKLIST – nuoroda į bendrus atsiliepimus.
 
 **2026-02-11 (MVP Release – Moduliai 1–3 testuotojams)**
 

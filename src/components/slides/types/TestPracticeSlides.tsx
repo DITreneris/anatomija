@@ -24,13 +24,13 @@ export function TestIntroSlide({ slide: _slide, moduleId }: { slide: Slide; modu
   if (moduleId === 5) {
     return (
       <div className="space-y-6">
-        <div className="bg-gradient-to-r from-violet-50 to-brand-50 dark:from-violet-900/20 dark:to-brand-900/20 p-6 rounded-xl border-2 border-violet-200 dark:border-violet-800">
+        <div className="bg-gradient-to-r from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/30 p-6 rounded-xl border-2 border-brand-200 dark:border-brand-800">
           <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-white">Mini testas po prezentacijos sprinto</h3>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
             Jūs ką tik atlikote <strong>15 min prezentacijos sprintą</strong> (brief → struktūra → skaidrės).
             Šis mini testas patikrina, ar suprantate esminę logiką: aiškų brief, struktūrą, įrankio pasirinkimą ir greitą kokybės patikrą.
           </p>
-          <p className="text-sm text-violet-700 dark:text-violet-300">
+          <p className="text-sm text-brand-700 dark:text-brand-300">
             Rezultatas <strong>≥70%</strong> – rekomenduojama pereiti prie Modulio 6 (praktika). Rezultatas <strong>&lt;70%</strong> – rekomenduojama pakartoti sprintą ir peržiūrėti Modulio 4 „Struktūruotą procesą“ (4.1b).
           </p>
         </div>
@@ -76,10 +76,10 @@ export function TestIntroSlide({ slide: _slide, moduleId }: { slide: Slide; modu
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-violet-50 to-brand-50 dark:from-violet-900/20 dark:to-brand-900/20 p-6 rounded-xl border-2 border-violet-200 dark:border-violet-800">
+      <div className="bg-gradient-to-r from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/30 p-6 rounded-xl border-2 border-brand-200 dark:border-brand-800">
         <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-white flex items-center gap-2.5">
-          <span className="inline-flex p-2 rounded-lg bg-violet-500/10 dark:bg-violet-500/20">
-            <ClipboardCheck className="w-5 h-5 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+          <span className="inline-flex p-2 rounded-lg bg-brand-500/10 dark:bg-brand-500/20">
+            <ClipboardCheck className="w-5 h-5 text-brand-600 dark:text-brand-400" strokeWidth={1.5} />
           </span>
           Žinių Patikrinimas
         </h3>

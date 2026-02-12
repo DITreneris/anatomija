@@ -84,7 +84,7 @@ export default function Celebration({
       
       {/* Celebration card */}
       <div className={`
-        bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 
+        bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 
         flex flex-col items-center gap-3 
         animate-bounce-in
         border-2 ${type === 'module' ? 'border-accent-400' : 'border-emerald-400'}

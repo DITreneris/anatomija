@@ -60,12 +60,12 @@ function ToolCard({ tool }: { tool: AiDetectorEntry }) {
       }`}
     >
       {/* Viršutinė spalvota linija */}
-      <div className="h-1 w-full bg-gradient-to-r from-brand-500 to-violet-500" />
+      <div className="h-1 w-full bg-gradient-to-r from-brand-500 to-accent-500" />
 
       <div className="p-4">
         {/* Header: numeris + pavadinimas */}
         <div className="flex items-start gap-3 mb-3">
-          <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-violet-500 text-white text-sm font-bold flex items-center justify-center">
+          <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 text-white text-sm font-bold flex items-center justify-center">
             {tool.number}
           </span>
           <h4 className="text-base font-bold text-gray-900 dark:text-white leading-tight pt-0.5">

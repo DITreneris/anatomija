@@ -1,7 +1,7 @@
 # Modulio 4 skaidrių eilė (oficiali)
 
 > **Paskirtis:** Viena vieta – rekomenduojama Modulio 4 skaidrių/temų seka su trumpu pateisinimu kiekvienam žingsniui. SOT: `docs/turinio_pletra_moduliai_4_5_6.md`. Atpažinimas: 4.1–4.7 = tik Modulio 4 (`docs/CONTENT_MODULIU_ATPAZINIMAS.md`).  
-> **Paskutinė atnaujinta:** 2026-02-09 (System prompt ir Proceso prompt perkelti tiesiog po „4 dedamosios“; Skyriaus riba po jų; `modules.json` ir ši lentelė sinchronizuoti).
+> **Paskutinė atnaujinta:** 2026-02-11 (4.1-workflow-ex → M5; **Praktika: DI visata** (id 39.5) perkelta prieš Skyriaus ribą (40.5); `modules.json` sinchronizuotas).
 
 ---
 
@@ -15,8 +15,7 @@
 | 3a | 4.1-system-master | System prompt vs Master prompt | Tiesiog po 4 dedamųjų – rolė ir kontekstas; kaip DI „žino“, kas tu esi. |
 | 3b | 4.1b2 | Proceso prompt ir workflow sudarymas | Tiesiog po System vs Master – proceso promptai, šablonai. |
 | 4 | 4.1a2-viz | Custom GPT kūrimo procesas | Vizualizuoja inžinerijos dedamąją (8 žingsnių schema); optional giliam įsigilinimui. |
-| 5 | 4.1-workflow-ex | Prezentacijų kūrimas su DI | Workflow pavyzdys – „promptas kuria, ne įrankiai“; optional. |
-| 6 | 4.1a4 | 5 principai, kurie realiai pagerina bet kurį promptą | Patarimai inžinieriui – outcome-driven; 5 principai veiksmo forma; „Kodėl tai svarbu?“; vertinimo promptas. Pirmiau nei RL/RLHF – praktika prieš teoriją. |
+| 5 | 4.1a4 | 5 principai, kurie realiai pagerina bet kurį promptą | Patarimai inžinieriui – outcome-driven; 5 principai veiksmo forma; „Kodėl tai svarbu?“; vertinimo promptas. Pirmiau nei RL/RLHF – praktika prieš teoriją. |
 | 7 | 4.1a3 | Kas yra paskatinamasis mokymas (RL/RLHF)? | Po patarimų – paaiškina, kodėl DI „stengiasi įtikti“; paruošia Quality ir žinių patikrinimo temas. |
 | 8 | 4.1a5 | Parametrų laukas | „Žemėlapis“ – kur dirba inžinierius (6 parametrų grupės); susieja Modulį 1 su 4. |
 | 9 | 4.1a5-style | Stilių naudojimas promptuose | Kokybiniai parametrai praktiškai; optional/giluminiam. |
@@ -59,6 +58,8 @@
 - **4.4 po 4.3** – tokenai po „ką įtraukiame“ (RAG, Deep research); dabar „kiek telpa“.
 - **4.5 → 4.6** – manipuliacijos (ko vengti), paskui patikrinimas (kaip tikrinti).
 - **4.7 paskutinis** – santrauka ir perėjimas į Modulį 5.
+- **4.1-workflow-ex (8 skaidrių prezentacija)** – perkelta į Modulį 5 kaip pirmoji skaidrė (id 47); čia nebeskaičiuojama.
+- **Praktika: DI visata (4.0-praktika, id 39.5)** – `modules.json` eilėje dabar **prieš Skyriaus ribą** (40.5 „Pirma dalis baigta“), t. y. po „Darbas su DI: struktūruotas procesas“ (43).
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "name": "prompt-anatomy-training",
   "version": "1.2.0",
-  "description": "Interaktyvus mokymas apie prompt struktūrą: 6 moduliai (6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas)",
+  "description": "6 promptų struktūros blokai, vienas nuoseklus mokymas – sistema nuo A iki Z. Interaktyvus DI mokymas: 6 moduliai, praktika, apklausa.",
   "type": "module",
   "scripts": {
     "dev": "vite",

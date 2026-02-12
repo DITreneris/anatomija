@@ -7,7 +7,7 @@
 
 ## 1. Dabartinė būklė
 
-**Skaidrė:** Modulio 4, id 47 – „Optional: Per 15 min – 8 skaidrių prezentacija su DI“  
+**Skaidrė:** Modulio 5, id 47 – „Optional: Per 15 min – 8 skaidrių prezentacija su DI“  
 **Komponentas:** `ContentBlockSlide` (AllSlides.tsx)  
 **Tipas:** `content-block` su `sections` masyvu.
 

@@ -1,4 +1,6 @@
-# Promptų anatomija - Interaktyvus DI Mokymas
+# Promptų anatomija – Interaktyvus DI Mokymas
+
+**6 promptų struktūros blokai, vienas nuoseklus mokymas – sistema nuo A iki Z.**
 
 Interaktyvus mokymas apie DI (dirbtinio intelekto) promptų struktūrą: **6 moduliai** (6 blokų sistema, žinių testas, praktika, konteksto inžinerija, pažangus testas, projektas). Orientuotas į verslo problemų sprendimą ir **praktinius rezultatus** – kursas moko kurti promptus ir scenarijus, ne tik suprasti teoriją.
 

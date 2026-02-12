@@ -23,7 +23,7 @@
 |--------|-----------|-------------|
 | **1. Stabilumas** | E2E testai (1–2 kritiniai flow), modulių užrakinimo įjungimas, monitoring (Sentry/GA4) – tik pagrindinės metrikos | Aukštas |
 | **2. Turinys ir duomenys** | Modulių 4–6 turinio sinchronas su SOT (`modules.json` ↔ `turinio_pletra_moduliai_4_5_6.md`), žodynėlio/klausimų kokybė | Aukštas |
-| **3. UX poliravimas** | Sertifikato generavimas (PDF), eksportas/importas progreso, accessibility audit užbaigimas; **prezentacijos artefakto atsisiuntimas** (Modulio 4, optional skaidrė „8 skaidrių prezentacija“ – vartotojas ruošia artefaktą, kurį galės atsisiųsti) | Vidutinis |
+| **3. UX poliravimas** | Sertifikato generavimas (PDF), eksportas/importas progreso, accessibility audit užbaigimas; **prezentacijos artefakto atsisiuntimas** (Modulio 5, optional skaidrė „8 skaidrių prezentacija“ – vartotojas ruošia artefaktą, kurį galės atsisiųsti) | Vidutinis |
 | **3a. Pedagoginė atitiktis** | Sandbox pranešimas, diagnostinis quiz/praktikos feedback, modulių pabaigos – „kūrinys“ (žr. § Pedagoginės įžvalgos) | Vidutinis |
 | **4. Pasirinktinai** | PWA (offline), DI grįžtamasis ryšys praktinėms užduotims, papildomi scenarijai, role-first, organizacijos atmintis | Žemas / vėliau |
 
@@ -102,6 +102,87 @@
 | Vidutinis | Role-first įėjimas arba scenarijų pasirinkimas pagal rolę | Fazė 2 |
 | Žemas | Organizacijos atmintis (bandymų istorija) | Fazė 2–3 |
 | Žemas | DI grįžtamasis ryšys – rodyti sprendimo kelią, ne „mintis“ | Fazė 2 (kai bus DI) |
+
+---
+
+## 🎯 Plėtros planas – versija 2.0 (Must–Should–Want)
+
+> **Šaltinis:** V1 vartotojų atsiliepimai ir Analizės verdiktas. Šie punktai planuojami **versijai 2.0**; arčiausias prioritetas – M5. Detalė: `docs/VARTOTOJU_ATSILIEPIMAI_BENDRAS.md` (§9–10), `docs/development/ANALIZES_VERDIKTAS_MUST_SHOULD_WANT.md`.
+
+### MUST (versija 2.0 – arčiausiai)
+
+| # | Užduotis | Aprašymas |
+|---|----------|-----------|
+| **M5** | **„Kur pritaikyti?“ po moduliu** | Blokas po kiekvienu moduliu (bent 1–2 mod.): kur naudosiu, use-case. Iš V1 – „kur naudosiu“ aiškumas. |
+
+### SHOULD (versija 2.0)
+
+| # | Užduotis | Šaltinis |
+|---|----------|----------|
+| S1 | 6 blokų structure check | Analizės verdiktas – ne tik keyword, bet sekcijų (META:/INPUT:) tikrinimas, „missing blocks“ + pavyzdys. |
+| S2 | A11y smoke (axe-core) | Analizės verdiktas – automatizuotas smoke kelioms skaidrėms. |
+| S3 | Design system įtvirtinimas | Card, Banner, Table, CTAButton – vienas rinkinys. |
+| S4 | Optional → „Fast track“ toggle | Rodyti/tęsti praleidžiant optional – pakels completion rate. |
+| S5 | Įvardinti Starter lygį | V1 atsiliepimai – HomePage arba ModulesPage: „Starter lygis“ (badge arba vienas sakinys). |
+| S6 | B2B pitch | V1 atsiliepimai – 1 puslapis arba PDF: struktūra, praktika, testas, „DI darbo metodika“. |
+
+### WANT (versija 2.0 – vėliau)
+
+| # | Užduotis |
+|---|----------|
+| W1 | Micro video (60–120 sek.) – 1–2 moduliams arba „kas yra 6 blokai“. |
+| W2 | Advanced modulio planas – dokumentas (ne dar įgyvendinimas). |
+| W3 | Spaced retry – minimalus pakartojimas po 1–2 dienų. |
+
+---
+
+## 🌐 Viso turinio plėtra: vartotojų keliai ir moduliai 7–15
+
+> **Paskirtis:** Planuojama viso turinio plėtra – trys vartotojų keliai (moduliai 7–15). Turinio tekstai (skaidrės, promptai, pavyzdžiai) planuojami atskirai; čia – tik modulių tvarka ir keliai.
+
+### Trys vartotojų keliai
+
+| Kelias | Moduliai | Auditorija | Apimtis |
+|--------|----------|------------|---------|
+| **Duomenų analizė** | 7, 8, 9 | Analitikai | DI duomenų analizei, SQL/Python bendram supratimui – po 1 skaidrę max, kad ilgi kodo pavyzdžiai negąsdintų; + promptai. |
+| **Agentų inžinerija** | 10, 11, 12 | Softo inžinieriai | Įrankiai, promptai, sistemos (agentų projektavimas, vykdymas, integracijos). |
+| **Turinio inžinerija** | 13, 14, 15 | Rinkodaros ir komunikacijos specialistai | Įrankiai, principai, promptai; projektas – savo image, video, muzikos kūrimas. |
+
+**3 vs 4 keliai:** 3 nauji keliai (7–9, 10–12, 13–15). Bendrasis pamatas – **1–6** („Promptų pagrindai“); tada 1 bendras + 3 rolės keliai = 4 loginiai blokai.
+
+### Nuspręsta (sprendimai)
+
+**C) Hybrid (rekomenduojamas) – modulių eilė tarp kelių**
+
+- **Privalomas vienas kelias** (3 moduliai) – vartotojas pirmiausia eina vieną pasirinktą kelią.
+- **Kiti keliai** – atrakinami po to kelių užbaigimo (unlock po completion).
+- **Cross-track** – kaip „Advanced“ (plėtra neblokuojama, bet fokusas išlaikomas).
+
+**B) Įėjimo slenksčiai**
+
+- **Reikalauti tik 1–3** (6 blokų sistema). Tai jau suteikia: META/INPUT/OUTPUT struktūrą, praktiką, loginį pagrindą.
+- **Moduliai 4–6** – rekomenduojami, ne blokuojantys.
+- **Išimtis – inžinieriams:** jiems **būtina** Konteksto inžinerija (4–6) prieš Agentų inžinerijos kelią (10–12).
+
+**Learn → Practice branduolys ir finalinis projektas**
+
+- Kiekvienas modulis turi savo **Learn → Practice** branduolį.
+- **9 / 12 / 15 = finalinis integruotas projektas** (po kiekvieno kelio). Tai išlaiko „treniruoklio“ filosofiją ir užtikrina rezultatą.
+
+**B) Turinio SOT – vienas failas per kelią**
+
+- `docs/turinio_pletra_moduliai_7_8_9.md`
+- `docs/turinio_pletra_moduliai_10_11_12.md`
+- `docs/turinio_pletra_moduliai_13_14_15.md`  
+Aišku, modularu, lengva atnaujinti.
+
+### Vėlesni žingsniai
+
+- CONTENT_AGENT: SOT dokumentai moduliams 7–15 (turínio semantika) – po vienam failui per kelią.
+- DATA_AGENT: `modules.json` plėtimas (id 7–15), sinchronas su SOT; atrakinimo logika (vienas kelias privalomas, kiti po completion; inžinieriams 4–6 privalomas prieš 10–12).
+- CODING_AGENT: navigacija, progresas, atrakinimas – hybrid modelis (pasirinkimas kelio, unlock kitų, „Advanced“ cross-track).
+- **Atnaujinti** [docs/CONTENT_MODULIU_ATPAZINIMAS.md](docs/CONTENT_MODULIU_ATPAZINIMAS.md) – 7–15 atpažinimo taisyklės (jau §6); papildyti, kai turinys bus fiksuotas.
+- **Naudoti** [docs/development/GOLD_STANDARD_MODULIAI_1_2_3.md](docs/development/GOLD_STANDARD_MODULIAI_1_2_3.md) kaip checklist moduliams 4–6 ir 7–15 (turinis, testas, praktika, CTA, progresas).
 
 ---
 
@@ -580,7 +661,7 @@
 - **Po release:** Pažymėti įgyvendintus punktus
 - **Kas ketvirtį:** Ilgalaikė strategija (Fazės 2–3)
 
-**Paskutinis atnaujinimas:** 2026-02-07 (testavimo vertinimas gerai; įtraukta pedagoginių įžvalgų analizė, must–should–want, TOP įžvalgos kūrėjams, nauji roadmap punktai)  
+**Paskutinis atnaujinimas:** 2026-02-11 (pridėtas § Plėtros planas – versija 2.0: M5 „Kur pritaikyti?“, SHOULD S1–S6, WANT W1–W3; šaltinis V1 atsiliepimai + Analizės verdiktas).  
 **Kitas peržiūrėjimas:** 2026-03-01
 
 ---
@@ -589,6 +670,6 @@
 
 **Promptų anatomija** – Plėtros Roadmap
 
-*Sukurta 2026-02-01 | Atnaujinta 2026-02-07 | Versija 2.0.0*
+*Sukurta 2026-02-01 | Atnaujinta 2026-02-11 | Versija 2.0.0*
 
 </div>

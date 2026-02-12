@@ -7,7 +7,7 @@
 
 ## 1. Skaidrės turinio analizė
 
-**Skaidrė:** Modulio 4, id 47 – „Optional: Per 15 min – 8 skaidrių prezentacija su DI“  
+**Skaidrė:** Modulio 5, id 47 – „Optional: Per 15 min – 8 skaidrių prezentacija su DI“  
 **Tipas:** `content-block`  
 **Šaltinis:** `src/data/modules.json`, `docs/turinio_pletra_moduliai_4_5_6.md`
 

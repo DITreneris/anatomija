@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import { CheckCircle, Sparkles, MessageCircle, Languages, Lightbulb, Target, Layers, Repeat, ChevronRight, ChevronDown, Info, ExternalLink, ArrowRight, Zap, Copy, Wrench, BookMarked } from 'lucide-react';
+import { CheckCircle, Sparkles, MessageCircle, Languages, Lightbulb, Target, Layers, Repeat, ChevronRight, ChevronDown, Info, ExternalLink, ArrowRight, Zap, Copy, Wrench, BookMarked, Rocket } from 'lucide-react';
 import { CopyButton, TemplateBlock, ProcessStepper, DiPrezentacijosWorkflowBlock, EnlargeableImage, RlProcessBlock } from '../shared';
 import { getColorClasses } from '../utils/colorStyles';
 import type {
@@ -56,7 +56,7 @@ export function ActionIntroSlide({ content }: ActionIntroSlideProps) {
 
         <div className="relative z-10 flex flex-col items-center text-center gap-3 sm:gap-4 max-w-lg mx-auto">
           {/* Pagrindinė provokacija – Plus Jakarta Sans, font-black */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+          <h2 className="text-lg md:text-xl font-bold tracking-tight leading-tight">
             {content.heroStat}
             <br />
             <span className="bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent">
@@ -106,7 +106,7 @@ export function ActionIntroSlide({ content }: ActionIntroSlideProps) {
       {/* ── DALIS B: Side-by-side palyginimas (atsiskleidžia po CTA) ── */}
       {revealed && (
         <div className="animate-slide-in">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Nestruktūruotas (kairė – blogas) */}
             <div className="bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-2xl p-5 sm:p-6 flex flex-col">
               <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
@@ -127,7 +127,7 @@ export function ActionIntroSlide({ content }: ActionIntroSlideProps) {
             </div>
 
             {/* Struktūruotas (dešinė – geras, vizualiai „laimintis") */}
-            <div className="bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-300 dark:border-emerald-700 rounded-2xl p-5 sm:p-6 flex flex-col ring-2 ring-emerald-200/60 dark:ring-emerald-800/40 shadow-lg shadow-emerald-500/10">
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-300 dark:border-emerald-700 rounded-2xl p-5 sm:p-6 flex flex-col ring-2 ring-emerald-200/60 dark:ring-emerald-800/40 shadow-md">
               <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" aria-hidden="true" />
                 6 blokų promptas
@@ -154,7 +154,7 @@ export function ActionIntroSlide({ content }: ActionIntroSlideProps) {
       {/* ── DALIS C: Kontekstas (rodomas tik po reveal su animacija) ── */}
       {revealed && (
         <>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 animate-fade-in">
           {/* Apie mokymą + outcomes */}
           <div className="bg-brand-50 dark:bg-brand-900/20 border-l-4 border-brand-500 p-5 rounded-xl">
             <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
@@ -627,7 +627,7 @@ export function SectionBreakSlide({ content }: { content: SectionBreakContent })
           {content.sectionNumber}
         </span>
       )}
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+      <h2 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
         {content.title}
       </h2>
       {content.subtitle && (
@@ -695,7 +695,7 @@ export function WarmUpQuizSlide({ content }: { content: WarmUpQuizContent }) {
       <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-700">
         <p className="font-bold text-gray-900 dark:text-white mb-4">{q.question}</p>
         <div className="space-y-2">
-          {q.options.map((option, idx) => {
+          {(q.options ?? []).map((option, idx) => {
             const isSelected = selectedOption === idx;
             const isCorrectOption = idx === q.correct;
             return (
@@ -989,7 +989,7 @@ export function DefinitionsSlide({ content }: { content?: DefinitionsContent }) 
           disabled={showPrompt}
           className={`text-left rounded-2xl border-2 transition-all duration-300 overflow-hidden ${
             showPrompt
-              ? 'border-brand-300 dark:border-brand-700 bg-gradient-to-br from-brand-50 to-violet-50 dark:from-brand-900/20 dark:to-violet-900/20 cursor-default'
+              ? 'border-brand-300 dark:border-brand-700 bg-gradient-to-br from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/30 cursor-default'
               : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-300 dark:hover:border-brand-600 hover:shadow-lg cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
           }`}
         >
@@ -1441,7 +1441,7 @@ export function PromptTypesSlide({ content }: { content?: PromptTypesContent }) 
           return (
             <article
               key={idx}
-              className={`p-5 rounded-2xl border-2 ${s.bg} ${s.border} transition-all hover:shadow-lg`}
+              className={`p-5 rounded-2xl border-2 ${s.bg} ${s.border} shadow-md transition-all hover:shadow-lg`}
               role="article"
               aria-label={type.name}
             >
@@ -1586,7 +1586,7 @@ export function WorkflowSummarySlide({ content }: { content?: WorkflowSummaryCon
         {content?.diagrams.map((diagram, idx) => {
           const isWorkflow = diagram.variant === 'workflow' || idx === 1;
           const cardClasses = isWorkflow
-            ? 'bg-emerald-50 dark:bg-emerald-900/10 border-2 border-emerald-300 dark:border-emerald-700 rounded-2xl p-5 ring-2 ring-emerald-200/60 dark:ring-emerald-800/40 shadow-lg shadow-emerald-500/10'
+            ? 'bg-emerald-50 dark:bg-emerald-900/10 border-2 border-emerald-300 dark:border-emerald-700 rounded-2xl p-5 ring-2 ring-emerald-200/60 dark:ring-emerald-800/40 shadow-md'
             : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-5';
           const noteClasses = isWorkflow
             ? 'inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
@@ -1747,8 +1747,8 @@ export function TransitionSlide({ content }: { content?: TransitionContent }) {
         })}
       </div>
 
-      {/* ── Takeaway: gradient accent ── */}
-      <div className="bg-gradient-to-r from-brand-500 to-accent-500 p-5 rounded-xl text-white text-center shadow-md">
+      {/* ── Takeaway: neutral blokas (M-DS2 – vienas gradientas per skaidrę) ── */}
+      <div className="bg-brand-100 dark:bg-brand-900/20 p-5 rounded-xl text-brand-900 dark:text-brand-100 text-center shadow-md border border-brand-200 dark:border-brand-800">
         <p className="text-sm sm:text-base font-bold">{content?.takeaway}</p>
       </div>
     </div>
@@ -1955,7 +1955,7 @@ const defaultColor = sectionColorMap.brand;
 
 /** Confetti dalelės – CSS-only animacija */
 function ConfettiParticles() {
-  const colors = ['#627d98', '#d4a520', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'];
+  const colors = ['#627d98', '#d4a520']; // brand + accent per DESIGN_GUIDE
   const particles = Array.from({ length: 24 }, (_, i) => ({
     id: i,
     color: colors[i % colors.length],
@@ -2030,10 +2030,11 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
     return () => { clearTimeout(timer); clearTimeout(confettiTimer); };
   }, []);
 
-  // Separate "Kitas Žingsnis" from knowledge sections
-  const knowledgeSections = (content.sections ?? []).filter(
+  // Separate "Kitas Žingsnis" from knowledge sections; S-DS3: max 3–4 blokai – rodyti max 3 žinių korteles
+  const allKnowledge = (content.sections ?? []).filter(
     (s) => s.icon !== 'ArrowRight' && s.heading !== 'Kitas Žingsnis'
   );
+  const knowledgeSections = allKnowledge.slice(0, 3);
   const nextStepSection = (content.sections ?? []).find(
     (s) => s.icon === 'ArrowRight' || s.heading === 'Kitas Žingsnis'
   );
@@ -2054,9 +2055,9 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
           <div className="mb-5 inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/15 backdrop-blur-sm shadow-lg shadow-black/10 animate-celebrate">
             <span className="text-4xl" role="img" aria-label="Trophy">🏆</span>
           </div>
-          <h3 className="text-2xl md:text-3xl font-extrabold mb-2 drop-shadow-sm">
+          <h2 className="text-lg md:text-xl font-bold mb-2 drop-shadow-sm">
             {content.introHeading ?? 'Ką išmokote'}
-          </h3>
+          </h2>
           <p className="text-white/85 max-w-lg text-base md:text-lg leading-relaxed">
             {content.introBody ?? ''}
           </p>
@@ -2082,11 +2083,11 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
       {/* ── Knowledge Section Cards (staggered entrance) ── */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {knowledgeSections.map((section, sIdx) => {
-          const colors = sectionColorMap[section.color ?? 'brand'] ?? defaultColor;
+          const colors = defaultColor; // M-DS1: vienoda brand per skaidrę
           return (
             <div
               key={sIdx}
-              className={`relative rounded-2xl border-2 ${colors.border} ${colors.card} p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+              className={`relative rounded-2xl border-2 ${colors.border} ${colors.card} p-6 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 ${
                 showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
               style={{ transitionDelay: `${sIdx * 120}ms` }}
@@ -2125,7 +2126,7 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
         {/* ── Reflection Prompt Card (fills empty grid cell) ── */}
         {content.reflectionPrompt && (
           <div
-            className={`relative rounded-2xl border-2 border-accent-200 dark:border-accent-800 bg-gradient-to-br from-accent-50 to-amber-50 dark:from-accent-900/20 dark:to-amber-900/20 p-6 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+            className={`relative rounded-2xl border-2 border-accent-200 dark:border-accent-800 bg-accent-50 dark:bg-accent-900/20 p-6 flex flex-col transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 ${
               showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
             style={{ transitionDelay: `${knowledgeSections.length * 120}ms` }}
@@ -2165,7 +2166,7 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
           style={{ transitionDelay: `${knowledgeSections.length * 120 + 100}ms` }}
         >
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-500 shadow-lg shadow-emerald-500/25">
+            <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-500 shadow-md">
               <ArrowRight className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
@@ -2204,7 +2205,7 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
 
       {/* ── Motivational Footer ── */}
       <div
-        className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 dark:from-brand-800 dark:via-brand-700 dark:to-accent-600 p-8 md:p-10 text-center text-white shadow-xl transition-all duration-500 ${
+        className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 dark:from-brand-800 dark:via-brand-700 dark:to-accent-600 p-8 md:p-10 text-center text-white shadow-md transition-all duration-500 ${
           showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
         style={{ transitionDelay: `${(knowledgeSections.length + 1) * 120 + 200}ms` }}
@@ -2214,8 +2215,8 @@ export function SummarySlide({ content: contentProp, onNextStep }: SummarySlideP
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.05),transparent_60%)]" aria-hidden="true" />
 
         <div className="relative z-10">
-          <span className="text-4xl mb-3 block" role="img" aria-label="Rocket">🚀</span>
-          <h3 className="text-2xl md:text-3xl font-extrabold mb-3 drop-shadow-sm">Sėkmės su DI!</h3>
+          <div className="mb-3" aria-hidden="true"><Rocket className="w-12 h-12 text-white/90" strokeWidth={1.5} /></div>
+          <h2 className="text-lg md:text-xl font-bold mb-3 drop-shadow-sm">Sėkmės su DI!</h2>
           <p className="text-white/80 text-base md:text-lg max-w-md mx-auto">
             {content.tagline ?? 'Struktūruoti promptai = nuspėjami rezultatai = didesnis efektyvumas'}
           </p>
@@ -2232,13 +2233,13 @@ export function ProductivityInfographicSlide({ content, onGoToGlossary }: { cont
 
   return (
     <div className="w-full max-w-7xl mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[550px]">
           {/* Left Section - Hero */}
-          <div className="lg:col-span-1 bg-gradient-to-br from-brand-600 via-brand-500 to-violet-600 dark:from-brand-700 dark:via-brand-600 dark:to-violet-700 text-white p-6 lg:p-8 flex flex-col justify-center relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 text-8xl opacity-10 select-none">
-              🚀
+          <div className="lg:col-span-1 bg-gradient-to-br from-brand-600 via-brand-500 to-brand-700 dark:from-brand-700 dark:via-brand-600 dark:to-brand-800 text-white p-6 lg:p-8 flex flex-col justify-center relative overflow-hidden">
+            {/* Background decoration – Lucide per M-DS4 */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-10 select-none pointer-events-none" aria-hidden="true">
+              <Rocket className="w-32 h-32" strokeWidth={1} />
             </div>
             
             <h2 className="text-xl lg:text-2xl font-black mb-2 leading-tight relative z-10">
@@ -2280,7 +2281,7 @@ export function ProductivityInfographicSlide({ content, onGoToGlossary }: { cont
               {(content.cards ?? []).map((card, idx) => (
                 <div
                   key={idx}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md dark:shadow-xl hover:shadow-lg dark:hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 border-t-4 border-brand-500 dark:border-brand-400"
+                  className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 border-t-4 border-brand-500 dark:border-brand-400"
                 >
                   <div className="text-3xl mb-2">{card.icon}</div>
                   <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-3">
@@ -2398,19 +2399,19 @@ export function PracticeSummarySlide({ content: contentProp }: PracticeSummarySl
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-emerald-400 to-brand-500 mb-4">
           <span className="text-4xl">🎓</span>
         </div>
-        <h3 className="font-bold text-2xl mb-2 text-gray-900 dark:text-white">{c.title ?? 'Mokymas Baigtas!'} 🎉</h3>
+        <h2 className="text-lg md:text-xl font-bold mb-2 text-gray-900 dark:text-white">{c.title ?? 'Mokymas Baigtas!'} 🎉</h2>
         <p className="text-gray-700 dark:text-gray-300 max-w-lg mx-auto">{c.subtitle ?? ''}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700">
-          <h4 className="font-bold text-gray-900 dark:text-white mb-3">✅ Ką išmokote:</h4>
+          <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" strokeWidth={1.5} /> Ką išmokote:</h4>
           <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
             {learned.map((item, i) => <li key={i}>• {item}</li>)}
           </ul>
         </div>
         <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700">
-          <h4 className="font-bold text-gray-900 dark:text-white mb-3">🚀 Kiti žingsniai:</h4>
+          <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2"><Rocket className="w-4 h-4" strokeWidth={1.5} /> Kiti žingsniai:</h4>
           <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
             {nextSteps.map((item, i) => <li key={i}>• {item}</li>)}
           </ul>

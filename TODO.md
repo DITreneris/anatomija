@@ -1,6 +1,6 @@
 # TODO – Promptų anatomija
 
-> **Paskutinė peržiūra:** 2026-02-11 (MVP Release M1–3; A-M4 QA gate; A-M3 remediation. Žr. CHANGELOG.)  
+> **Paskutinė peržiūra:** 2026-02-12 (Dizaino gidas Moduliai 1–3 įtrauktas; žr. §2 Dizaino gidas.)  
 > **Tikslas:** Vienas working failas – prioritetai, likusieji darbai, nuorodos. MVP moduliai 1–3 testuotojams paruošti; fokusas – turinys, UX pagal TEST_REPORT, refaktoringas pagal CODEBASE_REFACTORING_ANALYSIS.
 
 **Legenda:** P1 = aukštas, P2 = vidutinis, P3 = žemas. Agentai: CONTENT → DATA → CODING (žr. `docs/development/AGENT_ORCHESTRATOR.md`).
@@ -22,7 +22,7 @@
 - **Skaidrė 4.1a3 (RL/RLHF) – antraščių valymas (2026-02-08):** Pašalintos vidinės pastabos iš 4 antraščių (skliaustai → body bold); diagramos title "RL struktūra (labai svarbu parodyti)" → "RL proceso struktūra"; žodyne +4 terminai (RL, Paskatinamasis mokymas, Atlygis, Agentas DI kontekste), RLHF def. "with" → "from".
 - **Skaidrės 4.1a5, 4.1a5-style, 4.1a5-practice – pilnas turinys (2026-02-08):** Skaidrė 50 (Parametrų laukas) – 8 sekcijų (brand intro + 6 parametrų grupių + accent takeaway). Skaidrė 51 (Stilių naudojimas) – 12 sekcijų (5 dimensijos, 4 copyable pavyzdžiai, terms). Skaidrė 52 (Praktinės užduotys) – 13 sekcijų (3 stilių + 3 el. laiškų promptai, HTML 5 blokų lentelė + copyable, terms). SOT sinchronizuotas. Build OK.
 - **Promptų porų atvaizdavimas (2026-02-08):** Skaidrė 54 (Metodinis vs Agentinis) – 4 sekcijos, copyable pavyzdžiai, „Ką analizuoti“ (terms). Dokumentas `docs/development/PROMPTU_PORU_ATVAIZDAVIMAS.md` – gairės kitoms poroms (nestruktūruotas/struktūruotas, manipuliacinis/neutralus).
-- **Modulio 4 skaidrė 47 (Optional: 8 skaidrių prezentacija) (2025-02-08):** DI prezentacijos workflow – clickable 5 žingsnių diagrama, „Tu esi čia“, žingsnių mygtukai, paaiškinimai apačioje; **atskiri blokai:** workflow + įrankiai (6 kortelės: Gamma, SlidesAI, Canva, Prezent.ai, Visme, Beautiful.ai); 8 skaidrių karkasas, master prompt, promptas turiniui (6 blokų), takeaway; artefaktas + atsisiuntimas fiksuoti (funkcija ateityje). SCHEME_AGENT 3.6 – interaktyvumo UX kelias dokumentuotas.
+- **Modulio 5 skaidrė 47 (Optional: 8 skaidrių prezentacija) (perkelta iš M4 2026-02-11):** DI prezentacijos workflow – clickable 5 žingsnių diagrama, „Tu esi čia“, žingsnių mygtukai, paaiškinimai apačioje; **atskiri blokai:** workflow + įrankiai (6 kortelės: Gamma, SlidesAI, Canva, Prezent.ai, Visme, Beautiful.ai); 8 skaidrių karkasas, master prompt, promptas turiniui (6 blokų), takeaway; artefaktas + atsisiuntimas fiksuoti (funkcija ateityje). SCHEME_AGENT 3.6 – interaktyvumo UX kelias dokumentuotas.
 - **Refaktoringas (2026-02-08):** ✅ **M-R1** – AllSlides padalintas: ContentSlides.tsx, BlockSlides.tsx, TestPracticeSlides.tsx, shared/renderBody.tsx, RecognitionExerciseBlock.tsx; AllSlides – barrel. ✅ **S-R1** – AppNav.tsx, useTheme (utils/useTheme.ts). ✅ **S-R2** – useSlideNavigation, ModuleCompleteScreen.tsx. ✅ **S-R3** – useQuizState, QuizResultsView.tsx.
 - **Promptų inžinerijos skaidrių perkėlimas ir tobulinimas (2026-02-08):** 3 skaidrės (54.5 System vs Master, 55 Proceso prompt, 54 Metodinis vs Agentinis) perkeltos prieš Custom GPT kūrimo procesą (id 46). Nauja eilė: 4 dedamosios → System vs Master → Proceso prompt → Metodinis vs Agentinis → Custom GPT. Visų 3 turinys perrašytas: palyginimo lentelės (table), blockVariant hierarchija (brand/terms/accent), copyable kaip string, practicalTask (54.5 – Master Prompt generatorius su 10 klausimų). Skaidrė 55 pavadinimas: „Optional:" pašalinta → „Proceso prompt ir workflow sudarymas". Build OK, JSON valid.
 - **Modulio 4 tobulinimo planas (2026-02-08):** Diagnostinis quiz feedback (3 warm-up-quiz: id 63.5, 65.7, 66.5 – „Čia stipru / Puiku" tonas). Skaidrė 55 (Proceso prompt) – 6 sekcijų (intro + geras/blogas + 3 copyable šablonai: strateginis, projektų, operacijų + accent takeaway). Asmeninio konteksto miniužduotys (skaidrė 58 RAG + skaidrė 67 Manipuliacijos – „Pagalvokite apie savo darbą/patirtį"). „Pataisyk promptą" praktika (3 vietos – skaidrė 67 (inline) + id 49.5 (5 principai) + id 67.3 (šališkumas)). Bug fix: TestSectionSlide useEffect importas. **UI/UX:** T1 heading hierarchy (h4 font-semibold, ne font-bold – aiškesnė skirtumo nuo h3); T2 dark mode subtitle (dark:text-gray-500 → dark:text-gray-400, PracticalTask chevron dark mode); Progressive disclosure (AdvancedParameters2Slide – 4 parametrų sekcijos collapsible su details/summary, Max Tokens open by default); T6 tap highlight (summary elementai, CSS details/summary stiliai). SOT ↔ modules.json eilė sinchronizuota. Build OK, 46 testai praeina, 0 lint klaidų.
@@ -38,6 +38,9 @@
 - **Ikonų patobulinimas (2026-02-11):** Emoji pakeistos Lucide ikonais (TestPracticeSlides, ModulesPage, PracticalTask, HomePage, ContentSlides, BlockSlides); strokeWidth 1.5, ikonų konteineriai, vienoda vizualinė hierarchija.
 - **MVP Release – Moduliai 1–3 (2026-02-11):** `VITE_MVP_MODE=1` build rodo tik modulius 1–3. Module gating: mvpMode.ts, modulesLoader filtravimas, App guard'ai, Glossary filtras, HomePage CTA „Į apklausą“. 4 negatyvūs testai, CI MVP build step. Žr. RELEASE_PLAN_MVP_MODULIAI_1_3.md, RELEASE_QA_CHECKLIST §6.
 - **Pagrindinis puslapis (HomePage) ir ModulesPage – pre-release UX (2026-02-11):** P0 CTA kai quizCompleted – „Peržiūrėti modulius“; P1 progresas virš CTA; P1 ModulesPage mygtukas „Į apklausą“ po completion; P2 Zap → badge „~45 min“; P2 Features CTA neadaptyvus – kai viskas baigta „Peržiūrėti modulius“. HomePage.tsx, ModulesPage.tsx, App.tsx.
+- **Gold standard Moduliai 1–3 (2026-02-11):** Dokumentas `docs/development/GOLD_STANDARD_MODULIAI_1_2_3.md` – etalonas: pedagogika, taksonomija, vartotojo kelionė, UI/UX, testas, praktika, progresas, testavimas. Pritaikyti prie modulių 4–6 ir 7–15 (checklist).
+- **Dizaino gidas Moduliai 1–3 (2026-02-12):** Dokumentas `docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md` – vizualinio suvienodinimo gidas (vartotojų „per daug spalvinga / chaoso“): inventorius, chaoso diagnozė, Design System v0.1, modulių identitetas, prieš/po rekomendacijos, įgyvendinimo planas (Must/Should/Nice), greiti laimėjimai, QA checklist.
+- **Design System įgyvendinimas (2026-02-12):** Should S-DS1–S-DS4 (tipografija, M2/M3 identitetas, Summary max 3 kortelės, šešėliai), Nice N-DS1 (float išjungtas badge „~45 min“), N-DS2 (`src/design-tokens.ts`). Gold Standard atnaujintas į 1.1.0 – §3.2, §3.5, §9, §10, Changelog. Žr. CHANGELOG [Unreleased] 2026-02-12.
 
 ---
 
@@ -133,6 +136,28 @@
 
 **Rekomenduojama seka:** A-M1 (schema) → A-M2 (KPI) → A-M3 (remediation return) → A-M4 (QA gate) → A-S1 (6 blokų structure) → A-S4 (Fast track) → A-S2 (a11y) → A-S3 (design system).
 
+### Dizaino gidas Moduliai 1–3 (vizualinis suvienodinimas)
+
+> **Šaltinis:** `docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md`. Adresuoja vartotojų nusiskundimus „per daug spalvinga“, „per daug chaoso“. Design System v0.1, modulių identitetas (1=brand, 2=slate, 3=accent), prieš/po rekomendacijos.
+
+**Agentų seka:** UI_UX_AGENT (gairės) → **CODING_AGENT** (įgyvendinimas) → CODE_REVIEW_AGENT → QA_AGENT.
+
+| Prioritetas | # | Užduotis | Statusas |
+|-------------|---|----------|----------|
+| **Must (1 sprintas)** | M-DS1 | Spalvų taisyklė: max 2 semantinės + 1 brand/accent per skaidrę; Summary/Hierarchy pataisymai | Liko |
+| Must | M-DS2 | Vienas gradientas per skaidrę (hero ARBA CTA); Infographic be violet, Transition takeaway – neutral | Liko |
+| Must | M-DS3 | Spacing/radius sistema – taikyti ModuleView, Summary, Action intro (4.3, 4.4) | Liko |
+| Must | M-DS4 | Confetti 2 spalvos (brand, accent); emoji → Lucide infographic kur įmanoma | Liko |
+| **Should (2 sprintas)** | S-DS1 | Tipografijos skalė: vienas H1 per skaidrę, auditas (4.2) | ✅ 2026-02-12 |
+| Should | S-DS2 | Modulių identitetas: M2 slate, M3 accent tik CTA (5) | ✅ 2026-02-12 |
+| Should | S-DS3 | Kortelių skaičius: Summary max 3–4 blokai; palyginimas 2 kortelės + takeaway | ✅ 2026-02-12 |
+| Should | S-DS4 | Šešėliai: vienas lygis shadow-md default, shadow-lg hover – auditas | ✅ 2026-02-12 |
+| **Nice** | N-DS1 | Float animacijos – išjungti ant secondary (badge „~45 min“) | ✅ 2026-02-12 |
+| Nice | N-DS2 | Design tokens failas (spacing, radius) vienoje vietoje | ✅ 2026-02-12 |
+| Nice | N-DS3 | Gidas eksportuoti į Gamma / Figma | Liko |
+
+**Greiti laimėjimai (low effort):** Infographic hero `to-violet-600`→`to-brand-700`; Summary confetti tik brand+accent; Transition takeaway → neutral blokas; HomePage orbs – vienas orb; Action intro CTA palikti. **QA:** Vizualinis + UX checklist doc §7.4; naudoti prieš release kartu su RELEASE_QA_CHECKLIST.
+
 ### P2 – Vidutinis
 
 | # | Užduotis | Sritis | Pastaba |
@@ -141,7 +166,7 @@
 | 2 | **Savitikros skaidrės Modulyje 4** – 2–3 tarpinės savitikros po RAG, Deep research, tokenų | CONTENT + UI | ✅ Įgyvendinta: 4 warm-up-quiz (id 63.5, 65.7, 66.5 – po 5 kl.; id 68.5 – 4 kl. manipuliacijos+haliucinacijos) |
 | 3 | **Asmeninio konteksto miniužduotys** – „Pagalvokite apie savo darbe“ po RAG ir manipuliacijų | CONTENT | ✅ Įgyvendinta: skaidrė 58 (RAG) + skaidrė 67 (Manipuliacijos) – accent blokai |
 | 4 | **„Pataisyk promptą“** – bent viena užduotis (silpnas/šališkas promptas → pataisyti) | CONTENT | ✅ Įgyvendinta: skaidrė 67 – 2 šališki promptai + pataisyti variantai |
-| 5 | **Prezentacijos artefakto atsisiuntimas** – Modulio 4 skaidrė 47 (Optional: 8 skaidrių prezentacija): vartotojas ruošia artefaktą (struktūra/turinys), kurį galės atsisiųsti; **funkciją įgyvendinti ateityje** | CODING + DATA | Skaidrėje fiksuota: artefaktas + „atsisiuntimo funkcija bus įgyvendinta ateityje“ |
+| 5 | **Prezentacijos artefakto atsisiuntimas** – Modulio 5 skaidrė 47 (Optional: 8 skaidrių prezentacija): vartotojas ruošia artefaktą (struktūra/turinys), kurį galės atsisiųsti; **funkciją įgyvendinti ateityje** | CODING + DATA | Skaidrėje fiksuota: artefaktas + „atsisiuntimo funkcija bus įgyvendinta ateityje“ |
 | 6 | **Skaidrių UI/UX konsistencija (T1/T2/T6)** – blokų antraščių hierarchija, subtitle dark kontrastas, tap highlight brand | UI_UX + CODING | ✅ **T1 done** (6 inner H3 text-xl→text-lg), **T2 done** (dark:text-gray-300→200, 4 failai), **T6 jau OK** (brand spalva index.css). + **P1 mobile grid fix** (7 grid-cols-2→responsive, 3 failai). Žr. CHANGELOG 2026-02-09. |
 
 ### Skaidrė „5 principai“ (4.1a4) – user journey (2026-02-08)
@@ -257,6 +282,7 @@
 | **Modulio 2 – agentų seka, turinio kokybė (lietuviškos raidės)** | `docs/development/AGENT_SEQUENCE_MODULIO_2_TURINYS_KOKYBE.md` |
 | **Modulio 3 UI/UX – geriausios praktikos (Top 10)** | `docs/MODULIO_3_UI_UX_GERIAUSIOS_PRAKTIKOS.md` |
 | **Modulio 3 UI/UX – įgyvendinimo planas ir agentų seka** | `docs/development/PLAN_MODULIO_3_UI_UX.md` |
+| **Dizaino gidas Moduliai 1–3 (vizualinis suvienodinimas, Design System v0.1)** | `docs/development/DESIGN_GUIDE_MODULIAI_1_2_3.md` |
 | Plėtros planas, pedagoginės įžvalgos (must–should–want, TOP kūrėjams) | `ROADMAP.md` (§ Pedagoginės įžvalgos) |
 
 ---

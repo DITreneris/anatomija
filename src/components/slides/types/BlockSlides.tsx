@@ -106,7 +106,7 @@ export function OutputBlockSlide({ onRenderTask }: { onRenderTask: () => JSX.Ele
     <div className="space-y-6">
       <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-6 rounded-xl">
         <h3 className="font-bold text-xl mb-3 text-orange-900 dark:text-orange-100">
-          Klausimas: Kokį formatą ir struktūrą noriu?
+          Klausimas: Kokio formato ir struktūros noriu?
         </h3>
         <p className="text-gray-700 dark:text-gray-300">
           Output blokas nurodo TIKSLŲ rezultato formatą. Tai pašalina nereikalingus taisymo iteracijos ciklus.
@@ -200,8 +200,8 @@ export function ReasoningModelsSlide({ slide, onRenderTask }: { slide?: Slide; o
       {intro && <VeiksmoIntroBlock content={intro} />}
 
       {/* Dark hero intro */}
-      <div className="bg-gradient-to-r from-gray-900 to-violet-900 p-5 rounded-xl text-white">
-        <p className="text-sm text-violet-300 mb-1">Du keliai. Vienas sprendimas.</p>
+      <div className="bg-gradient-to-r from-gray-900 to-brand-900 p-5 rounded-xl text-white">
+        <p className="text-sm text-brand-200 mb-1">Du keliai. Vienas sprendimas.</p>
         <h3 className="font-bold text-lg">Pasirink tinkamą mąstymo modelį</h3>
         <p className="text-sm text-gray-300 mt-2">
           Tai ne DI &ldquo;natūralus mąstymas&rdquo; – tai struktūra, kurią <strong>tu</strong> nurodai prompt&apos;e.
@@ -285,7 +285,7 @@ export function ReasoningModelsSlide({ slide, onRenderTask }: { slide?: Slide; o
       </details>
 
       {/* ToT detalus – suskleičiamas */}
-      <details className="group bg-gradient-to-br from-emerald-50 to-violet-50 dark:from-emerald-900/20 dark:to-violet-900/20 rounded-xl border-2 border-emerald-200 dark:border-emerald-800 overflow-hidden">
+      <details className="group bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-900/30 rounded-xl border-2 border-emerald-200 dark:border-emerald-800 overflow-hidden">
         <summary className="cursor-pointer list-none flex items-center justify-between p-5 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 transition-colors select-none min-h-[44px]">
           <div className="flex items-center gap-3">
             <span className="text-xl" aria-hidden="true">🌳</span>
@@ -453,8 +453,8 @@ export function ReasoningBlockSlide({ slide, onRenderTask }: { slide?: Slide; on
       </div>
 
       {/* Pilna Advanced struktūra – suskleičiama */}
-      <details className="group bg-gradient-to-r from-violet-50 to-brand-50 dark:from-violet-900/20 dark:to-brand-900/20 rounded-xl overflow-hidden">
-        <summary className="cursor-pointer list-none flex items-center justify-between p-5 hover:bg-violet-50/80 dark:hover:bg-violet-900/30 transition-colors select-none min-h-[44px]">
+      <details className="group bg-gradient-to-r from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/30 rounded-xl overflow-hidden">
+        <summary className="cursor-pointer list-none flex items-center justify-between p-5 hover:bg-brand-50/80 dark:hover:bg-brand-900/30 transition-colors select-none min-h-[44px]">
           <div className="flex items-center gap-3">
             <span className="text-xl" aria-hidden="true">🧠</span>
             <h4 className="font-bold text-lg text-gray-900 dark:text-white">Pilna Reasoning struktūra (6 žingsniai)</h4>
@@ -464,7 +464,7 @@ export function ReasoningBlockSlide({ slide, onRenderTask }: { slide?: Slide; on
         <div className="px-5 pb-5 space-y-2">
           {steps.map((item) => (
             <div key={item.num} className="flex gap-3 items-start bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700">
-              <div className="w-7 h-7 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center font-bold text-sm text-violet-700 dark:text-violet-300 flex-shrink-0">
+              <div className="w-7 h-7 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center font-bold text-sm text-brand-700 dark:text-brand-300 flex-shrink-0">
                 {item.num}
               </div>
               <div>
